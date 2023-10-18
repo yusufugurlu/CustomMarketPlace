@@ -12,11 +12,14 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
         public Role()
         {
             Users = new HashSet<User>();
+            RoleMenus = new HashSet<RoleMenu>();
+            
         }
         public string Name { get; set; }
         public string NameEn { get; set; }
         public RoleType RoleType { get; set; }
 
         public ICollection<User> Users { get; set; }
+        public ICollection<RoleMenu> RoleMenus { get; set; }
     }
 }

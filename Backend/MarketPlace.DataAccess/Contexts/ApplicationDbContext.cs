@@ -25,6 +25,7 @@ namespace MarketPlace.DataAccess.Contexts
         public DbSet<Company> Companies { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<RoleMenu> RoleMenus { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<WorkPlace> WorkPlaces { get; set; }

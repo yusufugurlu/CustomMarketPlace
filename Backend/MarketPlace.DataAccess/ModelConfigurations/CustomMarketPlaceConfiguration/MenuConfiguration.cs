@@ -34,14 +34,14 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
             new Menu()
             {
                 Id = 2,
-                Name = "CreateCompany",
-                CompanentKey = "CreateCompany",
+                Name = "Settings",
+                CompanentKey = "Settings",
                 CreatedDate = DateTime.Now,
-                Icon = "shop",
+                Icon = "",
                 OrderNumber = 1,
-                Path = "/createCompany",
+                Path = "/settings",
                 ParentId = 1,
-                UIName = "createCompany",
+                UIName = "settings",
             },
         new Menu()
         {
@@ -54,6 +54,7 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
             Path = "/createUser",
             ParentId = 1,
             UIName = "createUser",
+            IsDeleted = true,
         }
     );
         }
