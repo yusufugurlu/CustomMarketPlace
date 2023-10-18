@@ -15,7 +15,6 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
         }
         public string Name { get; set; }
         public string NameEn { get; set; }
-        public bool IsAdmin { get; set; }
         public RoleType RoleType { get; set; }
 
         public ICollection<User> Users { get; set; }

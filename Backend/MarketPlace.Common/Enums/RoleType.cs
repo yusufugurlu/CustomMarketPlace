@@ -10,6 +10,7 @@ namespace MarketPlace.Common.Enums
     {
         SuperAdmin = 1,
         CompanyAdmin = 2,
-        User = 3
+        CompanyUser = 3,
+        DemoUser = 4
     }
 }
