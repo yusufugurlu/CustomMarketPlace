@@ -17,5 +17,8 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
         public string ShortName { get; set; }
         public int CityId { get; set; }
         public int DistrictId { get; set; }
+
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
     }
 }

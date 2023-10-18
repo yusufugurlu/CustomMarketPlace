@@ -11,11 +11,13 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
         public Company()
         {
             Users = new HashSet<User>();
+            WorkPlaces = new HashSet<WorkPlace>();
         }
 
         public string Name { get; set; }
         public string ShortName { get; set; }
 
         public ICollection<User> Users { get; set; }
+        public ICollection<WorkPlace> WorkPlaces { get; set; }
     }
 }
