@@ -25,6 +25,8 @@ namespace MarketPlace.DataAccess.Contexts
         public DbSet<Company> Companies { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<District> Districts { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +35,8 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new MenuConfiguration());
+            modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new DistrictConfiguration());
         }
 
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
