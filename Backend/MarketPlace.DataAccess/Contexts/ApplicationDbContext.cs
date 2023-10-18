@@ -28,7 +28,7 @@ namespace MarketPlace.DataAccess.Contexts
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<WorkPlace> WorkPlaces { get; set; }
-
+        public DbSet<IntegrationForWorkPlace> IntegrationForWorkPlaces { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

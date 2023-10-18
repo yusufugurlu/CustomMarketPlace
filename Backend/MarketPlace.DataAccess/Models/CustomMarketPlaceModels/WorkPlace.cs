@@ -11,6 +11,10 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
     /// </summary>
     public class WorkPlace : BaseModel
     {
+        public WorkPlace()
+        {
+            IntegrationForWorkPlaces = new HashSet<IntegrationForWorkPlace>();
+        }
         public string VKN { get; set; }
         public string Name { get; set; }
         public string NameEn { get; set; }
@@ -20,5 +24,8 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
 
         public int CompanyId { get; set; }
         public Company Company { get; set; }
+        public ICollection<IntegrationForWorkPlace> IntegrationForWorkPlaces { get; set; }
+
+
     }
 }
