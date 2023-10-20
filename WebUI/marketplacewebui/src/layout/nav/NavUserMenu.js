@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { Col, Dropdown, Row } from 'react-bootstrap';
 import { MENU_PLACEMENT } from 'constants.js';
+import CustomButtonView from 'customCompanents/customButtonView';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { layoutShowingNavMenu } from 'layout/layoutSlice';
 import { baseUrlRequest } from 'Services/baseUrlRequest';
 import { setIsLogin } from 'auth/authSlice';
+import { accountService } from 'Services/accountService';
+import { customSweet } from 'customCompanents/swal';
+
 
 const NavUserMenuContent = () => (
   <div>
@@ -65,9 +69,18 @@ const NavUserMenuContent = () => (
             </a>
           </li>
           <li>
-            <a href="#/!">
-              <CsLineIcons icon="logout" className="me-2" size="17" /> <span className="align-middle">Logout</span>
-            </a>
+            <CustomButtonView onClick={() => {
+                  accountService.logout().then((res) => {
+                    if (res.success) {
+                      customSweet.customSweetAlert(res.message, 'success', 2000);
+                      window.location.href = "/login";             
+                    }
+                    else {
+                      customSweet.customSweetAlert(res.message, 'warning', 2000);
+                    }
+                  });
+
+            }}  iconName="logout" text="Logout" />
           </li>
         </ul>
       </Col>

@@ -13,7 +13,18 @@ async function signIn(data) {
     return result;
 }
 
+async function logout() {
+    const url = "api/Account/Logout";
+    const result = await baseUrlRequest.fetchData(url);
+    if(result.success === true){
+        Cookies.remove('currentUser');
+    }
+    
+    return result;
+}
+
 
 export const accountService = {
     signIn,
+    logout,
 };  

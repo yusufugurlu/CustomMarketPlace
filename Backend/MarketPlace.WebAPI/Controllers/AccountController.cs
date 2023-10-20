@@ -1,10 +1,11 @@
 ﻿using MarketPlace.Bussiness.Abstract;
+using MarketPlace.Common.HttpContent;
 using MarketPlace.Common.Resources;
+using MarketPlace.DataTransfer.Dtos;
 using MarketPlace.DataTransfer.Dtos.Account;
+using MarketPlace.DataTransfer.Dtos.UserAuthorizedLogs;
 using MarketPlace.DataTransfer.Responses;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 using System.Globalization;
 using System.Net;
 
@@ -15,10 +16,11 @@ namespace MarketPlace.WebAPI.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly IUserAuthorizedLogService _userAuthorizedLogService;
+        public AccountController(IAccountService accountService, IUserAuthorizedLogService userAuthorizedLogService)
         {
             _accountService = accountService;
-
+            _userAuthorizedLogService = userAuthorizedLogService;
         }
 
         [HttpPost]
@@ -43,6 +45,43 @@ namespace MarketPlace.WebAPI.Controllers
             response.Message = result.Message;
             response.Success = result.IsSuccess;
             return Unauthorized(response);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            var user = HttpContext.User;
+            var userName = user?.Identity?.Name ?? "";
+            var userId = CurrentUser.UserId();
+            string tokenVal = "";
+            if (HttpContext.Request.Headers.TryGetValue("Authorization", out var authHeader))
+            {
+                var token = authHeader.ToString().Replace("Bearer ", "");
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    tokenVal = token;
+                }
+            }
+            var result = await _userAuthorizedLogService.Create(new UserAuthorizedLogDto()
+            {
+                AuthorizedLogType = (int)Common.Enums.AuthorizedLogType.LogOut,
+                Email = userName,
+                UserId = userId,
+                LogDate = DateTime.Now,
+                Token = tokenVal,
+            });
+
+            ServiceResponse response = new ServiceResponse();
+
+            response.Data = result.Data;
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+
+            return Ok(response);
+
         }
     }
 }

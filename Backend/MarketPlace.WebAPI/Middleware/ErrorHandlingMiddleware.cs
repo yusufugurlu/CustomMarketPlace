@@ -31,7 +31,7 @@ namespace MarketPlace.WebAPI.Middleware
                 if (context.Request.Headers.ContainsKey("Page"))
                 {
                     List<string> exceptPage = new List<string>();
-                    exceptPage.Add("Login");
+                    exceptPage.Add("login");
                     exceptPage.Add("");
                     string page = context.Request.Headers["Page"].ToString().Replace("/", "");
 

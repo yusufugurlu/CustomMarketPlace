@@ -38,7 +38,6 @@ const Login = () => {
     };
     setIsButtonDisabled(true);
     accountService.signIn(data).then((res) => {
-      console.log(res);
       if (res.success) {
         customSweet.customSweetAlert(res.message, 'success', 2000);
         history.push("/");
