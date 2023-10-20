@@ -10,6 +10,7 @@ const labels = {
         "errorOccurredDuringProcessing": "error occurred during processing",
         "dashboard": "Dashboard",
         "yourSessionHasExpired": "Your session has expired.",
+        "youAreNotAuthorizedPage":"You are not authorized to the page.",
     },
     tr: {
         "en": "tr",
@@ -20,6 +21,7 @@ const labels = {
         "errorOccurredDuringProcessing": "işlem sırasında hata oluştu",
         "dashboard": "Anasayfa",
         "yourSessionHasExpired":"Oturumunuz dolmuştur.",
+        "youAreNotAuthorizedPage":"Sayfaya yetkiniz bulunmamaktadır.",
     }
 };
 

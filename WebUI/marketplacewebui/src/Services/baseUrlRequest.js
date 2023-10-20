@@ -30,11 +30,10 @@ export function handleError(error) {
             if (currentUser) {
                 Cookies.remove("currentUser");
             }
-
-         
         }
-
-        customSweet.customSweetAlert(localization.strings().yourSessionHasExpired, 'error', 2000);
+        else if (statusCode === 403) {
+            customSweet.customSweetAlert(localization.strings().youAreNotAuthorizedPage, 'warning', 2000);           
+        }
     }
 
     return errorDto;
@@ -68,12 +67,24 @@ const getConfig = () => {
 
         headers: {
             Authorization: `Bearer ${jwt}`,
+            Page: window.location.pathname,
         },
     };
 
     return config;
 }
 
+const getConfigWithOutToken = () => {
+
+    const config = {
+
+        headers: {
+            Page: window.location.pathname,
+        },
+    };
+
+    return config;
+}
 async function fetchData(url) {
     url = `${BASESERVICE_URL}${url}`;
     try {
@@ -88,7 +99,7 @@ async function fetchData(url) {
 async function fetchDataNoToken(url) {
     url = `${BASESERVICE_URL}${url}`;
     try {
-        const response = await axios.get(url);
+        const response = await axios.get(url, getConfigWithOutToken());
         return response.data;
     }
     catch (err) {
@@ -111,7 +122,7 @@ async function postData(url, data) {
 async function postDataNoToken(url, data) {
     url = `${BASESERVICE_URL}${url}`;
     try {
-        const response = await axios.post(url, data, getConfig());
+        const response = await axios.post(url, data, getConfigWithOutToken());
         return response.data;
     }
     catch (err) {

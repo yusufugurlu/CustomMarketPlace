@@ -126,6 +126,9 @@
   <data name="Hello" xml:space="preserve">
     <value>Merhaba</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ayarlar</value>
+  </data>
   <data name="SystemManagement" xml:space="preserve">
     <value>Sistem Yönetimi</value>
   </data>

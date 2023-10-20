@@ -126,6 +126,9 @@
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="SystemManagement" xml:space="preserve">
     <value>System Management</value>
   </data>

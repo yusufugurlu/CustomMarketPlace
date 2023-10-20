@@ -1,7 +1,10 @@
 ﻿using MarketPlace.Bussiness.Abstract;
+using MarketPlace.Common.Exceptions;
+using MarketPlace.Common.HttpContent;
 using MarketPlace.DataAccess.Contexts;
 using MarketPlace.DataTransfer.Dtos.Errors;
 using MarketPlace.DataTransfer.Responses;
+using System.Linq;
 
 namespace MarketPlace.WebAPI.Middleware
 {
@@ -16,15 +19,44 @@ namespace MarketPlace.WebAPI.Middleware
             _logger = logger;
         }
 
-        public async Task InvokeAsync(HttpContext context, ILoggerService loggerService)
+        public async Task InvokeAsync(HttpContext context, ILoggerService loggerService, IRolePermissionService rolePermissionService)
         {
-            string controller = context.GetRouteData().Values["controller"]?.ToString();
-            string action = context.GetRouteData().Values["action"]?.ToString();
+            string controller = context.GetRouteData().Values["controller"]?.ToString() ??"";
+            string action = context.GetRouteData().Values["action"]?.ToString() ?? "";
 
 
             try
             {
+                #region check user has authorize the page
+                if (context.Request.Headers.ContainsKey("Page"))
+                {
+                    List<string> exceptPage = new List<string>();
+                    exceptPage.Add("Login");
+                    exceptPage.Add("");
+                    string page = context.Request.Headers["Page"].ToString().Replace("/", "");
+
+                    if (!exceptPage.Any(x => x == page))
+                    {
+                        var userId = CurrentUser.UserId();
+                        bool existMenu = await rolePermissionService.HasPermissionInMenu(userId, page);
+                        if (!existMenu)
+                        {
+                            throw new RolePermissionException("");
+                        }
+                    }
+
+                }
+                else
+                {
+                    throw new RolePermissionException("");
+                }
+                #endregion
+
                 await _next(context);
+            }
+            catch (RolePermissionException ex)
+            {
+                await HandleExceptionAsync(context, ex, 403);
             }
             catch (Exception ex)
             {
@@ -38,23 +70,23 @@ namespace MarketPlace.WebAPI.Middleware
                     Controller = controller,
                     Action = action
                 });
-                await HandleExceptionAsync(context, ex);
+                await HandleExceptionAsync(context, ex, 500);
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private Task HandleExceptionAsync(HttpContext context, Exception exception, int statusCodes)
         {
             // Burada hata işleme ve yanıt oluşturma mantığını uygulayabilirsiniz.
             // Örneğin, bir hata sayfasına yönlendirebilir veya JSON hata yanıtı döndürebilirsiniz.
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            context.Response.StatusCode = statusCodes;
 
             var response = new MarketPlace.DataTransfer.Responses.ServiceResponse()
             {
                 Message = "Internal Server Error",
                 Success = false,
-                Status = StatusCodes.Status500InternalServerError,
+                Status = statusCodes,
             };
 
             return context.Response.WriteAsync(Newtonsoft.Json.JsonConvert.SerializeObject(response));
