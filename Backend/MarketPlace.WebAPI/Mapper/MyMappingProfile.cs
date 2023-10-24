@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
+using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
+using MarketPlace.DataTransfer.Dtos.Company;
 using MarketPlace.DataTransfer.Dtos.Errors;
 using MarketPlace.DataTransfer.Dtos.UserAuthorizedLogs;
 
@@ -12,6 +14,7 @@ namespace MarketPlace.WebAPI.Mapper
             // AutoMapper eşlemelerini burada yapılandırın.
             CreateMap<ErrorLogDto, ErrorLog>().ReverseMap();
             CreateMap<UserAuthorizedLogDto, UserAuthorizedLog>().ReverseMap();
+            CreateMap<CompanyDto, Company>().ReverseMap();
         }
     }
 }

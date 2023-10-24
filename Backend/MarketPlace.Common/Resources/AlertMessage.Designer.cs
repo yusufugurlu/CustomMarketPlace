@@ -61,6 +61,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot delete the parent company.
+        /// </summary>
+        public static string CannotDeleteParentCompany {
+            get {
+                return ResourceManager.GetString("CannotDeleteParentCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hello.
         /// </summary>
         public static string Hello {

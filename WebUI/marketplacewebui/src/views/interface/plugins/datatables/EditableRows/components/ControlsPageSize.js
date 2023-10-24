@@ -13,10 +13,16 @@ const ControlsPageSize = ({ tableInstance }) => {
     setPageSize(size);
     gotoPage(0);
   };
+
+  const handleDropdownSelect = (eventKey) => {
+    const selectedSize = parseInt(eventKey, 10);
+    onSelectPageSize(selectedSize); 
+  };
+
   return (
     <OverlayTrigger placement="top" delay={{ show: 1000, hide: 0 }} overlay={<Tooltip>Item Count</Tooltip>}>
       {({ ref, ...triggerHandler }) => (
-        <Dropdown className="d-inline-block" align="end">
+        <Dropdown className="d-inline-block" align="end" onSelect={handleDropdownSelect}>
           <Dropdown.Toggle ref={ref} {...triggerHandler} variant="foreground-alternate" className="shadow">
             {pageSize} Items
           </Dropdown.Toggle>
@@ -34,7 +40,7 @@ const ControlsPageSize = ({ tableInstance }) => {
             }}
           >
             {options.map((pSize) => (
-              <Dropdown.Item key={`pageSize.${pSize}`} active={pSize === pageSize} onSelect={() => onSelectPageSize(pSize)}>
+              <Dropdown.Item key={`pageSize.${pSize}`} eventKey={pSize.toString()} active={pSize === pageSize}>
                 {pSize} Items
               </Dropdown.Item>
             ))}

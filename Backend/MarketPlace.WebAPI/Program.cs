@@ -101,6 +101,8 @@ builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IMenuService, MenuManager>();
 builder.Services.AddScoped<IRedisService, RedisManager>();
 builder.Services.AddScoped<IRolePermissionService, RolePermissionManager>();
+builder.Services.AddScoped<ICompanyService, CompanyManager>();
+
 
 
 var app = builder.Build();

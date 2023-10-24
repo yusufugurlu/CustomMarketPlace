@@ -141,25 +141,11 @@ const interfaces = {
 
 
 const systemManagment = {
+  settings: lazy(() => import('views/systemManagement/index')),
   createUser: lazy(() => import('views/systemManagement/createUser')),
   createCompany: lazy(() => import('views/systemManagement/createCompany'))
 
 };
-
-const companents = [
-  {
-    companentKey: "dashboard",
-    companent: dashboards.index,
-  },
-  {
-    companentKey: "CreateUser",
-    companent: systemManagment.createUser,
-  },
-  {
-    companentKey: "CreateCompany",
-    companent: systemManagment.createCompany,
-  }
-];
 const appRoot = DEFAULT_PATHS.APP.endsWith('/') ? DEFAULT_PATHS.APP.slice(1, DEFAULT_PATHS.APP.length) : DEFAULT_PATHS.APP;
 
 const routesAndMenuItems = {
@@ -183,7 +169,8 @@ const routesAndMenuItems = {
       label: 'systemManagement',
       icon: 'home',
       subs: [
-        { path: '/createUser', label: 'createUser', component: systemManagment.createUser },
+        { path: '/settings', label: 'settings', component: systemManagment.settings },
+        { path: '/createUser', label: 'createCompany', component: systemManagment.createUser },
         { path: '/createCompany', label: 'createCompany', component: systemManagment.createCompany },
       ],
     }
@@ -300,5 +287,4 @@ const routesAndMenuItems = {
 };
 export const routes = {
   routesAndMenuItems,
-  companents
 };

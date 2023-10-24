@@ -23,7 +23,41 @@ namespace MarketPlace.Common.Extentions
 
         public static string GetAlertResourceValue(this string key, string lang)
         {
-            return key.GetResourceValue(lang, typeof(AlertMessage));
+            return key.GetAlertResourceValue(lang, typeof(AlertMessage));
+        }
+
+        public static string GetAlertResourceValue(this string key, string lang, Type provider = null)
+        {
+            if (key == null)
+            {
+                return "";
+            }
+
+            if (provider == null)
+            {
+                provider = typeof(AlertMessage);
+            }
+
+
+            var cultureInfo = new CultureInfo(lang);
+
+            foreach (var staticProperty in provider.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
+            {
+                if (staticProperty.PropertyType == typeof(AlertMessage))
+                {
+                    ResourceManager resourceManager = (ResourceManager)staticProperty.GetValue(null, null);
+                    if (resourceManager != null)
+                    {
+                        resourceManager.IgnoreCase = true;
+                        if (resourceManager.GetString(key, cultureInfo) == null)
+                        {
+                            return key;
+                        }
+                        return resourceManager?.GetString(key, cultureInfo) ?? "";
+                    }
+                }
+            }
+            return key;
         }
 
         public static string GetResourceValue(this string key, string lang, Type provider = null)
