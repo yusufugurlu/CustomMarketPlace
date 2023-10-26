@@ -23,6 +23,7 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
         /// Seçilen Mağaza
         /// </summary>
         public int SelectedShop { get; set; }
+        public int SelectedCompany { get; set; }
         public int RoleId { get; set; }
         public virtual Role Role { get; set; }
         public virtual Company Company { get; set; }
