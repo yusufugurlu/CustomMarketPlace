@@ -16,13 +16,20 @@ async function changeLanguage(code) {
     }
     const url = "api/User/ChangeLanguge";
     const result = await baseUrlRequest.postData(url, dto);
-    if(result.success === true){
+    if (result.success === true) {
         Cookies.set('currentUser', result.data.accessToken);
     }
+    return result;
+}
+
+async function setSelectCompany(companyId) {
+    const url = `api/User/SetSelectCompany/${companyId}`;
+    const result = await baseUrlRequest.fetchData(url);
     return result;
 }
 
 export const userService = {
     getUserInfo,
     changeLanguage,
+    setSelectCompany,
 };  

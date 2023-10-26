@@ -143,7 +143,8 @@ const interfaces = {
 const systemManagment = {
   settings: lazy(() => import('views/systemManagement/index')),
   createUser: lazy(() => import('views/systemManagement/createUser')),
-  createCompany: lazy(() => import('views/systemManagement/createCompany'))
+  createCompany: lazy(() => import('views/systemManagement/createCompany')),
+  adminWorkplaces: lazy(() => import('views/systemManagement/adminWorkplaces')),
 
 };
 const appRoot = DEFAULT_PATHS.APP.endsWith('/') ? DEFAULT_PATHS.APP.slice(1, DEFAULT_PATHS.APP.length) : DEFAULT_PATHS.APP;
@@ -172,6 +173,7 @@ const routesAndMenuItems = {
         { path: '/settings', label: 'settings', component: systemManagment.settings },
         { path: '/createUser', label: 'createCompany', component: systemManagment.createUser },
         { path: '/createCompany', label: 'createCompany', component: systemManagment.createCompany },
+        { path: '/adminWorkplaces', label: 'createCompany', component: systemManagment.adminWorkplaces },
       ],
     }
     , {

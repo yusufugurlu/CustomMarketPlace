@@ -51,8 +51,8 @@ const PagesPage = () => {
                 <CsLineIcons icon="content" className="text-primary" />
               </Col>
               <Col>
-                <NavLink to="/pages/blog" className="heading stretched-link d-block">
-                  Blog
+                <NavLink to="/adminWorkplaces" className="heading stretched-link d-block">
+                  {localization.strings().shopDefinition}
                 </NavLink>
                 <div className="text-muted">Multiple blog pages for home, detail and listing layouts.</div>
               </Col>

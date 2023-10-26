@@ -5,6 +5,7 @@ const initialState = {
   isLogin: false,
   currentUser: {},
   token: {},
+  authCompany: [],
 };
 
 const authSlice = createSlice({
@@ -21,10 +22,13 @@ const authSlice = createSlice({
     setToken(state, action) {
       state.token = action.payload;
     },
+    setAuthCompany(state, action) {
+      state.authCompany = action.payload;
+    },
   },
 });
 
-export const { setCurrentUser, setIsLogin, setToken } = authSlice.actions;
+export const { setCurrentUser, setIsLogin, setToken, setAuthCompany } = authSlice.actions;
 const authReducer = authSlice.reducer;
 
 export default authReducer;

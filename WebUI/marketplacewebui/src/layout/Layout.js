@@ -8,11 +8,13 @@ import SidebarMenu from 'layout/nav/sidebar-menu/SidebarMenu';
 import { useSelector, useDispatch } from 'react-redux';
 import { baseUrlRequest } from 'Services/baseUrlRequest';
 import { userService } from 'Services/userService';
-import { setIsLogin, setCurrentUser } from 'auth/authSlice';
+import { setIsLogin, setCurrentUser, setAuthCompany } from 'auth/authSlice';
 import { changeLang } from 'lang/langSlice';
 import { langHelper } from 'Helper/langHelper';
 import CustomBreadcrumb from 'components/breadcrumb/CustomBreadcrumb';
 import { menuHelper } from 'Helper/menuHelper';
+import SelectedCompanies from 'components/selectedCompanies/SelectedCompanies';
+import { rolePermissionService } from 'Services/rolePermissionService';
 import { menuChangeMenu, menuChangeName } from './nav/main-menu/menuDataSlice';
 
 
@@ -23,11 +25,20 @@ const Layout = ({ children }) => {
   const dispatch = useDispatch();
 
   const { pathname } = useLocation();
-  const { isLogin, currentUser } = useSelector((state) => state.auth);
+  const { isLogin, currentUser, authCompany } = useSelector((state) => state.auth);
   const { menuData } = useSelector((state) => state.menuData);
 
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const [menuName, setMenuName] = useState([]);
+
+  const getAuthCompanies = () => {
+    rolePermissionService.getCompanyByUserId().then((res) => {
+      if (res.status === 200) {
+        dispatch(setAuthCompany(res.data));
+      }
+    });
+  }
+
 
   useEffect(() => {
     if (currentUser.mail === undefined || currentUser.mail === null) {
@@ -44,10 +55,14 @@ const Layout = ({ children }) => {
             name: res.data.fullName,
             selectedLanguage: res.data.selectedLanguage,
             selectedShop: res.data.selectedShop,
-          }
+            selectedCompany: res.data.selectedCompany,
+          };
+          
           dispatch(setCurrentUser(dto));
           langHelper.setLanguageCookie(res.data.selectedLanguage);
           dispatch(changeLang(res.data.selectedLanguage));
+
+          getAuthCompanies();
         }
       });
     }
@@ -55,7 +70,6 @@ const Layout = ({ children }) => {
     const activeLogin = baseUrlRequest.activeLogin();
     dispatch(setIsLogin(activeLogin));
   }, []);
-
 
 
   useEffect(() => {
@@ -91,6 +105,7 @@ const Layout = ({ children }) => {
             <SidebarMenu />
             <Col className="h-100" id="contentArea">
               <CustomBreadcrumb breadcrumbslist={breadcrumbs} menuName={menuName} />
+              <SelectedCompanies />
               {children}
             </Col>
           </Row>

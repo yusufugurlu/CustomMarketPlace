@@ -59,5 +59,18 @@ namespace MarketPlace.Common.HttpContent
 
             return "";
         }
+
+        public static string SelectedCompanyId()
+        {
+            if (_context?.HttpContext?.User?.Identity != null && _context.HttpContext.User.Identity.IsAuthenticated)
+            {
+                var identity = _context.HttpContext.User;
+
+                return identity.Claims.Where(c => c.Type == "SelectedCompany")
+                    .Select(c => c.Value)?.SingleOrDefault().ToLower() ?? "";
+            }
+
+            return "";
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace MarketPlace.DataTransfer.Dtos.User
         public string SelectedLanguage { get; set; }
         public string? PhotoUrl { get; set; }
         public int SelectedShop { get; set; }
+        public int SelectedCompany { get; set; }
         public string FullName
         {
             get { return Name +" "+ SurName; }

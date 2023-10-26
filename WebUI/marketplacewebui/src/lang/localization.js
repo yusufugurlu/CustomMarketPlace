@@ -21,6 +21,8 @@ const labels = {
         "rows": "rows",
         "cancel": "Cancel",
         "save": "Save",
+        "shopDefinition": "Shop Definition",
+        "company": "Company",
     },
     tr: {
         "en": "tr",
@@ -42,6 +44,8 @@ const labels = {
         "rows": "satır",
         "cancel": "Iptal",
         "save": "Kaydet",
+        "shopDefinition": "Mağaza Tanımları",
+        "company": "Şirket",
     }
 };
 

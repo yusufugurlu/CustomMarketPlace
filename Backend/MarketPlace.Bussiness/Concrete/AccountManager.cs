@@ -45,7 +45,8 @@ namespace MarketPlace.Bussiness.Concrete
                                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                                 new Claim(ClaimTypes.Role, user.RoleId.ToString()),
                                 new Claim(ClaimTypes.PrimarySid, user.Id.ToString()),
-                                new Claim("Culture", user.SelectedLanguage.ToString()),
+                                new Claim("Culture", user.SelectedLanguage.ToString())
+                                 new Claim("SelectedCompany", user.SelectedCompany.ToString()),
 
                             };
 

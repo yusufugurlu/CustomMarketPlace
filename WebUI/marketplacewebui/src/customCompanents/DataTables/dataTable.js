@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, Col, Dropdown, Form, Row, ButtonGroup, Tooltip, OverlayTrigger, Pagination } from 'react-bootstrap';
+import { Button, Col, Dropdown, Form, Row, ButtonGroup, Tooltip, OverlayTrigger, Pagination, Spinner } from 'react-bootstrap';
 import { useTable, useGlobalFilter, useSortBy, usePagination, useRowSelect, useRowState, useAsyncDebounce } from 'react-table';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { localization } from 'lang/localization';
@@ -142,7 +142,7 @@ const DataTable = (
 
 
     return (
-        !isLoading && (
+        !isLoading ? (
             <>
                 <Row>
                     <Col>
@@ -399,6 +399,14 @@ const DataTable = (
                         </div>
                     </Col>
                 </Row>
+            </>
+        ) : (
+            <>
+                <div className="table-loading-spinner">
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Yükleniyor...</span>
+                    </Spinner>
+                </div>
             </>
         )
 
