@@ -23,7 +23,8 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
          Id = 1,
          Name = "Super Yönetici",
          NameEn = "Super Admin",
-         CreatedDate=DateTime.Now
+         CreatedDate = DateTime.Now,
+         RoleType = Common.Enums.RoleType.SuperAdmin,
      }
      );
         }
