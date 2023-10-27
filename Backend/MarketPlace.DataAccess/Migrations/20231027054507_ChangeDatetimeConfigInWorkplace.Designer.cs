@@ -3,6 +3,7 @@ using System;
 using MarketPlace.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MarketPlace.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231027054507_ChangeDatetimeConfigInWorkplace")]
+    partial class ChangeDatetimeConfigInWorkplace
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +94,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 10, 26, 22, 47, 3, 899, DateTimeKind.Local).AddTicks(3990),
+                            CreatedDate = new DateTime(2023, 10, 26, 22, 45, 6, 919, DateTimeKind.Local).AddTicks(4829),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -250,7 +253,7 @@ namespace MarketPlace.DataAccess.Migrations
                         {
                             Id = 1,
                             CompanentKey = "SystemManagement",
-                            CreatedDate = new DateTime(2023, 10, 26, 22, 47, 3, 899, DateTimeKind.Local).AddTicks(4817),
+                            CreatedDate = new DateTime(2023, 10, 26, 22, 45, 6, 919, DateTimeKind.Local).AddTicks(5619),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -268,7 +271,7 @@ namespace MarketPlace.DataAccess.Migrations
                         {
                             Id = 2,
                             CompanentKey = "Settings",
-                            CreatedDate = new DateTime(2023, 10, 26, 22, 47, 3, 899, DateTimeKind.Local).AddTicks(4822),
+                            CreatedDate = new DateTime(2023, 10, 26, 22, 45, 6, 919, DateTimeKind.Local).AddTicks(5624),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -286,7 +289,7 @@ namespace MarketPlace.DataAccess.Migrations
                         {
                             Id = 3,
                             CompanentKey = "CreateUser",
-                            CreatedDate = new DateTime(2023, 10, 26, 22, 47, 3, 899, DateTimeKind.Local).AddTicks(4825),
+                            CreatedDate = new DateTime(2023, 10, 26, 22, 45, 6, 919, DateTimeKind.Local).AddTicks(5626),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -350,7 +353,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 10, 26, 22, 47, 3, 899, DateTimeKind.Local).AddTicks(4381),
+                            CreatedDate = new DateTime(2023, 10, 26, 22, 45, 6, 919, DateTimeKind.Local).AddTicks(5200),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -410,7 +413,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 10, 26, 22, 47, 3, 899, DateTimeKind.Local).AddTicks(5270),
+                            CreatedDate = new DateTime(2023, 10, 26, 22, 45, 6, 919, DateTimeKind.Local).AddTicks(6067),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -423,7 +426,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 10, 26, 22, 47, 3, 899, DateTimeKind.Local).AddTicks(5272),
+                            CreatedDate = new DateTime(2023, 10, 26, 22, 45, 6, 919, DateTimeKind.Local).AddTicks(6071),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -518,7 +521,7 @@ namespace MarketPlace.DataAccess.Migrations
                         {
                             Id = 1,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2023, 10, 26, 22, 47, 3, 899, DateTimeKind.Local).AddTicks(4594),
+                            CreatedDate = new DateTime(2023, 10, 26, 22, 45, 6, 919, DateTimeKind.Local).AddTicks(5428),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -549,10 +552,6 @@ namespace MarketPlace.DataAccess.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 
@@ -575,6 +574,10 @@ namespace MarketPlace.DataAccess.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShortName")
                         .IsRequired()
                         .HasColumnType("text");
 

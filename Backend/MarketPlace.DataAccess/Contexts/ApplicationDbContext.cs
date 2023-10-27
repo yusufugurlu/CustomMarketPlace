@@ -40,10 +40,7 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new DistrictConfiguration());
             modelBuilder.ApplyConfiguration(new RoleMenuConfiguration());
-   
-            
-
-
+            modelBuilder.ApplyConfiguration(new WorkplaceConfiguration());          
         }
 
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
