@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Bussiness.Abstract;
+using MarketPlace.Common.Helper;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -20,6 +21,11 @@ namespace MarketPlace.Bussiness.Concrete
         {
             _config = config;
             _redis = ConnectionMultiplexer.Connect(_config["Redis:DebugConnection"].ToString());
+        }
+
+        public RedisManager()
+        {
+            _redis = ConnectionMultiplexer.Connect(CacheConstant.RedisConnection);
         }
 
         public IDatabase GetDatabase()

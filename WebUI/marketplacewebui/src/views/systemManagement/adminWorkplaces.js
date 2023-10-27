@@ -1,41 +1,53 @@
 import React, { useEffect } from 'react';
 import DataTable from 'customCompanents/DataTables/dataTable';
+import { workplaceService } from 'Services/workplaceService';
 import { localization } from 'lang/localization';
-import { companyService } from 'Services/companyService';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { customSweet } from 'customCompanents/swal';
+import { rolePermissionService } from 'Services/rolePermissionService';
+import { useDispatch } from 'react-redux';
+import { setAuthWorkplace } from 'auth/authSlice';
 
 
 
 const adminWorkplaces = () => {
-
+  const dispatch = useDispatch();
   const [data, setData] = React.useState([]);
   const [isDataLoading, setIsDataLoading] = React.useState(false);
   const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
-  const [companyName, setCompanyName] = React.useState("");
-  const [companShortName, setCompanyShortName] = React.useState("");
-  const [companyId, setCompanyId] = React.useState(0);
+  const [workplaceName, setWorkplaceName] = React.useState("");
+  const [code, setCode] = React.useState("");
+  const [vkn, setVkn] = React.useState("");
+  const [workplaceId, setWorkplaceId] = React.useState(0);
 
-  const getCompanies = () => {
+  const getWorkplaces = () => {
+
     setIsDataLoading(true);
-    companyService.getActiveCompanies().then((result) => {
-      setData(result.data);
+    workplaceService.getActiveWorkPlaces().then((result) => {
+      if (result.data.length > 0) {
+        setData(result.data);
+      }
+      else {
+        setData([]);
+      }
+
       setIsDataLoading(false);
     });
   }
 
   useEffect(() => {
-    getCompanies();
+    getWorkplaces();
   }, []);
 
 
 
   const handlerEdit = (selectedRowIds) => {
-    companyService.editCompany({ id: selectedRowIds.id }).then((result) => {
+    workplaceService.getWorkPlace({ id: selectedRowIds.id }).then((result) => {
       if (result.status === 200) {
-        setCompanyId(selectedRowIds.id);
-        setCompanyName(result.data.name);
-        setCompanyShortName(result.data.shortName);
+        setWorkplaceId(selectedRowIds.id);
+        setWorkplaceName(result.data.name);
+        setVkn(result.data.vkn);
+        setCode(result.data.code);
         setIsOpenAddModal(true);
       }
       else {
@@ -47,7 +59,7 @@ const adminWorkplaces = () => {
 
   const columns = [
     {
-      Header: localization.strings().companyName,
+      Header: localization.strings().shopName,
       accessor: 'name',
       sortable: true,
       headerClassName: 'text-muted text-small text-uppercase w-30',
@@ -66,7 +78,8 @@ const adminWorkplaces = () => {
         );
       },
     },
-    { Header: localization.strings().companyShortName, accessor: 'shortName', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+    { Header: localization.strings().code, accessor: 'code', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+    { Header: localization.strings().vkn, accessor: 'vkn', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
     {
       Header: '',
       id: 'action',
@@ -92,48 +105,60 @@ const adminWorkplaces = () => {
     });
 
     const dto = {
-      companyIds: dtos
+      workplaceIds: dtos
     };
 
-    companyService.deleteCompanies(dto).then((result) => {
-      console.log(result);
+    setIsDataLoading(true);
+    workplaceService.deleteWorkPlaces(dto).then((result) => {
       if (result.status === 200) {
+        getWorkplaces();
         customSweet.customSweetAlert(result.message, "success", 2000);
-        getCompanies();
       }
       else {
         customSweet.customSweetAlert(result.message, "error", 2000);
       }
+      setIsDataLoading(false);
     });
   }
 
 
+  const sendShop = () => {
+    rolePermissionService.getWorkplaces().then((res) => {
+      if (res.status === 200) {
+        dispatch(setAuthWorkplace(res.data));
+      }
+    });
+  }
+
   const handleSave = (e) => {
     const dto = {
-      "id": companyId,
-      "name": companyName,
-      "shortName": companShortName
+      "id": workplaceId,
+      "name": workplaceName,
+      "vkn": vkn,
+      "code": code,
     }
 
     setIsDataLoading(true);
-    companyService.createCompany(dto).then((result) => {
+    workplaceService.createWorkPlace(dto).then((result) => {
       if (result.status === 200) {
         customSweet.customSweetAlert(result.message, "success", 2000);
-        getCompanies();
+        getWorkplaces();
       }
       else {
         customSweet.customSweetAlert(result.message, result.status, 2000);
       }
+      sendShop();
       setIsOpenAddModal(false);
     });
 
   }
 
   const handlerClear = () => {
-    setCompanyName("");
-    setCompanyShortName("");
+    setWorkplaceName("");
+    setVkn("");
     setIsOpenAddModal(false);
-    setCompanyId(0);
+    setWorkplaceId(0);
+    setCode("");
   }
   return (
     <>
@@ -157,12 +182,17 @@ const adminWorkplaces = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">
-            <Form.Label>{localization.strings().companyName}</Form.Label>
-            <Form.Control type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+            <Form.Label>{localization.strings().code}</Form.Label>
+            <Form.Control type="text" value={code} onChange={(e) => setCode(e.target.value)} />
+          </div>
+
+          <div className="mb-3">
+            <Form.Label>{localization.strings().shopName}</Form.Label>
+            <Form.Control type="text" value={workplaceName} onChange={(e) => setWorkplaceName(e.target.value)} />
           </div>
           <div className="mb-3">
-            <Form.Label>{localization.strings().companyShortName}</Form.Label>
-            <Form.Control type="text" value={companShortName} onChange={(e) => setCompanyShortName(e.target.value)} />
+            <Form.Label>{localization.strings().vkn}</Form.Label>
+            <Form.Control type="text" value={vkn} onChange={(e) => setVkn(e.target.value)} />
           </div>
         </Modal.Body>
         <Modal.Footer>

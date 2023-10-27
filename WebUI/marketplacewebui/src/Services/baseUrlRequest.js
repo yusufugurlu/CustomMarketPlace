@@ -14,11 +14,12 @@ export function handleError(error) {
     };
 
     if (error.response === undefined) {
+        customSweet.customSweetAlert(localization.strings().accessError, 'error', 2000);   
         return errorDto;
     }
 
-    const statusCode = error.response.status;
     if (error.response) {
+        const statusCode = error.response.status;
         if (statusCode === 401) {
 
             errorDto.data = error.response.data.data;

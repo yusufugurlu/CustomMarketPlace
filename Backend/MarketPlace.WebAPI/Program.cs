@@ -58,6 +58,8 @@ string connectionType = DatabaseConnectConfiguration.ConnectionString();
 string connectionString = builder.Configuration.GetSection("ConnectionStrings")[connectionType]?.ToString() ?? "";
 string connectionLogString = builder.Configuration.GetSection("ConnectionLogStrings")[connectionType]?.ToString() ?? "";
 
+CacheConstant.RedisConnection = builder.Configuration.GetSection("Redis")[connectionType]?.ToString() ?? "";
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -102,8 +104,8 @@ builder.Services.AddScoped<IMenuService, MenuManager>();
 builder.Services.AddScoped<IRedisService, RedisManager>();
 builder.Services.AddScoped<IRolePermissionService, RolePermissionManager>();
 builder.Services.AddScoped<ICompanyService, CompanyManager>();
-
-
+builder.Services.AddScoped<IWorkplaceService, WorkplaceManager>();
+builder.Services.AddScoped<ICommonService, CommonManager>();
 
 var app = builder.Build();
 

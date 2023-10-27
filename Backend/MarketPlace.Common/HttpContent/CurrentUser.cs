@@ -21,7 +21,7 @@ namespace MarketPlace.Common.HttpContent
 
         public static string Username()
         {
-            if (_context.HttpContext.User.Identity != null && _context.HttpContext.User.Identity.IsAuthenticated)
+            if (_context?.HttpContext?.User.Identity != null && _context.HttpContext.User.Identity.IsAuthenticated)
             {
                 var identity = _context.HttpContext.User;
 
@@ -54,20 +54,7 @@ namespace MarketPlace.Common.HttpContent
                 var identity = _context.HttpContext.User;
 
                 return identity.Claims.Where(c => c.Type == "Culture")
-                    .Select(c => c.Value)?.SingleOrDefault().ToLower() ?? "";
-            }
-
-            return "";
-        }
-
-        public static string SelectedCompanyId()
-        {
-            if (_context?.HttpContext?.User?.Identity != null && _context.HttpContext.User.Identity.IsAuthenticated)
-            {
-                var identity = _context.HttpContext.User;
-
-                return identity.Claims.Where(c => c.Type == "SelectedCompany")
-                    .Select(c => c.Value)?.SingleOrDefault().ToLower() ?? "";
+                    .Select(c => c.Value)?.SingleOrDefault()?.ToLower() ?? "";
             }
 
             return "";

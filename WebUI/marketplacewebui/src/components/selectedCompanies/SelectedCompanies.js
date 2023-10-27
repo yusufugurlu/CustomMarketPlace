@@ -31,7 +31,7 @@ const SelectedCompanies = () => {
 
     useEffect(() => {
         if (currentUser.selectedCompany) {
-            setSelectedCompany(data.find(option => option.value === currentUser.selectedCompany));
+            setSelectedCompany(currentUser.selectedCompany);
         }
         setRoleId(currentUser.role === enumHelper.roleType.superAdmin);
     }, [currentUser, data]);
@@ -54,14 +54,9 @@ const SelectedCompanies = () => {
         <>
 
             {
-                roleId && <Row className='mb-5'>
-                    <Col xs="12" lg="6">
-                        <CustomDropdown onChange={handleChangeCompany} value={selectedCompany} label={localization.strings().company} placeholder="test" options={data} />
-                    </Col>
-                </Row>
+                roleId &&
+                <CustomDropdown onChange={handleChangeCompany} value={selectedCompany} label={localization.strings().company} placeholder="test" options={data} />
             }
-
-
         </>
     );
 };

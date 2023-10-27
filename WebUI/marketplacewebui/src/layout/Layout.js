@@ -8,14 +8,19 @@ import SidebarMenu from 'layout/nav/sidebar-menu/SidebarMenu';
 import { useSelector, useDispatch } from 'react-redux';
 import { baseUrlRequest } from 'Services/baseUrlRequest';
 import { userService } from 'Services/userService';
-import { setIsLogin, setCurrentUser, setAuthCompany } from 'auth/authSlice';
+import { setIsLogin, setCurrentUser, setAuthCompany, setAuthWorkplace } from 'auth/authSlice';
 import { changeLang } from 'lang/langSlice';
 import { langHelper } from 'Helper/langHelper';
 import CustomBreadcrumb from 'components/breadcrumb/CustomBreadcrumb';
 import { menuHelper } from 'Helper/menuHelper';
 import SelectedCompanies from 'components/selectedCompanies/SelectedCompanies';
 import { rolePermissionService } from 'Services/rolePermissionService';
-import { menuChangeMenu, menuChangeName } from './nav/main-menu/menuDataSlice';
+import { localization } from 'lang/localization';
+import { enumHelper } from 'Helper/enum';
+import SelectedWorkplace from 'components/selectedCompanies/SelectedWorkplace';
+
+import { menuChangeName } from './nav/main-menu/menuDataSlice';
+
 
 
 
@@ -39,6 +44,15 @@ const Layout = ({ children }) => {
     });
   }
 
+  const getWorkplaces = () => {
+    rolePermissionService.getWorkplaces().then((res) => {
+      if (res.status === 200) {
+        dispatch(setAuthWorkplace(res.data));
+      }
+    });
+  }
+
+
 
   useEffect(() => {
     if (currentUser.mail === undefined || currentUser.mail === null) {
@@ -57,12 +71,15 @@ const Layout = ({ children }) => {
             selectedShop: res.data.selectedShop,
             selectedCompany: res.data.selectedCompany,
           };
-          
+
           dispatch(setCurrentUser(dto));
           langHelper.setLanguageCookie(res.data.selectedLanguage);
           dispatch(changeLang(res.data.selectedLanguage));
 
-          getAuthCompanies();
+          if (res.data.userRole === enumHelper.roleType.superAdmin) {
+            getAuthCompanies();
+          }
+          getWorkplaces();
         }
       });
     }
@@ -86,9 +103,14 @@ const Layout = ({ children }) => {
       const menus = formatedMenus.filter(item => item.path === pathname);
       if (menus.length > 0) {
         const menu = menus[0];
-        const dto = { to: menu.path.replace('/', ''), text: menu.label };
+        const dtoMain = { to: "", text: localization.strings().dashboard };
+        dtos.push(dtoMain);
+        if (pathname !== "/") {
+          const dto = { to: menu.path.replace('/', ''), text: menu.label };
+          dtos.push(dto);
+        }
+
         setMenuName(menu.label);
-        dtos.push(dto);
       }
     }
 
@@ -104,8 +126,18 @@ const Layout = ({ children }) => {
           <Row className="h-100">
             <SidebarMenu />
             <Col className="h-100" id="contentArea">
-              <CustomBreadcrumb breadcrumbslist={breadcrumbs} menuName={menuName} />
-              <SelectedCompanies />
+              <Row className='mb-5'>
+                <Col xs="12" lg="4">
+                  <CustomBreadcrumb breadcrumbslist={breadcrumbs} menuName={menuName} />
+                </Col>
+                <Col xs="12" lg="4" >
+                  <SelectedCompanies />
+                </Col>
+
+                <Col xs="12" lg="4">
+                  <SelectedWorkplace />
+                </Col>
+              </Row>
               {children}
             </Col>
           </Row>

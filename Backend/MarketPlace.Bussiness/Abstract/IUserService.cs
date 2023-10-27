@@ -12,6 +12,5 @@ namespace MarketPlace.Bussiness.Abstract
     {
         Task<ServiceResult> GetUserInfo(int userId);
         Task<ServiceResult> ChangeLanguage(CustomLanguageDto dto, int userId);
-        Task<ServiceResult> SetSelectCompany(int userId, int companyId);
     }
 }

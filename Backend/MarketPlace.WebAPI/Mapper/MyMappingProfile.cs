@@ -4,6 +4,7 @@ using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos.Company;
 using MarketPlace.DataTransfer.Dtos.Errors;
 using MarketPlace.DataTransfer.Dtos.UserAuthorizedLogs;
+using MarketPlace.DataTransfer.Dtos.Workplace;
 
 namespace MarketPlace.WebAPI.Mapper
 {
@@ -15,6 +16,7 @@ namespace MarketPlace.WebAPI.Mapper
             CreateMap<ErrorLogDto, ErrorLog>().ReverseMap();
             CreateMap<UserAuthorizedLogDto, UserAuthorizedLog>().ReverseMap();
             CreateMap<CompanyDto, Company>().ReverseMap();
+            CreateMap<WorkplaceDto, WorkPlace>().ReverseMap();
         }
     }
 }

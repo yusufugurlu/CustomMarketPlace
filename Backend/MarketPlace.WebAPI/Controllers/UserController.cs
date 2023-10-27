@@ -81,29 +81,5 @@ namespace MarketPlace.WebAPI.Controllers
 
             return BadRequest(response);
         }
-
-        [HttpGet("{companyId}")]
-        public async Task<IActionResult> SetSelectCompany(int companyId)
-        {
-            int currentUserId = CurrentUser.UserId();
-            var result = await _userService.SetSelectCompany(currentUserId, companyId);
-            ServiceResponse response = new ServiceResponse();
-            if (result.IsSuccess)
-            {
-                response.Data = result.Data;
-                response.Status = result.HttpStatus;
-                response.Message = result.Message;
-                response.Success = result.IsSuccess;
-
-                return Ok(response);
-
-            }
-
-
-            response.Status = result.HttpStatus;
-            response.Message = result.Message;
-            response.Success = result.IsSuccess;
-            return BadRequest(response);
-        }
     }
 }

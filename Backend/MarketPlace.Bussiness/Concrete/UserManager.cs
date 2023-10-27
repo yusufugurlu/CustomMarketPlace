@@ -2,10 +2,13 @@
 using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
 using MarketPlace.Common.Enums;
+using MarketPlace.Common.Helper;
+using MarketPlace.Common.HttpContent;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos.Account;
 using MarketPlace.DataTransfer.Dtos.Company;
 using MarketPlace.DataTransfer.Dtos.RolePermission;
+using MarketPlace.DataTransfer.Dtos.SelectedUser;
 using MarketPlace.DataTransfer.Dtos.User;
 using MarketPlace.DataTransfer.ServiceResults;
 using Microsoft.EntityFrameworkCore;
@@ -22,12 +25,13 @@ namespace MarketPlace.Bussiness.Concrete
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly IAccountService _accountService;
         private readonly IGenericRepository<User> _userRepository;
+        private readonly IGenericRepository<Company> _companyRepository;
         public UserManager(IUnitOfWorks unitOfWorks, IAccountService accountService)
         {
             _unitOfWorks = unitOfWorks;
             _userRepository = _unitOfWorks.GetGenericRepository<User>();
             _accountService = accountService;
-
+            _companyRepository = _unitOfWorks.GetGenericRepository<Company>();
         }
 
         public async Task<ServiceResult> ChangeLanguage(CustomLanguageDto dto, int userId)
@@ -77,20 +81,6 @@ namespace MarketPlace.Bussiness.Concrete
             }
 
             return Result.Fail("Kullanıcı bulunamdı.");
-        }
-
-        public async Task<ServiceResult> SetSelectCompany(int userId, int companyId)
-        {
-            var user = (await _userRepository.GetAll(x => x.Id == userId)).Include(x => x.Role).FirstOrDefault();
-
-            if (user != null && user.Role.RoleType == RoleType.SuperAdmin)
-            {
-    
-                user.SelectedCompany= companyId;
-                await _userRepository.Update(user);
-                return await _unitOfWorks.SaveChanges();
-            }
-            return Result.Fail();
         }
     }
 }

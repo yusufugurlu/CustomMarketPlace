@@ -12,5 +12,6 @@ namespace MarketPlace.Bussiness.Abstract
     {
         Task<bool> HasPermissionInMenu(int userId,string menuName);
         Task<List<RoleCompanyDto>> GetCompanyByUserId(int userId);
+        Task<List<RoleWorkplaceDto>> GetWorkplacesByCompanyId(int companyId, int userId);
     }
 }

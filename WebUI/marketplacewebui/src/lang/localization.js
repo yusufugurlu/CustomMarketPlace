@@ -23,6 +23,12 @@ const labels = {
         "save": "Save",
         "shopDefinition": "Shop Definition",
         "company": "Company",
+        "shopName": "Shop Name",
+        "vkn": "VKN",
+        "code":"Code",
+        "noRecordFound":"No Record Found",
+        "shop":"Shop",
+        "noOption":"No Option",
     },
     tr: {
         "en": "tr",
@@ -46,6 +52,12 @@ const labels = {
         "save": "Kaydet",
         "shopDefinition": "Mağaza Tanımları",
         "company": "Şirket",
+        "shopName": "Mağaza Adı",
+        "vkn": "VKN",
+        "code":"Kodu",
+        "noRecordFound":"Kayıt Bulunamadı",
+        "shop":"Mağaza",
+        "noOption":"Seçenek bulunamadı",
     }
 };
 

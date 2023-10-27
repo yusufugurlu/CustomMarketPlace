@@ -6,6 +6,7 @@ const initialState = {
   currentUser: {},
   token: {},
   authCompany: [],
+  authWorkplace: [],
 };
 
 const authSlice = createSlice({
@@ -25,10 +26,13 @@ const authSlice = createSlice({
     setAuthCompany(state, action) {
       state.authCompany = action.payload;
     },
+    setAuthWorkplace(state, action) {
+      state.authWorkplace = action.payload;
+    },
   },
 });
 
-export const { setCurrentUser, setIsLogin, setToken, setAuthCompany } = authSlice.actions;
+export const { setCurrentUser, setIsLogin, setToken, setAuthCompany, setAuthWorkplace } = authSlice.actions;
 const authReducer = authSlice.reducer;
 
 export default authReducer;

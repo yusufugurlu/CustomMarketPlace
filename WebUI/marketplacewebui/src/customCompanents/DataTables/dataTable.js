@@ -25,6 +25,9 @@ const DataTable = (
         if (dataList.length > 0) {
             setData(dataList);
         }
+        else{
+            setData([]);
+        }
     }, [dataList]);
 
     const [isOpenAddEditModal, setIsOpenAddEditModal] = useState(false);
@@ -149,7 +152,7 @@ const DataTable = (
                         <div className="page-title-container">
                             <Row>
                                 <Col xs="12" md="7">
-                                    <h1 className="mb-0 pb-0 display-4">{title}</h1>
+                                    <h1 className="mb-4 pb-0 display-4">{title}</h1>
                                 </Col>
                                 <Col xs="12" md="5" className="d-flex align-items-start justify-content-end">
 
@@ -346,31 +349,42 @@ const DataTable = (
                                             ))}
                                         </thead>
                                         <tbody {...getTableBodyProps()}>
-                                            {page.map((row, i) => {
-                                                prepareRow(row);
-
-                                                return (
-                                                    <tr key={`tr.${i}`} {...row.getRowProps()} className={classNames({ selected: row.isSelected })}>
-                                                        {row.cells.map((cell, cellIndex) => (
-                                                            <td
-                                                                key={`td.${cellIndex}`}
-                                                                {...cell.getCellProps()}
-                                                                onClick={() => {
-                                                                    if (cell.column.id === 'name') {
-                                                                        toggleAllPageRowsSelected(false);
-                                                                        row.toggleRowSelected();
-                                                                        setIsOpenAddEditModal(true);
-                                                                    } else {
-                                                                        row.toggleRowSelected();
-                                                                    }
-                                                                }}
-                                                            >
-                                                                {cell.render('Cell')}
-                                                            </td>
-                                                        ))}
+                                            {
+                                                page.length === 0 ? (
+                                                    <tr>
+                                                        <td colSpan={columns.length} className="text-center">
+                                                            {localization.strings().noRecordFound}
+                                                        </td>
                                                     </tr>
-                                                );
-                                            })}
+                                                ) : (
+                                                    page.map((row, i) => {
+                                                        prepareRow(row);
+
+                                                        return (
+                                                            <tr key={`tr.${i}`} {...row.getRowProps()} className={classNames({ selected: row.isSelected })}>
+                                                                {row.cells.map((cell, cellIndex) => (
+                                                                    <td
+                                                                        key={`td.${cellIndex}`}
+                                                                        {...cell.getCellProps()}
+                                                                        onClick={() => {
+                                                                            if (cell.column.id === 'name') {
+                                                                                toggleAllPageRowsSelected(false);
+                                                                                row.toggleRowSelected();
+                                                                                setIsOpenAddEditModal(true);
+                                                                            } else {
+                                                                                row.toggleRowSelected();
+                                                                            }
+                                                                        }}
+                                                                    >
+                                                                        {cell.render('Cell')}
+                                                                    </td>
+                                                                ))}
+                                                            </tr>
+                                                        );
+                                                    })
+                                                )
+                                            }
+
                                         </tbody>
                                     </table>
                                 </Col>

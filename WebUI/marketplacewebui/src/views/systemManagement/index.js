@@ -13,20 +13,6 @@ const PagesPage = () => {
   return (
     <>
 
-      <Row>
-        <Col>
-          {/* Title Start */}
-          <section className="scroll-section" id="title">
-            <div className="page-title-container">
-              <h1 className="mb-0 pb-0 display-4">{title}</h1>
-            </div>
-            <Card className="mb-5" body>
-              <Card.Text>{description}</Card.Text>
-            </Card>
-          </section>
-          {/* Title End */}
-        </Col>
-      </Row>
       {/* List Items Start */}
       <Row xs="1" sm="2" xl="3" className="g-2">
         <Col>

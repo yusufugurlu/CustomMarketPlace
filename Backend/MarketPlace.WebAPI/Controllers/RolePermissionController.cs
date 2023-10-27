@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Bussiness.Abstract;
+using MarketPlace.Bussiness.Helper;
 using MarketPlace.Common.HttpContent;
 using MarketPlace.DataTransfer.Responses;
 using Microsoft.AspNetCore.Authorization;
@@ -39,5 +40,27 @@ namespace MarketPlace.WebAPI.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> GetWorkplaces()
+        {
+            var companyId = SelectedCompany.SelectedCompanyId;
+            var userId = CurrentUser.UserId();
+            var result = await _rolePermissionService.GetWorkplacesByCompanyId(companyId, userId);
+            ServiceResponse response = new ServiceResponse();
+            if (result.Any())
+            {
+                response.Status = 200;
+                response.Data = result;
+                response.Success = true;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = 500;
+            return Ok(response);
+        }
     }
 }

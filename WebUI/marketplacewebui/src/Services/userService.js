@@ -23,13 +23,21 @@ async function changeLanguage(code) {
 }
 
 async function setSelectCompany(companyId) {
-    const url = `api/User/SetSelectCompany/${companyId}`;
+    const url = `api/Common/SetSelectCompany/${companyId}`;
     const result = await baseUrlRequest.fetchData(url);
     return result;
 }
+
+async function setSelectWorkplaceId(workplaceId) {
+    const url = `api/Common/SetSelectWorkplaceId/${workplaceId}`;
+    const result = await baseUrlRequest.fetchData(url);
+    return result;
+}
+
 
 export const userService = {
     getUserInfo,
     changeLanguage,
     setSelectCompany,
+    setSelectWorkplaceId,
 };  

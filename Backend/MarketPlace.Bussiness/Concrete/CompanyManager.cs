@@ -55,8 +55,6 @@ namespace MarketPlace.Bussiness.Concrete
 
         public async Task<ServiceResult> DeleteCompany(DeleteCompanyDto companyDto)
         {
-            string lang = CurrentUser.GetCulture();
-
             var companies = (await _companyRepository.GetAll(x => !x.IsDeleted && companyDto.CompanyIds.Contains(x.Id))).ToList();
             if (companies.Any(x => x.Id == 1))
             {

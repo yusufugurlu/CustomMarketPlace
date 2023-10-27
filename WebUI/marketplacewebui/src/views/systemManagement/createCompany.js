@@ -19,7 +19,12 @@ const createCompany = () => {
   const getCompanies = () => {
     setIsDataLoading(true);
     companyService.getActiveCompanies().then((result) => {
-      setData(result.data);
+      if (result.data.length > 0) {
+        setData(result.data);
+      }
+      else {
+        setData([]);
+      }
       setIsDataLoading(false);
     });
   }

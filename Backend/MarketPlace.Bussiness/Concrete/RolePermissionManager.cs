@@ -6,6 +6,7 @@ using MarketPlace.Common.Enums;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos.Company;
 using MarketPlace.DataTransfer.Dtos.RolePermission;
+using MarketPlace.DataTransfer.Dtos.Workplace;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -23,7 +24,11 @@ namespace MarketPlace.Bussiness.Concrete
         private readonly IGenericRepository<RoleMenu> _roleMenuRepository;
         private readonly IMenuService _menuService;
         private readonly ICompanyService _companyService;
-        public RolePermissionManager(IUnitOfWorks unitOfWorks, IMenuService menuService, ICompanyService companyService)
+        private readonly IWorkplaceService _workplaceService;
+        public RolePermissionManager(IUnitOfWorks unitOfWorks,
+            IMenuService menuService, 
+            ICompanyService companyService,
+            IWorkplaceService workplaceService)
         {
 
             _unitOfWorks = unitOfWorks;
@@ -31,6 +36,7 @@ namespace MarketPlace.Bussiness.Concrete
             _userRepository = _unitOfWorks.GetGenericRepository<User>();
             _roleMenuRepository = _unitOfWorks.GetGenericRepository<RoleMenu>();
             _companyService = companyService;
+            _workplaceService = workplaceService;
         }
 
         public async Task<List<RoleCompanyDto>> GetCompanyByUserId(int userId)
@@ -50,6 +56,25 @@ namespace MarketPlace.Bussiness.Concrete
 
             }
             return new List<RoleCompanyDto>();
+        }
+
+        public async Task<List<RoleWorkplaceDto>> GetWorkplacesByCompanyId(int companyId, int userId)
+        {
+            var user = (await _userRepository.GetAll(x => x.Id == userId)).AsNoTracking().FirstOrDefault();
+            if (user != null)
+            {
+                var workplaces = (List<WorkplaceDto>)(await _workplaceService.GetActiveWorkPlaces(companyId)).Data;
+
+                return workplaces.Select(x => new RoleWorkplaceDto()
+                {
+                    Id = x.Id,
+                    WorkplaceName = x.Name
+                })
+                    .OrderBy(x => x.WorkplaceName)
+                    .ToList();
+
+            }
+            return new List<RoleWorkplaceDto>();
         }
 
         public async Task<bool> HasPermissionInMenu(int userId, string menuName)
