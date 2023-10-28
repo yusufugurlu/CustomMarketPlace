@@ -61,6 +61,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mağazalar.
+        /// </summary>
+        public static string AdminWorkplaces {
+            get {
+                return ResourceManager.GetString("AdminWorkplaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Company.
         /// </summary>
         public static string CreateCompany {
