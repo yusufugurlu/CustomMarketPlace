@@ -18,21 +18,10 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
             builder.Property(x => x.DeletedDate).HasColumnType("timestamp without time zone");
 
             builder.HasData(
-                new RoleMenu()
-                {
-                    Id = 1,
-                    RoleId = 1,
-                    MenuId = 1,
-                    CreatedDate = DateTime.Now,
-                },
-                new RoleMenu()
-                {
-                    Id = 2,
-                    RoleId = 1,
-                    MenuId = 2,
-                    CreatedDate = DateTime.Now,
-                }
-                );
+            new RoleMenu(){ Id = 1, RoleId = 1,MenuId = 1,CreatedDate = DateTime.Now,},
+            new RoleMenu(){Id = 2, RoleId = 1,MenuId = 2,CreatedDate = DateTime.Now, },
+            new RoleMenu() { Id = 3, RoleId = 1, MenuId = 3, CreatedDate = DateTime.Now, }
+            );
         }
     }
 }
