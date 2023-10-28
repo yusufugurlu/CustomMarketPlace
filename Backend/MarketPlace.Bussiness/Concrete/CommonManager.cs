@@ -38,7 +38,7 @@ namespace MarketPlace.Bussiness.Concrete
 
         public async Task<ServiceResult> SetSelectCompany(int userId, int companyId)
         {
-            var user = (await _userRepository.GetAll(x => x.Id == userId)).Include(x => x.Role).FirstOrDefault();
+            var user = (await _userRepository.GetAllWithOuthAsNoTracking(x => x.Id == userId)).Include(x => x.Role).FirstOrDefault();
 
             if (user != null && user.Role.RoleType == RoleType.SuperAdmin)
             {
@@ -90,7 +90,7 @@ namespace MarketPlace.Bussiness.Concrete
 
         public async Task<ServiceResult> SetSelectWorkplace(int userId, int companyId, int workplaceId)
         {
-            var user = (await _userRepository.GetAll(x => x.Id == userId)).FirstOrDefault();
+            var user = (await _userRepository.GetAllWithOuthAsNoTracking(x => x.Id == userId)).FirstOrDefault();
 
             if (user != null)
             {
