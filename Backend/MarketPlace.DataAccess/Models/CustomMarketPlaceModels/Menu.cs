@@ -18,8 +18,8 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
         public string Name { get; set; }
         public string UIName { get; set; }
         public string Path { get; set; }
-        public string CompanentKey { get; set; }
         public int ParentId { get; set; }
+        public bool IsHide { get; set; }
 
         public ICollection<RoleMenu> RoleMenus { get; set; }
     }
