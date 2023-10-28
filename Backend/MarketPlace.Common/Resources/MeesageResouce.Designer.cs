@@ -61,7 +61,7 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mağazalar.
+        ///   Looks up a localized string similar to Shops.
         /// </summary>
         public static string AdminWorkplaces {
             get {

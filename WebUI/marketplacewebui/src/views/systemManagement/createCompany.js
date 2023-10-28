@@ -101,7 +101,6 @@ const createCompany = () => {
     };
 
     companyService.deleteCompanies(dto).then((result) => {
-      console.log(result);
       if (result.status === 200) {
         customSweet.customSweetAlert(result.message, "success", 2000);
         getCompanies();

@@ -7,6 +7,7 @@ using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos.Menus;
 using MarketPlace.DataTransfer.ServiceResults;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace MarketPlace.Bussiness.Concrete
 {
@@ -51,8 +52,8 @@ namespace MarketPlace.Bussiness.Concrete
 
             if (menus.Count > 0)
             {
+
                 var parentMenus = menus.Where(x => x.ParentId == 0).ToList();
-                var subMenus = menus.Where(x => x.ParentId > 0).ToList();
                 foreach (var parentMenu in parentMenus)
                 {
                     var menuDto = new MenuDto()
@@ -60,21 +61,42 @@ namespace MarketPlace.Bussiness.Concrete
                         Icon = parentMenu.Icon,
                         Name = parentMenu.Name.GetMessageResourceKey(lang),
                         Path = parentMenu.Path,
-                        UIName = parentMenu.UIName
+                        UIName = parentMenu.UIName,
+                        IsHide = parentMenu.IsHide,
+                        SubMenus = GetSubMenusByParentId(parentMenu.Id, menus, lang)
                     };
 
-                    menuDto.SubMenus = subMenus.Where(x => x.ParentId == parentMenu.Id).Select(x => new MenuDto
-                    {
-                        Icon = x.Icon,
-                        Name = x.Name.GetMessageResourceKey(lang),
-                        Path = x.Path,
-                        UIName = x.UIName
-                    }).ToList();
                     menuDtos.Add(menuDto);
                 }
             }
 
             return Result.Success(data: menuDtos, status: 200);
+        }
+
+
+        public List<MenuDto> GetSubMenusByParentId(int parentId, List<Menu> menus, string lang)
+        {
+            var menuDtos = new List<MenuDto>();
+
+            var menuParent = menus.FirstOrDefault(x => x.Id == parentId);
+            foreach (Menu menu in menus.Where(x => x.ParentId == parentId))
+            {
+                MenuDto menuDto = new MenuDto
+                {
+                    Icon = menu.Icon,
+                    Name = menu.Name.GetMessageResourceKey(lang),
+                    Path = menu.Path,
+                    UIName = menu.UIName,
+                    IsHide = menu.IsHide,
+                    ParentName = menuParent.Name.GetMessageResourceKey(lang),
+                    ParentUrl = menuParent.Path,
+                    SubMenus = GetSubMenusByParentId(menu.Id, menus, lang) // Recursively get submenus
+                };
+
+                menuDtos.Add(menuDto);
+            }
+
+            return menuDtos;
         }
     }
 }

@@ -12,7 +12,9 @@ namespace MarketPlace.DataTransfer.Dtos.Menus
         public string Name { get; set; }
         public string Path { get; set; }
         public string UIName { get; set; }
-        public string CompanentKey { get; set; }
+        public bool IsHide { get; set; }
+        public string ParentName { get; set; }
+        public string ParentUrl { get; set; }
         public List<MenuDto> SubMenus { get; set; }
     }
 }

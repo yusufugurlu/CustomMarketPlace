@@ -39,7 +39,34 @@ function convertMenu(data) {
     return menus;
 }
 
+
+
+
 function getMenu(data) {
+    const subMenus = [];
+    const processSubs = (subs) => {
+
+
+        subs.forEach((subItem) => {
+            const subMenu = {
+                label: subItem.label,
+                path: subItem.path,
+                isHide: subItem.isHide,
+                parentName: subItem.parentName,
+                parentUrl: subItem.parentUrl,
+            };
+            if (subItem.subs && subItem.subs.length > 0) {
+                processSubs(subItem.subs); // Recursive call
+                subMenus.push(subMenu);
+            }
+            else {
+                subMenus.push(subMenu);
+            }
+        });
+
+        return subMenus;
+    };
+
     const tmpMenu = [];
 
     data.forEach((item) => {
@@ -50,31 +77,46 @@ function getMenu(data) {
             isHide: item.isHide,
             parentName: item.parentName,
             parentUrl: item.parentUrl,
-        }
-
+        };
         tmpMenu.push(menu);
 
         if (item.subs && item.subs.length > 0) {
-            menu.subs = [];
-            item.subs.forEach((subItem) => {
-                tmpMenu.push({
-                    label: subItem.label,
-                    path: subItem.path,
-                    isHide: subItem.isHide,
-                    parentName: subItem.parentName,
-                    parentUrl: subItem.parentUrl,
-                });
-            });
+             processSubs(item.subs);
         }
-
     });
 
-    const menus = tmpMenu;
-    return menus;
+    subMenus.forEach((subItem) => {
+        tmpMenu.push(subItem);
+    });
+    return tmpMenu;
 }
 
 
+
 function convertMenuAll(data) {
+    const convertSubMenu = (subMenus) => {
+        const subMenuDtos = [];
+
+        subMenus.forEach((subItem) => {
+            const subMenuDto = {
+                // Convert the properties of subItem as needed
+                label: subItem.name,
+                path: subItem.path,
+                isHide: subItem.isHide,
+                parentName: subItem.parentName,
+                parentUrl: subItem.parentUrl,
+            };
+
+            if (subItem.subMenus.length > 0) {
+                subMenuDto.subs = convertSubMenu(subItem.subMenus); // Recursive call
+            }
+
+            subMenuDtos.push(subMenuDto);
+        });
+
+        return subMenuDtos;
+    };
+
     const tmpMenu = [];
     tmpMenu.push({
         icon: "home",
@@ -89,27 +131,18 @@ function convertMenuAll(data) {
             label: item.name,
             path: item.path,
             isHide: item.isHide,
-        }
-
+            parentName: item.parentName,
+            parentUrl: item.parentUrl,
+        };
 
         if (item.subMenus.length > 0) {
-            menu.subs = [];
-            item.subMenus.forEach((subItem) => {
-                menu.subs.push({
-                    /*  icon: subItem.icon, */
-                    label: subItem.name,
-                    path: subItem.path,
-                    isHide: subItem.isHide,
-                    parentName: subItem.parentName,
-                    parentUrl: subItem.parentUrl,
-                });
-            });
+            menu.subs = convertSubMenu(item.subMenus); // Recursive call
         }
+
         tmpMenu.push(menu);
     });
 
-    const menus = tmpMenu;
-    return menus;
+    return tmpMenu;
 }
 export const menuHelper = {
     convertMenu,

@@ -100,13 +100,14 @@ const Layout = ({ children }) => {
 
     if (menuData.length > 0) {
       const formatedMenus = menuHelper.getMenu(menuDataAll);
+      console.log(formatedMenus);
       const menus = formatedMenus.filter(item => item.path === pathname);
       if (menus.length > 0) {
         const menu = menus[0];
+        console.log(menu);
         const dtoMain = { to: "", text: localization.strings().dashboard };
         dtos.push(dtoMain);
         if (pathname !== "/") {
-        
           if(menu.isHide === true) {
             dtos.push({ to: menu.parentUrl.replace('/', ''), text: menu.parentName });
           }
