@@ -21,7 +21,7 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
             builder.HasData(
     new Menu() { Id = 1, Name = "SystemManagement", CreatedDate = DateTime.Now, Icon = "tool", OrderNumber = 1, Path = "/", ParentId = 0, UIName = "systemManagement", },
     new Menu() { Id = 2, Name = "Settings", CreatedDate = DateTime.Now, Icon = "", OrderNumber = 1, Path = "/settings", ParentId = 1, UIName = "settings", },
-    new Menu() { Id = 3, Name = "AdminWorkplaces", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/adminWorkplaces", ParentId = 1, UIName = "adminWorkplaces", IsHide = true, IsDeleted = false, }
+    new Menu() { Id = 3, Name = "AdminWorkplaces", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/adminWorkplaces", ParentId = 2, UIName = "adminWorkplaces", IsHide = true, IsDeleted = false, }
     );
         }
     }
