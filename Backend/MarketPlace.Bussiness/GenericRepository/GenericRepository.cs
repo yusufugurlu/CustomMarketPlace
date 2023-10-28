@@ -142,6 +142,11 @@ namespace MarketPlace.Bussiness.GenericRepository
             return _dbSet.Where(expression).AsNoTracking();
         }
 
+        public async Task<IQueryable<T>> GetAllWithOuthAsNoTracking(Expression<Func<T, bool>> expression)
+        {
+            return _dbSet.Where(expression);
+        }
+
         public async Task<ApplicationDbContext> GetQueryDbContext()
         {
             return _context;
