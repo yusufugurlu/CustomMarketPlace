@@ -10,6 +10,7 @@ import { accountService } from 'Services/accountService';
 import { customSweet } from 'customCompanents/swal';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLogin } from 'auth/authSlice';
+import { localization } from 'lang/localization';
 
 const Login = () => {
   const title = 'Login';
@@ -106,12 +107,12 @@ const Login = () => {
               <CsLineIcons icon="lock-off" />
               <Form.Control type="password" name="password" onChange={handleChange} value={values.password} placeholder="Password" />
               <NavLink className="text-small position-absolute t-3 e-3" to="/forgot-password">
-                Forgot?
+              {localization.strings().forgotPassword}
               </NavLink>
               {errors.password && touched.password && <div className="d-block invalid-tooltip">{errors.password}</div>}
             </div>
             <Button size="lg" type="submit" disabled={isButtonDisabled}>
-              Login
+              {localization.strings().login}
             </Button>
           </form>
         </div>

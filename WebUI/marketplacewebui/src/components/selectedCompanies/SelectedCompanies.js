@@ -46,8 +46,6 @@ const SelectedCompanies = () => {
                 customSweet.customSweetAlert(res.message, "error", 2000);
             }
         });
-
-
     }
 
     return (

@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
 
   const { pathname } = useLocation();
   const { isLogin, currentUser, authCompany } = useSelector((state) => state.auth);
-  const { menuData } = useSelector((state) => state.menuData);
+  const { menuData,menuDataAll } = useSelector((state) => state.menuData);
 
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const [menuName, setMenuName] = useState([]);
@@ -99,13 +99,17 @@ const Layout = ({ children }) => {
     const dtos = [];
 
     if (menuData.length > 0) {
-      const formatedMenus = menuHelper.getMenu(menuData);
+      const formatedMenus = menuHelper.getMenu(menuDataAll);
       const menus = formatedMenus.filter(item => item.path === pathname);
       if (menus.length > 0) {
         const menu = menus[0];
         const dtoMain = { to: "", text: localization.strings().dashboard };
         dtos.push(dtoMain);
         if (pathname !== "/") {
+        
+          if(menu.isHide === true) {
+            dtos.push({ to: menu.parentUrl.replace('/', ''), text: menu.parentName });
+          }
           const dto = { to: menu.path.replace('/', ''), text: menu.label };
           dtos.push(dto);
         }

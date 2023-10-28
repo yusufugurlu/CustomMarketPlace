@@ -5,6 +5,7 @@ const initialState = {
   isChangeMenu: false,
   menuData: [],
   menuName: "",
+  menuDataAll: [],
 };
 
 const menuData = createSlice({
@@ -23,6 +24,12 @@ const menuData = createSlice({
     menuChangeName(state, action) {
       state.menuName = action.payload;
     },
+    menuChangeDataAll(state, action) {
+      if (action.payload === undefined) {
+        state.menuDataAll = [];
+      }
+      state.menuDataAll = action.payload;
+    },
   },
 });
 
@@ -30,6 +37,7 @@ export const {
   menuChangeMenu,
   menuChangeData,
   menuChangeName,
+  menuChangeDataAll,
 } = menuData.actions;
 const menuDataSlice = menuData.reducer;
 

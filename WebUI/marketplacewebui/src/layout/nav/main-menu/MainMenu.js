@@ -17,7 +17,7 @@ import { layoutShowingNavMenu } from 'layout/layoutSlice';
 import MainMenuItems from './MainMenuItems';
 
 
-import { menuChangeMenu, menuChangeData } from './menuDataSlice';
+import { menuChangeMenu, menuChangeData, menuChangeDataAll } from './menuDataSlice';
 
 import {
   menuChangeAttrMenuAnimate,
@@ -56,9 +56,10 @@ const MainMenu = () => {
       menuService.getMenus().then((res) => {
         if (res.status === 200) {
           const menuData1 = menuHelper.convertMenu(res.data);
-
+          const menuDataAll = menuHelper.convertMenuAll(res.data);
           dispatch(menuChangeMenu(true));
           dispatch(menuChangeData(menuData1));
+          dispatch(menuChangeDataAll(menuDataAll));
           setMenus(menuData1)
         };
       });

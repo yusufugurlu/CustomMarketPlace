@@ -29,6 +29,8 @@ const labels = {
         "noRecordFound":"No Record Found",
         "shop":"Shop",
         "noOption":"No Option",
+        "login":"Login",
+        "forgotPassword":"Forgot Password",
     },
     tr: {
         "en": "tr",
@@ -58,6 +60,8 @@ const labels = {
         "noRecordFound":"Kayıt Bulunamadı",
         "shop":"Mağaza",
         "noOption":"Seçenek bulunamadı",
+        "login":"Giriş",
+        "forgotPassword":"Şifremi Unuttum",
     }
 };
 
