@@ -57,7 +57,6 @@ namespace MarketPlace.Bussiness.Concrete
                 {
                     var menuDto = new MenuDto()
                     {
-                        CompanentKey = parentMenu.CompanentKey,
                         Icon = parentMenu.Icon,
                         Name = parentMenu.Name.GetMessageResourceKey(lang),
                         Path = parentMenu.Path,
@@ -66,7 +65,6 @@ namespace MarketPlace.Bussiness.Concrete
 
                     menuDto.SubMenus = subMenus.Where(x => x.ParentId == parentMenu.Id).Select(x => new MenuDto
                     {
-                        CompanentKey = x.CompanentKey,
                         Icon = x.Icon,
                         Name = x.Name.GetMessageResourceKey(lang),
                         Path = x.Path,
