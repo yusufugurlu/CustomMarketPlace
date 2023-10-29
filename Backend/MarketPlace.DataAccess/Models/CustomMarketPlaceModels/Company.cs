@@ -16,6 +16,7 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
 
         public string Name { get; set; }
         public string ShortName { get; set; }
+        public bool IsActive { get; set; }
 
         public ICollection<User> Users { get; set; }
         public ICollection<WorkPlace> WorkPlaces { get; set; }
