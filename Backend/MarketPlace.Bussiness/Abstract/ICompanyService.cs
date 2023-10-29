@@ -13,6 +13,6 @@ namespace MarketPlace.Bussiness.Abstract
         Task<ServiceResult> GetActiveCompanies();
         Task<ServiceResult> CreateCompany(CompanyDto dto);
         Task<ServiceResult> EditCompany(int companyId);
-        Task<ServiceResult> DeleteCompany(DeleteCompanyDto companyDto);
+        Task<ServiceResult> DeleteCompany(DeleteCompanyDto companyDto,string lang);
     }
 }

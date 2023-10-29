@@ -21,11 +21,13 @@ namespace MarketPlace.Bussiness.Concrete
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Company> _companyRepository;
+        private readonly IGenericRepository<WorkPlace> _workplaceRepository;
         public CompanyManager(IUnitOfWorks unitOfWorks, IMapper mapper)
         {
             _unitOfWorks = unitOfWorks;
             _mapper = mapper;
             _companyRepository = _unitOfWorks.GetGenericRepository<Company>();
+            _workplaceRepository = _unitOfWorks.GetGenericRepository<WorkPlace>();
 
         }
 
@@ -53,12 +55,28 @@ namespace MarketPlace.Bussiness.Concrete
             return Result.Fail("", 500);
         }
 
-        public async Task<ServiceResult> DeleteCompany(DeleteCompanyDto companyDto)
+        public async Task<ServiceResult> DeleteCompany(DeleteCompanyDto companyDto, string lang)
         {
             var companies = (await _companyRepository.GetAll(x => !x.IsDeleted && companyDto.CompanyIds.Contains(x.Id))).ToList();
-            if (companies.Any(x => x.Id == 1))
+            var workplaces = (await _workplaceRepository.GetAll(x => !x.IsDeleted && companies.Select(c => c.Id).Contains(x.CompanyId))).ToList();
+            StringBuilder validation = new StringBuilder();
+
+            foreach (var company in companies)
             {
-                return Result.Fail(AlertMessage.CannotDeleteParentCompany);
+                if (company.Id == 1)
+                {
+                    validation.Append($"{company.Name} - {"CannotDeleteParentCompany".GetAlertResourceValue(lang)}\n");
+                }
+
+                if (workplaces.Any(x => x.CompanyId == company.Id))
+                {
+                    validation.Append($"{company.Name} - {"StoresAreAvailable".GetAlertResourceValue(lang)}\n");
+                }
+            }
+
+            if (validation.Length > 0)
+            {
+                return Result.Fail(validation.ToString());
             }
 
             await _companyRepository.DeleteRange(companies);

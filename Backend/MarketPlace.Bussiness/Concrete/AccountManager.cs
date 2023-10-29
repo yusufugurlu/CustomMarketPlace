@@ -68,7 +68,7 @@ namespace MarketPlace.Bussiness.Concrete
                     var token = await AddClaims(dto, isControlPerson);
                     token.PersonId = isHasPerson.Id;
                     result.Success = true;
-                    result.Message = AlertMessage.OperationSuccess;
+                    result.Message = AlertResource.OperationSuccess;
                     result.HttpStatus = 200;
                     result.Data = token;
 

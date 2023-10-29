@@ -22,14 +22,14 @@ namespace MarketPlace.Common.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AlertMessage {
+    public class AlertResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AlertMessage() {
+        internal AlertResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace MarketPlace.Common.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MarketPlace.Common.Resources.AlertMessage", typeof(AlertMessage).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MarketPlace.Common.Resources.AlertResource", typeof(AlertResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,20 +70,20 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello.
-        /// </summary>
-        public static string Hello {
-            get {
-                return ResourceManager.GetString("Hello", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Operation Success.
         /// </summary>
         public static string OperationSuccess {
             get {
                 return ResourceManager.GetString("OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stores are available you cannot delete.
+        /// </summary>
+        public static string StoresAreAvailable {
+            get {
+                return ResourceManager.GetString("StoresAreAvailable", resourceCulture);
             }
         }
     }

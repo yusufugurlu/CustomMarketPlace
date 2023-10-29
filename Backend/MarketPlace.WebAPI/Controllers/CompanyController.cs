@@ -93,7 +93,8 @@ namespace MarketPlace.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteCompanies(DeleteCompanyDto dto)
         {
-            var result = await _companyService.DeleteCompany(dto);
+            string lang = CurrentUser.GetCulture();
+            var result = await _companyService.DeleteCompany(dto, lang);
             ServiceResponse response = new ServiceResponse();
             if (result.IsSuccess)
             {
@@ -113,6 +114,6 @@ namespace MarketPlace.WebAPI.Controllers
             return Ok(response);
         }
 
-        
+
     }
 }

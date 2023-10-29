@@ -16,10 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\AlertMessage.Designer.cs">
+    <Compile Update="Resources\AlertResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>AlertMessage.resx</DependentUpon>
+      <DependentUpon>AlertResource.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\MeesageResouce.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -29,11 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\AlertMessage.resx">
+    <EmbeddedResource Update="Resources\AlertResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AlertMessage.Designer.cs</LastGenOutput>
+      <LastGenOutput>AlertResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\AlertMessage.TR.resx">
+    <EmbeddedResource Update="Resources\AlertResource.TR.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\MeesageResouce.resx">

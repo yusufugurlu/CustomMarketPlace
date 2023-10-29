@@ -76,7 +76,7 @@ namespace MarketPlace.WebAPI.Controllers
             }
 
             response.Status = (int)HttpStatusCode.BadRequest;
-            response.Message = AlertMessage.OperationSuccess;
+            response.Message = AlertResource.OperationSuccess;
             response.Success = true;
 
             return BadRequest(response);

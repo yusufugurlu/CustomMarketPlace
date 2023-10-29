@@ -23,7 +23,7 @@ namespace MarketPlace.Common.Extentions
 
         public static string GetAlertResourceValue(this string key, string lang)
         {
-            return key.GetAlertResourceValue(lang, typeof(AlertMessage));
+            return key.GetAlertResourceValue(lang, typeof(AlertResource));
         }
 
         public static string GetAlertResourceValue(this string key, string lang, Type provider = null)
@@ -35,7 +35,7 @@ namespace MarketPlace.Common.Extentions
 
             if (provider == null)
             {
-                provider = typeof(AlertMessage);
+                provider = typeof(AlertResource);
             }
 
 
@@ -43,18 +43,15 @@ namespace MarketPlace.Common.Extentions
 
             foreach (var staticProperty in provider.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
             {
-                if (staticProperty.PropertyType == typeof(AlertMessage))
+                ResourceManager resourceManager = (ResourceManager)staticProperty.GetValue(null, null);
+                if (resourceManager != null)
                 {
-                    ResourceManager resourceManager = (ResourceManager)staticProperty.GetValue(null, null);
-                    if (resourceManager != null)
+                    resourceManager.IgnoreCase = true;
+                    if (resourceManager.GetString(key, cultureInfo) == null)
                     {
-                        resourceManager.IgnoreCase = true;
-                        if (resourceManager.GetString(key, cultureInfo) == null)
-                        {
-                            return key;
-                        }
-                        return resourceManager?.GetString(key, cultureInfo) ?? "";
+                        return key;
                     }
+                    return resourceManager?.GetString(key, cultureInfo) ?? "";
                 }
             }
             return key;
