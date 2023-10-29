@@ -18,7 +18,7 @@ function customSweetAlert(message, type, time, footer) {
             position: "top-end",
             type: "success",
             title: message,
-          /*   showConfirmButton: true, */
+            showConfirmButton: false, 
             timer: time,
             heightAuto: false
         };
@@ -51,6 +51,27 @@ function customSweetAlert(message, type, time, footer) {
     MySwal.fire(options);
 }
 
+function customAlertQuestion(title, message, returnFunction, returnValue) {
+    MySwal.fire({
+        title,
+        customContainerClass: "whitespacepre",
+        text: message,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: localization.strings().yes,
+        cancelButtonText: localization.strings().no,
+        heightAuto: false,
+        reverseButtons: true,
+    }).then((result) => {
+        if (returnValue === true) {
+            returnFunction(result.value, result.dismiss);
+        } else if (result.value) {
+            returnFunction();
+        }
+    });
+}
+
 export const customSweet = {
-    customSweetAlert
+    customSweetAlert,
+    customAlertQuestion,
 };

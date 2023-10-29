@@ -61,6 +61,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Companies.
+        /// </summary>
+        public static string AdminCompanies {
+            get {
+                return ResourceManager.GetString("AdminCompanies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shops.
         /// </summary>
         public static string AdminWorkplaces {

@@ -22,7 +22,7 @@ const PagesPage = () => {
                 <CsLineIcons icon="lock-on" className="text-primary" />
               </Col>
               <Col>
-                <NavLink to="/createCompany" className="heading stretched-link d-block">
+                <NavLink to="/adminCompanies" className="heading stretched-link d-block">
                   {localization.strings().companyDefinition}
                 </NavLink>
                 <div className="text-muted">User verification, registration and recovery pages.</div>

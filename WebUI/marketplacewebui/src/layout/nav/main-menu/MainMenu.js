@@ -6,10 +6,8 @@ import { menuHelper } from 'Helper/menuHelper';
 import classNames from 'classnames';
 import { MENU_PLACEMENT, MENU_BEHAVIOUR } from 'constants.js';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import { getMenuItems } from 'routing/helper';
 import { useWindowSize } from 'hooks/useWindowSize';
 import { useWindowScroll } from 'hooks/useWindowScroll';
-import { routes } from 'routes.js';
 import { layoutShowingNavMenu } from 'layout/layoutSlice';
 
 
@@ -28,10 +26,7 @@ import {
   menuChangePinButtonEnable,
   menuChangePlacementStatus,
 } from './menuSlice';
-
 import { checkBehaviour, checkPlacement, isDeeplyDiffBehaviourStatus, isDeeplyDiffPlacementStatus } from './helper';
-
-
 
 const MainMenu = () => {
   const dispatch = useDispatch();

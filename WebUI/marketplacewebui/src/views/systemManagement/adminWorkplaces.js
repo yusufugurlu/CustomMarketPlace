@@ -99,26 +99,34 @@ const adminWorkplaces = () => {
   }
 
   const handlerDelete = (selectedRowIds) => {
-    const dtos = [];
-    selectedRowIds.forEach((x) => {
-      dtos.push(x.id);
-    });
 
-    const dto = {
-      workplaceIds: dtos
-    };
+    customSweet.customAlertQuestion(
+      localization.strings().delete,
+      localization.strings().areYouSure,
+      () => {
+        const dtos = [];
+        selectedRowIds.forEach((x) => {
+          dtos.push(x.id);
+        });
 
-    setIsDataLoading(true);
-    workplaceService.deleteWorkPlaces(dto).then((result) => {
-      if (result.status === 200) {
-        getWorkplaces();
-        customSweet.customSweetAlert(result.message, "success", 2000);
+        const dto = {
+          workplaceIds: dtos
+        };
+
+        setIsDataLoading(true);
+        workplaceService.deleteWorkPlaces(dto).then((result) => {
+          if (result.status === 200) {
+            getWorkplaces();
+            customSweet.customSweetAlert(result.message, "success", 2000);
+          }
+          else {
+            customSweet.customSweetAlert(result.message, "error", 2000);
+          }
+          setIsDataLoading(false);
+        });
+
       }
-      else {
-        customSweet.customSweetAlert(result.message, "error", 2000);
-      }
-      setIsDataLoading(false);
-    });
+    );
   }
 
 
@@ -178,7 +186,7 @@ const adminWorkplaces = () => {
 
       <Modal className=" modal-right fade" show={isOpenAddModal} onHide={handlerClear}>
         <Modal.Header>
-          <Modal.Title>{localization.strings().add}</Modal.Title>
+        <Modal.Title>{workplaceId === 0 ? localization.strings().add : localization.strings().edit}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">
