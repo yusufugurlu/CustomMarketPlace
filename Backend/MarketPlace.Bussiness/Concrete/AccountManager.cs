@@ -2,6 +2,7 @@
 using MarketPlace.Bussiness.Abstract;
 using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
+using MarketPlace.Common.Helper;
 using MarketPlace.Common.Resources;
 using MarketPlace.Common.TokenHandlers;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
@@ -61,7 +62,7 @@ namespace MarketPlace.Bussiness.Concrete
             var isHasPerson = (await _userRepository.GetAll(x => x.Email == dto.Mail)).FirstOrDefault();
             if (isHasPerson != null)
             {
-                var isControlPerson = (await _userRepository.GetAll(x => x.Email == dto.Mail && x.Password == dto.Password)).FirstOrDefault();
+                var isControlPerson = (await _userRepository.GetAll(x => x.Email == dto.Mail && x.Password == EncryptionHelper.Encrypt(dto.Password))).FirstOrDefault();
                 if (isControlPerson != null)
                 {
 
