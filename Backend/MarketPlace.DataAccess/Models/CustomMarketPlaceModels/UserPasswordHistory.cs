@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels
+namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
 {
     public class UserPasswordHistory : BaseModel
     {

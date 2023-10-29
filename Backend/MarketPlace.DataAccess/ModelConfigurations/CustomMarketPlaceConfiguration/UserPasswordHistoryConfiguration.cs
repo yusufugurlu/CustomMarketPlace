@@ -1,5 +1,4 @@
-﻿using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
-using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
+﻿using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
