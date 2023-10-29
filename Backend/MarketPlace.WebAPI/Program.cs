@@ -58,6 +58,10 @@ string connectionType = DatabaseConnectConfiguration.ConnectionString();
 string connectionString = builder.Configuration.GetSection("ConnectionStrings")[connectionType]?.ToString() ?? "";
 string connectionLogString = builder.Configuration.GetSection("ConnectionLogStrings")[connectionType]?.ToString() ?? "";
 
+string encryptionKey = builder.Configuration.GetSection("Encryption")["Key"]?.ToString() ?? "" ;
+EncryptionHelper.Key = encryptionKey;
+
+
 CacheConstant.RedisConnection = builder.Configuration.GetSection("Redis")[connectionType]?.ToString() ?? "";
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -106,6 +110,7 @@ builder.Services.AddScoped<IRolePermissionService, RolePermissionManager>();
 builder.Services.AddScoped<ICompanyService, CompanyManager>();
 builder.Services.AddScoped<IWorkplaceService, WorkplaceManager>();
 builder.Services.AddScoped<ICommonService, CommonManager>();
+builder.Services.AddScoped<IEnumService, EnumManager>();
 
 var app = builder.Build();
 
