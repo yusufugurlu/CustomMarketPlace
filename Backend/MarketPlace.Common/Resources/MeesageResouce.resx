@@ -120,14 +120,26 @@
   <data name="AdminCompanies" xml:space="preserve">
     <value>Companies</value>
   </data>
+  <data name="AdminUsers" xml:space="preserve">
+    <value>Users</value>
+  </data>
   <data name="AdminWorkplaces" xml:space="preserve">
     <value>Shops</value>
+  </data>
+  <data name="CompanyAdmin" xml:space="preserve">
+    <value>Company Admin</value>
+  </data>
+  <data name="CompanyUser" xml:space="preserve">
+    <value>Company User</value>
   </data>
   <data name="CreateCompany" xml:space="preserve">
     <value>Create Company</value>
   </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Create User</value>
+  </data>
+  <data name="DemoUser" xml:space="preserve">
+    <value>Demo User</value>
   </data>
   <data name="False" xml:space="preserve">
     <value>No</value>
@@ -137,6 +149,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="SuperAdmin" xml:space="preserve">
+    <value>Super Admin</value>
   </data>
   <data name="SystemManagement" xml:space="preserve">
     <value>System Management</value>

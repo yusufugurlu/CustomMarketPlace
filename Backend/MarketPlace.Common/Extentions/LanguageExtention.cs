@@ -74,19 +74,17 @@ namespace MarketPlace.Common.Extentions
 
             foreach (var staticProperty in provider.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public))
             {
-                if (staticProperty.PropertyType == typeof(MeesageResouce))
+                ResourceManager resourceManager = (ResourceManager)staticProperty.GetValue(null, null);
+                if (resourceManager != null)
                 {
-                    ResourceManager resourceManager = (ResourceManager)staticProperty.GetValue(null, null);
-                    if (resourceManager != null)
+                    resourceManager.IgnoreCase = true;
+                    if (resourceManager.GetString(key, cultureInfo) == null)
                     {
-                        resourceManager.IgnoreCase = true;
-                        if (resourceManager.GetString(key, cultureInfo) == null)
-                        {
-                            return key;
-                        }
-                        return resourceManager?.GetString(key, cultureInfo) ?? "";
+                        return key;
                     }
+                    return resourceManager?.GetString(key, cultureInfo) ?? "";
                 }
+
             }
             return key;
         }

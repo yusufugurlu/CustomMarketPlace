@@ -70,11 +70,38 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string AdminUsers {
+            get {
+                return ResourceManager.GetString("AdminUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shops.
         /// </summary>
         public static string AdminWorkplaces {
             get {
                 return ResourceManager.GetString("AdminWorkplaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company Admin.
+        /// </summary>
+        public static string CompanyAdmin {
+            get {
+                return ResourceManager.GetString("CompanyAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company User.
+        /// </summary>
+        public static string CompanyUser {
+            get {
+                return ResourceManager.GetString("CompanyUser", resourceCulture);
             }
         }
         
@@ -93,6 +120,15 @@ namespace MarketPlace.Common.Resources {
         public static string CreateUser {
             get {
                 return ResourceManager.GetString("CreateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Demo User.
+        /// </summary>
+        public static string DemoUser {
+            get {
+                return ResourceManager.GetString("DemoUser", resourceCulture);
             }
         }
         
@@ -120,6 +156,15 @@ namespace MarketPlace.Common.Resources {
         public static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Admin.
+        /// </summary>
+        public static string SuperAdmin {
+            get {
+                return ResourceManager.GetString("SuperAdmin", resourceCulture);
             }
         }
         

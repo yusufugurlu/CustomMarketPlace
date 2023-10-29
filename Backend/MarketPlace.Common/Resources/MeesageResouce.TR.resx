@@ -120,14 +120,26 @@
   <data name="AdminCompanies" xml:space="preserve">
     <value>Şirketler</value>
   </data>
+  <data name="AdminUsers" xml:space="preserve">
+    <value>Kullanıcılar</value>
+  </data>
   <data name="AdminWorkplaces" xml:space="preserve">
     <value>Mağazalar</value>
+  </data>
+  <data name="CompanyAdmin" xml:space="preserve">
+    <value>Şitket Yetkisi</value>
+  </data>
+  <data name="CompanyUser" xml:space="preserve">
+    <value>Şirket Kullanıcısı Yetkisi</value>
   </data>
   <data name="CreateCompany" xml:space="preserve">
     <value>Şirket Oluştur</value>
   </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Kullanıcı Oluştur</value>
+  </data>
+  <data name="DemoUser" xml:space="preserve">
+    <value>Demo Yetkisi</value>
   </data>
   <data name="False" xml:space="preserve">
     <value>Hayır</value>
@@ -137,6 +149,9 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Ayarlar</value>
+  </data>
+  <data name="SuperAdmin" xml:space="preserve">
+    <value>Admin Yetkisi</value>
   </data>
   <data name="SystemManagement" xml:space="preserve">
     <value>Sistem Yönetimi</value>
