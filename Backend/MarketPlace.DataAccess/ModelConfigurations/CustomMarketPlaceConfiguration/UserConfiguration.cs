@@ -24,7 +24,7 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
                     Name = "Admin",
                     SurName = "Admin",
                     Email = "admin@admin.com",
-                    Password = "Password1.",
+                    Password = "+ivgjnZOFJ/9E3kZFP6xCg==",
                     RoleId = 1,
                     Gender = Common.Enums.Gender.Other,
                     CreatedDate = DateTime.Now,
