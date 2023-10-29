@@ -37,6 +37,7 @@ const labels = {
         "active": "Active",
         "isActive": "Is Active?",
         "selectoption": "Select Option",
+        "users": "Users",
     },
     tr: {
         "en": "tr",
@@ -74,6 +75,7 @@ const labels = {
         "active": "Aktif",
         "isActive": "Aktif mi?",
         "selectoption":"Seçenek seçin",
+        "users": "Kullanıcılar",
     }
 };
 

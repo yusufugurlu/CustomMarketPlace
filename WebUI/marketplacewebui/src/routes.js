@@ -142,7 +142,7 @@ const interfaces = {
 
 const systemManagment = {
   settings: lazy(() => import('views/systemManagement/index')),
-  createUser: lazy(() => import('views/systemManagement/createUser')),
+  adminUsers: lazy(() => import('views/systemManagement/adminUsers')),
   adminCompanies: lazy(() => import('views/systemManagement/adminCompanies')),
   adminWorkplaces: lazy(() => import('views/systemManagement/adminWorkplaces')),
 
@@ -171,7 +171,7 @@ const routesAndMenuItems = {
       icon: 'home',
       subs: [
         { path: '/settings', label: 'settings', component: systemManagment.settings },
-        { path: '/createUser', label: 'createCompany', component: systemManagment.createUser },
+        { path: '/adminUsers', label: 'adminUsers', component: systemManagment.adminUsers },
         { path: '/adminCompanies', label: 'adminCompanies', component: systemManagment.adminCompanies },
         { path: '/adminWorkplaces', label: 'createCompany', component: systemManagment.adminWorkplaces },
       ],

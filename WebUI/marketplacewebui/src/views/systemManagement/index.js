@@ -52,8 +52,8 @@ const PagesPage = () => {
                 <CsLineIcons icon="layout-1" className="text-primary" />
               </Col>
               <Col>
-                <NavLink to="/pages/miscellaneous" className="heading stretched-link d-block">
-                  Miscellaneous
+                <NavLink to="/adminUsers" className="heading stretched-link d-block">
+                  {localization.strings().users}
                 </NavLink>
                 <div className="text-muted">Various pages fit to use for error, faq, pricing and so on.</div>
               </Col>
