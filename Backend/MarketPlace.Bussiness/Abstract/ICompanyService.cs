@@ -10,8 +10,9 @@ namespace MarketPlace.Bussiness.Abstract
 {
     public interface ICompanyService
     {
+        Task<ServiceResult> GetCompanies();
         Task<ServiceResult> GetActiveCompanies();
-        Task<ServiceResult> CreateCompany(CompanyDto dto);
+        Task<ServiceResult> CreateCompany(CreateCompanyDto dto);
         Task<ServiceResult> EditCompany(int companyId);
         Task<ServiceResult> DeleteCompany(DeleteCompanyDto companyDto,string lang);
     }

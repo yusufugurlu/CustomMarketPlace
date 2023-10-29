@@ -11,8 +11,9 @@ namespace MarketPlace.Bussiness.Abstract
 {
     public interface IWorkplaceService
     {
+        Task<ServiceResult> GetWorkPlaces(int companyId);
         Task<ServiceResult> GetActiveWorkPlaces(int companyId);
-        Task<ServiceResult> CreateWorkPlace(WorkplaceDto dto);
+        Task<ServiceResult> CreateWorkPlace(CreateWorklaceDto dto);
         Task<ServiceResult> GetWorkPlace(int workplaceId);
         Task<ServiceResult> DeleteWorkPlace(DeleteWorkplaceDto dto);
     }

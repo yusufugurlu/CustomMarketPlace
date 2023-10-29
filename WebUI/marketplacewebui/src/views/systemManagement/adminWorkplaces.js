@@ -7,6 +7,7 @@ import { customSweet } from 'customCompanents/swal';
 import { rolePermissionService } from 'Services/rolePermissionService';
 import { useDispatch } from 'react-redux';
 import { setAuthWorkplace } from 'auth/authSlice';
+import CustomFormCheckbox from 'customCompanents/customFormCheckbox';
 
 
 
@@ -19,11 +20,12 @@ const adminWorkplaces = () => {
   const [code, setCode] = React.useState("");
   const [vkn, setVkn] = React.useState("");
   const [workplaceId, setWorkplaceId] = React.useState(0);
+  const [isActive, setIsActive] = React.useState(false);
 
   const getWorkplaces = () => {
 
     setIsDataLoading(true);
-    workplaceService.getActiveWorkPlaces().then((result) => {
+    workplaceService.getWorkPlaces().then((result) => {
       if (result.data.length > 0) {
         setData(result.data);
       }
@@ -48,6 +50,7 @@ const adminWorkplaces = () => {
         setWorkplaceName(result.data.name);
         setVkn(result.data.vkn);
         setCode(result.data.code);
+        setIsActive(result.data.isActive);
         setIsOpenAddModal(true);
       }
       else {
@@ -80,6 +83,7 @@ const adminWorkplaces = () => {
     },
     { Header: localization.strings().code, accessor: 'code', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
     { Header: localization.strings().vkn, accessor: 'vkn', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+    { Header: localization.strings().isActive, accessor: 'isActiveByLang', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
     {
       Header: '',
       id: 'action',
@@ -92,9 +96,18 @@ const adminWorkplaces = () => {
   ];
 
 
-
+  
+  const handlerClear = () => {
+    setWorkplaceName("");
+    setVkn("");
+    setIsOpenAddModal(false);
+    setWorkplaceId(0);
+    setIsActive(false);
+    setCode("");
+  }
 
   const handlerAdd = () => {
+    handlerClear();
     setIsOpenAddModal(true);
   }
 
@@ -144,6 +157,7 @@ const adminWorkplaces = () => {
       "name": workplaceName,
       "vkn": vkn,
       "code": code,
+      "isActive": isActive,
     }
 
     setIsDataLoading(true);
@@ -161,13 +175,10 @@ const adminWorkplaces = () => {
 
   }
 
-  const handlerClear = () => {
-    setWorkplaceName("");
-    setVkn("");
-    setIsOpenAddModal(false);
-    setWorkplaceId(0);
-    setCode("");
-  }
+  const handleCheckChange = (e) => {
+    setIsActive(e.target.checked);
+}
+
   return (
     <>
 
@@ -186,7 +197,7 @@ const adminWorkplaces = () => {
 
       <Modal className=" modal-right fade" show={isOpenAddModal} onHide={handlerClear}>
         <Modal.Header>
-        <Modal.Title>{workplaceId === 0 ? localization.strings().add : localization.strings().edit}</Modal.Title>
+          <Modal.Title>{workplaceId === 0 ? localization.strings().add : localization.strings().edit}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">
@@ -201,6 +212,16 @@ const adminWorkplaces = () => {
           <div className="mb-3">
             <Form.Label>{localization.strings().vkn}</Form.Label>
             <Form.Control type="text" value={vkn} onChange={(e) => setVkn(e.target.value)} />
+          </div>
+
+          <div className="mb-3">
+            <CustomFormCheckbox
+              id="customSwitch"
+              labelOn={localization.strings().active}
+              label={localization.strings().isActive}
+              value={isActive}
+              onChange={handleCheckChange}
+            />
           </div>
         </Modal.Body>
         <Modal.Footer>

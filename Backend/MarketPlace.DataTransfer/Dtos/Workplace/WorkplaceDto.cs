@@ -13,5 +13,7 @@ namespace MarketPlace.DataTransfer.Dtos.Workplace
         public int CompanyId { get; set; }
         public string VKN { get; set; }
         public string Code { get; set; }
+        public bool IsActive { get; set; }
+        public string IsActiveByLang { get; set; }
     }
 }

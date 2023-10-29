@@ -31,7 +31,7 @@ namespace MarketPlace.Bussiness.Concrete
 
         }
 
-        public async Task<ServiceResult> CreateCompany(CompanyDto dto)
+        public async Task<ServiceResult> CreateCompany(CreateCompanyDto dto)
         {
             if (dto != null)
             {
@@ -46,6 +46,7 @@ namespace MarketPlace.Bussiness.Concrete
                     var company = await _companyRepository.Get(dto.Id);
                     company.Name = dto.Name;
                     company.ShortName = dto.ShortName;
+                    company.IsActive= dto.IsActive;
                     await _companyRepository.Update(company);
                 }
 
@@ -92,9 +93,18 @@ namespace MarketPlace.Bussiness.Concrete
 
         public async Task<ServiceResult> GetActiveCompanies()
         {
-            var companies = ((await _companyRepository.GetAll(x => !x.IsDeleted))).ToList();
+            var companies = ((await _companyRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted && x.IsActive))).ToList();
             List<CompanyDto> mapDtos = _mapper.Map<List<CompanyDto>>(companies);
-            return Result.Success("", 200, 0, mapDtos);
+            return Result.Success("", 200, 0, mapDtos.OrderBy(x => x.Name).ToList());
+        }
+
+        public async Task<ServiceResult> GetCompanies()
+        {
+            var lang=CurrentUser.GetCulture();
+            var companies = ((await _companyRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted))).ToList();
+            List<CompanyDto> mapDtos = _mapper.Map<List<CompanyDto>>(companies);
+            mapDtos.ForEach((item) => { item.IsActiveByLang = item.IsActive.ToString().GetMessageResourceKey(lang); });
+            return Result.Success("", 200, 0, mapDtos.OrderBy(x=>x.Name).ToList());
         }
     }
 }

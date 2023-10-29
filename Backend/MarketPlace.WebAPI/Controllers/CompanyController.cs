@@ -19,6 +19,30 @@ namespace MarketPlace.WebAPI.Controllers
             _companyService = companyService;
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> GetCompanies()
+        {
+            var result = await _companyService.GetCompanies();
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Ok(response);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetActiveCompanies()
         {
@@ -44,7 +68,7 @@ namespace MarketPlace.WebAPI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateCompany(CompanyDto dto)
+        public async Task<IActionResult> CreateCompany(CreateCompanyDto dto)
         {
             var result = await _companyService.CreateCompany(dto);
             ServiceResponse response = new ServiceResponse();

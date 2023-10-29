@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarketPlace.DataTransfer.Dtos.Company
+namespace MarketPlace.DataTransfer.Dtos.Workplace
 {
-    public class CompanyDto
+    public class CreateWorklaceDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ShortName { get; set; }
+        public int CompanyId { get; set; }
+        public string VKN { get; set; }
+        public string Code { get; set; }
         public bool IsActive { get; set; }
-        public string IsActiveByLang { get; set; }
     }
 }

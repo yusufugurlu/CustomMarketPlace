@@ -53,7 +53,7 @@ const SelectedCompanies = () => {
 
             {
                 roleId &&
-                <CustomDropdown onChange={handleChangeCompany} value={selectedCompany} label={localization.strings().company} placeholder="test" options={data} />
+                <CustomDropdown onChange={handleChangeCompany} value={selectedCompany} label={localization.strings().company} options={data} />
             }
         </>
     );

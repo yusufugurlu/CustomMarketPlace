@@ -3,14 +3,28 @@ import React, { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import Select from 'react-select';
 
-const CustomDropdown = ({ options, value, onChange, placeholder, label }) => {
+const CustomDropdown = ({ options, value, onChange, label }) => {
 
     const [selectedData, setSelectedData] = React.useState(0);
+    const [data, setData] = React.useState([]);
 
     useEffect(() => {
         setSelectedData(options.find(option => option.value === value));
     }, [value, options]);
 
+    useEffect(() => {
+        if (options) {
+            if (options.length > 0) {
+                setData(options);
+            }
+            else {
+                setData([]);
+            }
+        }
+        else {
+            setData([]);
+        }
+    }, [options]);
 
     const handleOnChange = (e) => {
         onChange(e);
@@ -23,11 +37,11 @@ const CustomDropdown = ({ options, value, onChange, placeholder, label }) => {
             <Select
                 classNamePrefix="react-select"
                 styles={{ width: '100%' }}
-                options={options}
-                defaultOptions={options}
+                options={data}
+                defaultOptions={data}
                 value={selectedData}
                 onChange={handleOnChange}
-                placeholder={placeholder}
+                placeholder={localization.strings().selectoption}
                 noOptionsMessage={() => localization.strings().noOption}
             />
         </>

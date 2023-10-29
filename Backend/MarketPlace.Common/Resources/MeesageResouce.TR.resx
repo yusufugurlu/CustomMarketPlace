@@ -129,6 +129,9 @@
   <data name="CreateUser" xml:space="preserve">
     <value>Kullanıcı Oluştur</value>
   </data>
+  <data name="False" xml:space="preserve">
+    <value>Hayır</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Merhaba</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="SystemManagement" xml:space="preserve">
     <value>Sistem Yönetimi</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>Evet</value>
   </data>
 </root>

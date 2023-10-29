@@ -65,14 +65,16 @@ namespace MarketPlace.Bussiness.Concrete
             {
                 var workplaces = (List<WorkplaceDto>)(await _workplaceService.GetActiveWorkPlaces(companyId)).Data;
 
-                return workplaces.Select(x => new RoleWorkplaceDto()
+                if (workplaces.Any())
                 {
-                    Id = x.Id,
-                    WorkplaceName = x.Name
-                })
-                    .OrderBy(x => x.WorkplaceName)
-                    .ToList();
-
+                    return workplaces.Select(x => new RoleWorkplaceDto()
+                    {
+                        Id = x.Id,
+                        WorkplaceName = x.Name
+                    })
+                        .OrderBy(x => x.WorkplaceName)
+                        .ToList();
+                }
             }
             return new List<RoleWorkplaceDto>();
         }

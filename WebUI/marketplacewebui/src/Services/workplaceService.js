@@ -26,9 +26,17 @@ async function deleteWorkPlaces(dto) {
     const result = await baseUrlRequest.postData(url,dto);
     return result;
 }
+
+async function getWorkPlaces() {
+    const url = "api/Workplace/GetWorkPlaces";
+    const result = await baseUrlRequest.fetchData(url);
+    return result;
+}
+
 export const workplaceService = {
     getActiveWorkPlaces,
     createWorkPlace,
     getWorkPlace,
     deleteWorkPlaces,
+    getWorkPlaces,
 };  

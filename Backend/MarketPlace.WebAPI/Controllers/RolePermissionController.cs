@@ -58,8 +58,8 @@ namespace MarketPlace.WebAPI.Controllers
 
             }
 
-
-            response.Status = 500;
+            response.Data = result;
+            response.Status = 200;
             return Ok(response);
         }
     }

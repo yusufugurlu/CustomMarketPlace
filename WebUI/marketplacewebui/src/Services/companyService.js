@@ -26,9 +26,16 @@ async function deleteCompanies(dto) {
     const result = await baseUrlRequest.postData(url,dto);
     return result;
 }
+
+async function getCompanies() {
+    const url = "api/Company/GetCompanies";
+    const result = await baseUrlRequest.fetchData(url);
+    return result;
+}
 export const companyService = {
     getActiveCompanies,
     createCompany,
     editCompany,
     deleteCompanies,
+    getCompanies,
 };  

@@ -34,6 +34,9 @@ const labels = {
         "yes": "Yes",
         "no": "No",
         "areYouSure": "Are you sure you want to delete this record?",
+        "active": "Active",
+        "isActive": "Is Active?",
+        "selectoption": "Select Option",
     },
     tr: {
         "en": "tr",
@@ -68,6 +71,9 @@ const labels = {
         "yes": "Evet",
         "no": "Hayır",
         "areYouSure": "Bu kaydı silmek istediğinize emin misiniz?",
+        "active": "Aktif",
+        "isActive": "Aktif mi?",
+        "selectoption":"Seçenek seçin",
     }
 };
 

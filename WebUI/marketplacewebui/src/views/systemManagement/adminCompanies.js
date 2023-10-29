@@ -4,10 +4,17 @@ import { localization } from 'lang/localization';
 import { companyService } from 'Services/companyService';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { customSweet } from 'customCompanents/swal';
+import CustomFormCheckbox from 'customCompanents/customFormCheckbox';
+import CustomTextBox from 'customCompanents/customTextBox';
+import { rolePermissionService } from 'Services/rolePermissionService';
+import { useDispatch } from 'react-redux';
+import { setAuthCompany } from 'auth/authSlice';
 
 
 
 const adminCompanies = () => {
+
+    const dispatch = useDispatch();
 
     const [data, setData] = React.useState([]);
     const [isDataLoading, setIsDataLoading] = React.useState(false);
@@ -15,10 +22,20 @@ const adminCompanies = () => {
     const [companyName, setCompanyName] = React.useState("");
     const [companShortName, setCompanyShortName] = React.useState("");
     const [companyId, setCompanyId] = React.useState(0);
+    const [isActive, setIsActive] = React.useState(false);
+
+
+    const getAuthCompanies = () => {
+        rolePermissionService.getCompanyByUserId().then((res) => {
+          if (res.status === 200) {
+            dispatch(setAuthCompany(res.data));
+          }
+        });
+      }
 
     const getCompanies = () => {
         setIsDataLoading(true);
-        companyService.getActiveCompanies().then((result) => {
+        companyService.getCompanies().then((result) => {
             if (result.data.length > 0) {
                 setData(result.data);
             }
@@ -41,6 +58,7 @@ const adminCompanies = () => {
                 setCompanyId(selectedRowIds.id);
                 setCompanyName(result.data.name);
                 setCompanyShortName(result.data.shortName);
+                setIsActive(result.data.isActive);
                 setIsOpenAddModal(true);
             }
             else {
@@ -72,6 +90,7 @@ const adminCompanies = () => {
             },
         },
         { Header: localization.strings().companyShortName, accessor: 'shortName', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+        { Header: localization.strings().isActive, accessor: 'isActiveByLang', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
         {
             Header: '',
             id: 'action',
@@ -109,6 +128,7 @@ const adminCompanies = () => {
                     if (result.status === 200) {
                         customSweet.customSweetAlert(result.message, "success", 2000);
                         getCompanies();
+                        getAuthCompanies();
                     }
                     else {
                         customSweet.customSweetAlert(result.message, "error", 2000);
@@ -119,12 +139,20 @@ const adminCompanies = () => {
         );
     }
 
+    const handlerClear = () => {
+        setCompanyName("");
+        setCompanyShortName("");
+        setIsOpenAddModal(false);
+        setIsActive(false);
+        setCompanyId(0);
+    }
 
     const handleSave = (e) => {
         const dto = {
             "id": companyId,
             "name": companyName,
-            "shortName": companShortName
+            "shortName": companShortName,
+            "isActive": isActive,
         }
 
         setIsDataLoading(true);
@@ -132,21 +160,23 @@ const adminCompanies = () => {
             if (result.status === 200) {
                 customSweet.customSweetAlert(result.message, "success", 2000);
                 getCompanies();
+                getAuthCompanies();
             }
             else {
                 customSweet.customSweetAlert(result.message, result.status, 2000);
             }
             setIsOpenAddModal(false);
+            handlerClear();
         });
 
     }
 
-    const handlerClear = () => {
-        setCompanyName("");
-        setCompanyShortName("");
-        setIsOpenAddModal(false);
-        setCompanyId(0);
+
+
+    const handleCheckChange = (e) => {
+        setIsActive(e.target.checked);
     }
+
     return (
         <>
 
@@ -169,12 +199,20 @@ const adminCompanies = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <div className="mb-3">
-                        <Form.Label>{localization.strings().companyName}</Form.Label>
-                        <Form.Control type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                        <CustomTextBox label={localization.strings().companyName} value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
                     </div>
                     <div className="mb-3">
-                        <Form.Label>{localization.strings().companyShortName}</Form.Label>
-                        <Form.Control type="text" value={companShortName} onChange={(e) => setCompanyShortName(e.target.value)} />
+                        <CustomTextBox label={localization.strings().companyShortName} value={companShortName} onChange={(e) => setCompanyShortName(e.target.value)} />
+                    </div>
+
+                    <div className="mb-3">
+                        <CustomFormCheckbox
+                            id="customSwitch"
+                            labelOn={localization.strings().active}
+                            label={localization.strings().isActive}
+                            value={isActive}
+                            onChange={handleCheckChange}
+                        />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

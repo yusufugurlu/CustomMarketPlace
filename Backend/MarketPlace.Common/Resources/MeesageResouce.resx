@@ -129,6 +129,9 @@
   <data name="CreateUser" xml:space="preserve">
     <value>Create User</value>
   </data>
+  <data name="False" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="SystemManagement" xml:space="preserve">
     <value>System Management</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

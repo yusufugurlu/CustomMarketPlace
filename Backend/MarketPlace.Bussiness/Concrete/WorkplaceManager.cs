@@ -2,6 +2,8 @@
 using MarketPlace.Bussiness.Abstract;
 using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
+using MarketPlace.Common.Extentions;
+using MarketPlace.Common.HttpContent;
 using MarketPlace.Common.Resources;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos.Company;
@@ -28,7 +30,7 @@ namespace MarketPlace.Bussiness.Concrete
             _workplaceRepository = _unitOfWorks.GetGenericRepository<WorkPlace>();
 
         }
-        public async Task<ServiceResult> CreateWorkPlace(WorkplaceDto dto)
+        public async Task<ServiceResult> CreateWorkPlace(CreateWorklaceDto dto)
         {
             if (dto != null)
             {
@@ -44,6 +46,7 @@ namespace MarketPlace.Bussiness.Concrete
                     workplace.Name = dto.Name;
                     workplace.VKN = dto.VKN;
                     workplace.Code = dto.Code;
+                    workplace.IsActive = dto.IsActive;
                     await _workplaceRepository.Update(workplace);
                 }
 
@@ -70,8 +73,20 @@ namespace MarketPlace.Bussiness.Concrete
 
         public async Task<ServiceResult> GetActiveWorkPlaces(int companyId)
         {
-            var workPlaces = ((await _workplaceRepository.GetAll(x => !x.IsDeleted && x.CompanyId == companyId))).ToList();
+            string lang = CurrentUser.GetCulture();
+            var workPlaces = ((await _workplaceRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted && x.CompanyId == companyId && x.IsActive))).ToList();
             List<WorkplaceDto> mapDtos = _mapper.Map<List<WorkplaceDto>>(workPlaces);
+            mapDtos.ForEach((item) => { item.IsActiveByLang = item.IsActive.ToString().GetMessageResourceKey(lang); });
+            return Result.Success("", 200, 0, mapDtos);
+        }
+
+
+        public async Task<ServiceResult> GetWorkPlaces(int companyId)
+        {
+            string lang = CurrentUser.GetCulture();
+            var workPlaces = ((await _workplaceRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted && x.CompanyId == companyId))).ToList();
+            List<WorkplaceDto> mapDtos = _mapper.Map<List<WorkplaceDto>>(workPlaces);
+            mapDtos.ForEach((item) => { item.IsActiveByLang = item.IsActive.ToString().GetMessageResourceKey(lang); });
             return Result.Success("", 200, 0, mapDtos);
         }
     }

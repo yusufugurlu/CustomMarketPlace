@@ -55,7 +55,7 @@ const SelectedWorkplace = () => {
 
     return (
         <>
-            <CustomDropdown onChange={handleChangeWorkplace} value={selectedWorkplace} label={localization.strings().shop} placeholder="test" options={workplaceData} />
+            <CustomDropdown onChange={handleChangeWorkplace} value={selectedWorkplace} label={localization.strings().shop} options={workplaceData} />
         </>
     );
 };

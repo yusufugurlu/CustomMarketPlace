@@ -57,6 +57,7 @@ namespace MarketPlace.Bussiness.Concrete
                         if (data != null)
                         {
                             data.CompanyId = companyId;
+                            data.WorkplaceId = 0;
                             await _redisService.SetData(CacheConstant.SelectedCompany, datas);
                         }
                         else
@@ -65,6 +66,7 @@ namespace MarketPlace.Bussiness.Concrete
                             var company = await _companyRepository.Get(companyId);
                             dto.CompanyId = companyId;
                             dto.CompanyName = company?.Name ?? "";
+                            dto.WorkplaceId = 0;
                             dto.UserId = CurrentUser.UserId();
                             datas.Add(dto);
                             await _redisService.SetData(CacheConstant.SelectedCompany, datas);

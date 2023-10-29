@@ -20,6 +20,32 @@ namespace MarketPlace.WebAPI.Controllers
             _workplaceService = workplaceService;
         }
 
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetWorkPlaces()
+        {
+            var companyId = SelectedCompany.SelectedCompanyId;
+            var result = await _workplaceService.GetWorkPlaces(companyId);
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Ok(response);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetActiveWorkPlaces()
         {
@@ -46,7 +72,7 @@ namespace MarketPlace.WebAPI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateWorkPlace(WorkplaceDto dto)
+        public async Task<IActionResult> CreateWorkPlace(CreateWorklaceDto dto)
         {
             var companyId = SelectedCompany.SelectedCompanyId;
             dto.CompanyId = companyId;
