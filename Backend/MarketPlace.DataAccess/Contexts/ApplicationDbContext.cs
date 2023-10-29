@@ -30,7 +30,7 @@ namespace MarketPlace.DataAccess.Contexts
         public DbSet<District> Districts { get; set; }
         public DbSet<WorkPlace> WorkPlaces { get; set; }
         public DbSet<IntegrationForWorkPlace> IntegrationForWorkPlaces { get; set; }
-        
+        public DbSet<UserPasswordRecovery> UserPasswordRecoveries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,9 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new DistrictConfiguration());
             modelBuilder.ApplyConfiguration(new RoleMenuConfiguration());
-            modelBuilder.ApplyConfiguration(new WorkplaceConfiguration());            
+            modelBuilder.ApplyConfiguration(new WorkplaceConfiguration());
+            modelBuilder.ApplyConfiguration(new UserPasswordRecoveryConfiguration());
+            
         }
 
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)

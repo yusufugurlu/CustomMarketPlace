@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfiguration
 {
-    public class UserPasswordHistoryConfiguration : IEntityTypeConfiguration<UserPasswordHistory>
+    public class UserPasswordRecoveryConfiguration : IEntityTypeConfiguration<UserPasswordRecovery>
     {
-        public void Configure(EntityTypeBuilder<UserPasswordHistory> builder)
+        public void Configure(EntityTypeBuilder<UserPasswordRecovery> builder)
         {
             builder.Property(x => x.CreatedDate).HasColumnType("timestamp without time zone");
             builder.Property(x => x.UpdatedDate).HasColumnType("timestamp without time zone");

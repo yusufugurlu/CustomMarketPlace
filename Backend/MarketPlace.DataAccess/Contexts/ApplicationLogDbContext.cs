@@ -1,7 +1,6 @@
 ﻿using MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfiguration;
 using MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceLogConfiguration;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
-using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketPlace.DataAccess.Contexts
@@ -26,7 +25,6 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new DataBaseLogEntryConfiguration());
             modelBuilder.ApplyConfiguration(new UserAuthorizedLogConfiguration());
             modelBuilder.ApplyConfiguration(new LogEntryConfiguration());
-            modelBuilder.ApplyConfiguration(new UserPasswordHistoryConfiguration());
 
         }
 
