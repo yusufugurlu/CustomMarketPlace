@@ -18,14 +18,10 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
             builder.Property(x => x.DeletedDate).HasColumnType("timestamp without time zone");
 
             builder.HasData(
-     new Role()
-     {
-         Id = 1,
-         Name = "Super Yönetici",
-         NameEn = "Super Admin",
-         CreatedDate = DateTime.Now,
-         RoleType = Common.Enums.RoleType.SuperAdmin,
-     }
+          new Role(){ Id = 1,Name = "Super Yönetici",NameEn = "Super Admin",CreatedDate = DateTime.Now,RoleType = Common.Enums.RoleType.SuperAdmin,},
+          new Role(){Id = 2,Name = "Şirket Yönetici",NameEn = "Company Admin",CreatedDate = DateTime.Now,RoleType = Common.Enums.RoleType.CompanyAdmin,},
+          new Role(){Id = 3,Name = "Şirket Kullanıcısı",NameEn = "Company User",CreatedDate = DateTime.Now,RoleType = Common.Enums.RoleType.CompanyUser,},
+          new Role() { Id = 4, Name = "Demo Kullanıcısı", NameEn = "Demo User", CreatedDate = DateTime.Now, RoleType = Common.Enums.RoleType.DemoUser, }
      );
         }
     }
