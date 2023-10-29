@@ -25,5 +25,6 @@ namespace MarketPlace.Bussiness.GenericRepository
         Task AddRange(List<T> entites);
         Task<ApplicationDbContext> GetQueryDbContext();
         Task<IQueryable<T>> GetAllWithOuthAsNoTracking(Expression<Func<T, bool>> expression);
+        Task<IList<T>> GetAllToList(Expression<Func<T, bool>> expression);
     }
 }

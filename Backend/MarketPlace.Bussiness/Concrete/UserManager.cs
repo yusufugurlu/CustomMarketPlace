@@ -2,6 +2,7 @@
 using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
 using MarketPlace.Common.Enums;
+using MarketPlace.Common.Extentions;
 using MarketPlace.Common.Helper;
 using MarketPlace.Common.HttpContent;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
@@ -12,11 +13,15 @@ using MarketPlace.DataTransfer.Dtos.SelectedUser;
 using MarketPlace.DataTransfer.Dtos.User;
 using MarketPlace.DataTransfer.ServiceResults;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MarketPlace.Bussiness.Concrete
 {
@@ -81,6 +86,132 @@ namespace MarketPlace.Bussiness.Concrete
             }
 
             return Result.Fail("Kullanıcı bulunamdı.");
+        }
+
+        public async Task<ServiceResult> CreateUser(CreateUserDto dto, string lang)
+        {
+            var users = await _userRepository.GetAllToList(x => !x.IsDeleted && x.Email == dto.Email);
+            if (!users.Any())
+            {
+                var userModel = new User()
+                {
+                    Name = dto.Name,
+                    SurName = dto.SurName,
+                    Email = dto.Email,
+                    Phone = dto.Phone,
+                    CompanyId = dto.CompanyId,
+                    Gender = (Gender)dto.Gender,
+                    SelectedLanguage = lang == "tr" ? LanguageType.TR : LanguageType.EN,
+                    RoleId = dto.RoleId,
+                    Password = "",
+                };
+                await _userRepository.Add(userModel);
+                return await _unitOfWorks.SaveChanges();
+            }
+            else
+            {
+                var validationEmail = string.Format("EmalIsUsed".GetAlertResourceValue(lang), dto.Email);
+                return Result.Fail(validationEmail);
+            }
+        }
+
+        public async Task<ServiceResult> GetUsersByCompanyId(int companyId, string lang)
+        {
+            var users = await _userRepository.GetAllToList(x => !x.IsDeleted && x.Id != 1 && x.CompanyId == companyId);
+            List<UserViewDto> userViewDtos = new List<UserViewDto>();
+            if (users.Any())
+            {
+                foreach (var user in users)
+                {
+                    userViewDtos.Add(new UserViewDto()
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        SurName = user.SurName,
+                        Email = user.Email,
+                        Phone = user.Phone,
+                        Role = ((RoleType)user.RoleId).ToString().GetMessageResourceKey(lang),
+                        Gender = user.Gender.ToString().GetMessageResourceKey(lang),
+
+                    });
+                }
+
+            }
+
+            return Result.Success("", 200, 0, userViewDtos);
+        }
+
+        public async Task<ServiceResult> GetUser(int userId, string lang)
+        {
+            var users = await _userRepository.GetAllToList(x => !x.IsDeleted && x.Id != 1 && x.Id == userId);
+            UserEditViewDto userViewDto = new UserEditViewDto();
+            if (users.Any())
+            {
+                var user = users.FirstOrDefault();
+                if (user != null)
+                {
+                    userViewDto = new UserEditViewDto()
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        SurName = user.SurName,
+                        Email = user.Email,
+                        Phone = user.Phone,
+                        RoleId = user.RoleId,
+                        Gender = (int)user.Gender,
+
+                    };
+                }
+            }
+            return Result.Success("", 200, 0, userViewDto);
+        }
+
+        public async Task<ServiceResult> UpdateUser(EditUserParameterDto dto, string lang)
+        {
+            var users = await _userRepository.GetAllToList(x => !x.IsDeleted && x.Id != dto.Id && x.Email == dto.Email);
+            if (!users.Any())
+            {
+                var user = await _userRepository.Get(dto.Id);
+                if (user != null)
+                {
+                    user.Name = dto.Name;
+                    user.SurName = dto.SurName;
+                    user.Email = dto.Email;
+                    user.Phone = dto.Phone;
+                    user.Gender = (Gender)dto.Gender;
+                    user.RoleId = dto.RoleId;
+
+
+                    await _userRepository.Update(user);
+                    return await _unitOfWorks.SaveChanges();
+                }
+                else
+                {
+                    var validationEmail = "UserDoesntExist".GetAlertResourceValue(lang);
+                    return Result.Fail(validationEmail);
+                }
+
+            }
+            else
+            {
+                var validationEmail = string.Format("EmalIsUsed".GetAlertResourceValue(lang), dto.Email);
+                return Result.Fail(validationEmail);
+            }
+        }
+
+        public async Task<ServiceResult> DeleteUsers(List<int> userIds, string lang)
+        {
+            var users = (await _userRepository.GetAll(x => !x.IsDeleted && userIds.Contains(x.Id))).ToList();
+            if (users.Any())
+            {
+                await _userRepository.DeleteRange(users);
+                return await _unitOfWorks.SaveChanges();
+            }
+            else
+            {
+                var validationEmail = "UserDoesntExist".GetAlertResourceValue(lang);
+                return Result.Fail(validationEmail);
+            }
         }
     }
 }

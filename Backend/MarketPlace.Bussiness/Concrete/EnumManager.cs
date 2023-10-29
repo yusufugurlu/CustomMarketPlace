@@ -13,6 +13,12 @@ namespace MarketPlace.Bussiness.Concrete
 {
     public class EnumManager : IEnumService
     {
+        public async Task<List<EnumBaseDto>> GetGenders()
+        {
+            var lang = CurrentUser.GetCulture();
+            return EnumHelper.GetAllEnumBaseDtos<Gender>(lang);
+        }
+
         public async Task<List<EnumBaseDto>> GetRoles()
         {
             var lang = CurrentUser.GetCulture();

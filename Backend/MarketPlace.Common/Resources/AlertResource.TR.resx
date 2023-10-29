@@ -120,10 +120,16 @@
   <data name="CannotDeleteParentCompany" xml:space="preserve">
     <value>Ana firmayı silinemez</value>
   </data>
+  <data name="EmalIsUsed" xml:space="preserve">
+    <value>{0} email kullanılmaktadır</value>
+  </data>
   <data name="OperationSuccess" xml:space="preserve">
     <value>İşlem Başarılı</value>
   </data>
   <data name="StoresAreAvailable" xml:space="preserve">
     <value>Mağazalar mevcuttur silemezsiniz</value>
+  </data>
+  <data name="UserDoesntExist" xml:space="preserve">
+    <value>Kullanıcı bulunamadı</value>
   </data>
 </root>

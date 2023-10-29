@@ -4,13 +4,14 @@ import { localization } from 'lang/localization';
 import { companyService } from 'Services/companyService';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { customSweet } from 'customCompanents/swal';
-import CustomFormCheckbox from 'customCompanents/customFormCheckbox';
 import CustomTextBox from 'customCompanents/customTextBox';
 import { rolePermissionService } from 'Services/rolePermissionService';
 import { useDispatch } from 'react-redux';
 import { setAuthCompany } from 'auth/authSlice';
 import { enumService } from 'Services/enumService';
 import CustomDropdown from 'customCompanents/customDropdown';
+import { userService } from 'Services/userService';
+import CustomButton from 'customCompanents/customButton';
 
 const adminUsers = () => {
 
@@ -19,40 +20,59 @@ const adminUsers = () => {
     const [data, setData] = React.useState([]);
     const [isDataLoading, setIsDataLoading] = React.useState(false);
     const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
-    const [companyName, setCompanyName] = React.useState("");
-    const [companShortName, setCompanyShortName] = React.useState("");
-    const [companyId, setCompanyId] = React.useState(0);
+    const [name, setName] = React.useState("");
+    const [surName, setSurName] = React.useState("");
+    const [userId, setUserId] = React.useState(0);
     const [isActive, setIsActive] = React.useState(false);
     const [roles, setRoles] = React.useState([]);
     const [selectedRoles, setSelectedRoles] = React.useState(null);
+    const [genders, setGenders] = React.useState([]);
+    const [selectedGender, setSelectedGender] = React.useState(null);
+    const [email, setEmail] = React.useState("");
+    const [phone, setPhone] = React.useState("");
 
     const getRoles = () => {
         enumService.getRoles().then((res) => {
-          if (res.status === 200) {
-            const tmpData = [];
-            res.data.forEach(element => {
-                tmpData.push({
-                    value: element.id,
-                    label: element.name,
+            if (res.status === 200) {
+                const tmpData = [];
+                res.data.forEach(element => {
+                    tmpData.push({
+                        value: element.id,
+                        label: element.name,
+                    });
                 });
-            });
-            setRoles(tmpData);
-          }
+                setRoles(tmpData);
+            }
         });
-      }
+    }
+
+    const getGenders = () => {
+        enumService.getGenders().then((res) => {
+            if (res.status === 200) {
+                const tmpData = [];
+                res.data.forEach(element => {
+                    tmpData.push({
+                        value: element.id,
+                        label: element.name,
+                    });
+                });
+                setGenders(tmpData);
+            }
+        });
+    }
 
 
     const getAuthCompanies = () => {
         rolePermissionService.getCompanyByUserId().then((res) => {
-          if (res.status === 200) {
-            dispatch(setAuthCompany(res.data));
-          }
+            if (res.status === 200) {
+                dispatch(setAuthCompany(res.data));
+            }
         });
-      }
+    }
 
-    const getCompanies = () => {
+    const getUsersByCompanyId = () => {
         setIsDataLoading(true);
-        companyService.getCompanies().then((result) => {
+        userService.getUsersByCompanyId().then((result) => {
             if (result.data.length > 0) {
                 setData(result.data);
             }
@@ -64,19 +84,23 @@ const adminUsers = () => {
     }
 
     useEffect(() => {
-        getCompanies();
+        getUsersByCompanyId();
         getRoles();
+        getGenders();
     }, []);
 
 
 
     const handlerEdit = (selectedRowIds) => {
-        companyService.editCompany({ id: selectedRowIds.id }).then((result) => {
+        userService.getUser({ id: selectedRowIds.id }).then((result) => {
             if (result.status === 200) {
-                setCompanyId(selectedRowIds.id);
-                setCompanyName(result.data.name);
-                setCompanyShortName(result.data.shortName);
-                setIsActive(result.data.isActive);
+                setUserId(selectedRowIds.id);
+                setName(result.data.name);
+                setSurName(result.data.surName);
+                setEmail(result.data.email);
+                setPhone(result.data.phone);
+                setSelectedGender(result.data.gender);
+                setSelectedRoles(result.data.roleId)
                 setIsOpenAddModal(true);
             }
             else {
@@ -86,9 +110,23 @@ const adminUsers = () => {
 
     }
 
+
+    const handleResetPassword = (e) => {
+        console.log(e);
+    }
+
     const columns = [
         {
-            Header: localization.strings().companyName,
+            Header: '',
+            id: 'action',
+            headerClassName: 'empty w-10',
+            Cell: ({ row }) => {
+                const { checked, onChange } = row.getToggleRowSelectedProps();
+                return <Form.Check className="form-check float-end mt-1" type="checkbox" checked={checked} onChange={onChange} />;
+            },
+        },
+        {
+            Header: localization.strings().name,
             accessor: 'name',
             sortable: true,
             headerClassName: 'text-muted text-small text-uppercase w-30',
@@ -107,15 +145,17 @@ const adminUsers = () => {
                 );
             },
         },
-        { Header: localization.strings().companyShortName, accessor: 'shortName', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
-        { Header: localization.strings().isActive, accessor: 'isActiveByLang', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+        { Header: localization.strings().surName, accessor: 'surName', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+        { Header: localization.strings().email, accessor: 'email', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+        { Header: localization.strings().phone, accessor: 'phone', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+        { Header: localization.strings().role, accessor: 'role', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+        { Header: localization.strings().gender, accessor: 'gender', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
         {
-            Header: '',
-            id: 'action',
+            Header: 'İşlemler',
+            id: 'passwordRecovery',
             headerClassName: 'empty w-10',
-            Cell: ({ row }) => {
-                const { checked, onChange } = row.getToggleRowSelectedProps();
-                return <Form.Check className="form-check float-end mt-1" type="checkbox" checked={checked} onChange={onChange} />;
+            Cell: ({ cell }) => {
+                return <CustomButton className="form-check float-end mt-1" text="Sıfırla" onClick={() => { handleResetPassword(cell.row.original); }} />;
             },
         },
     ];
@@ -139,18 +179,20 @@ const adminUsers = () => {
                 });
 
                 const dto = {
-                    companyIds: dtos
+                    userIds: dtos
                 };
 
-                companyService.deleteCompanies(dto).then((result) => {
+                setIsDataLoading(true);
+                userService.deleteUsers(dto).then((result) => {
                     if (result.status === 200) {
                         customSweet.customSweetAlert(result.message, "success", 2000);
-                        getCompanies();
+                        getUsersByCompanyId();
                         getAuthCompanies();
                     }
                     else {
                         customSweet.customSweetAlert(result.message, "error", 2000);
                     }
+                    setIsDataLoading(false);
                 });
 
             }
@@ -158,45 +200,79 @@ const adminUsers = () => {
     }
 
     const handlerClear = () => {
-        setCompanyName("");
-        setCompanyShortName("");
+        setName("");
+        setSurName("");
+        setEmail("");
+        setPhone("");
+        setSelectedGender(0);
+        setSelectedRoles(0);
         setIsOpenAddModal(false);
         setIsActive(false);
-        setCompanyId(0);
+        setUserId(0);
     }
 
     const handleSave = (e) => {
-        const dto = {
-            "id": companyId,
-            "name": companyName,
-            "shortName": companShortName,
-            "isActive": isActive,
+
+        if (userId > 0) {
+            const dto = {
+                "id": userId,
+                "name": name,
+                "surName": surName,
+                "eMail": email,
+                "phone": phone,
+                "roleId": selectedRoles,
+                "gender": selectedGender,
+            }
+
+            console.log(dto);
+            setIsDataLoading(true);
+            userService.updateUser(dto).then((result) => {
+                if (result.status === 200) {
+                    customSweet.customSweetAlert(result.message, "success", 2000);
+                    getUsersByCompanyId();
+                    getAuthCompanies();
+                }
+                else {
+                    customSweet.customSweetAlert(result.message, result.status, 2000);
+                }
+                setIsOpenAddModal(false);
+                handlerClear();
+            });
+        }
+        else {
+            const dto = {
+                "name": name,
+                "surName": surName,
+                "eMail": email,
+                "phone": phone,
+                "roleId": selectedRoles,
+                "gender": selectedGender,
+            }
+
+            console.log(dto);
+            setIsDataLoading(true);
+            userService.createUser(dto).then((result) => {
+                if (result.status === 200) {
+                    customSweet.customSweetAlert(result.message, "success", 2000);
+                    getUsersByCompanyId();
+                    getAuthCompanies();
+                }
+                else {
+                    customSweet.customSweetAlert(result.message, result.status, 2000);
+                }
+                setIsOpenAddModal(false);
+                handlerClear();
+            });
         }
 
-        setIsDataLoading(true);
-        companyService.createCompany(dto).then((result) => {
-            if (result.status === 200) {
-                customSweet.customSweetAlert(result.message, "success", 2000);
-                getCompanies();
-                getAuthCompanies();
-            }
-            else {
-                customSweet.customSweetAlert(result.message, result.status, 2000);
-            }
-            setIsOpenAddModal(false);
-            handlerClear();
-        });
-
-    }
-
-
-
-    const handleCheckChange = (e) => {
-        setIsActive(e.target.checked);
     }
 
     const handleChangeRole = (e) => {
         setSelectedRoles(e.value);
+    }
+
+    const handleChangeGender = (e) => {
+        setSelectedGender(e.value);
     }
 
     return (
@@ -205,7 +281,7 @@ const adminUsers = () => {
             <DataTable
                 columnList={columns}
                 dataList={data}
-                title={localization.strings().companyDefinition}
+                title={localization.strings().userDefinitions}
                 isActiveAddButton
                 handlerAddButton={handlerAdd}
                 isActiveDeleteButton
@@ -217,18 +293,29 @@ const adminUsers = () => {
 
             <Modal className=" modal-right fade" show={isOpenAddModal} onHide={handlerClear}>
                 <Modal.Header>
-                    <Modal.Title>{companyId === 0 ? localization.strings().add : localization.strings().edit}</Modal.Title>
+                    <Modal.Title>{userId === 0 ? localization.strings().add : localization.strings().edit}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="mb-3">
-                        <CustomTextBox label={localization.strings().companyName} value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+                        <CustomTextBox label={localization.strings().name} value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
                     <div className="mb-3">
-                        <CustomTextBox label={localization.strings().companyShortName} value={companShortName} onChange={(e) => setCompanyShortName(e.target.value)} />
+                        <CustomTextBox label={localization.strings().surName} value={surName} onChange={(e) => setSurName(e.target.value)} />
                     </div>
 
                     <div className="mb-3">
-                    <CustomDropdown onChange={handleChangeRole} value={selectedRoles} label={localization.strings().company} options={roles} />
+                        <CustomTextBox label={localization.strings().email} value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </div>
+
+                    <div className="mb-3">
+                        <CustomTextBox label={localization.strings().phone} value={phone} onChange={(e) => setPhone(e.target.value)} />
+                    </div>
+
+                    <div className="mb-3">
+                        <CustomDropdown onChange={handleChangeGender} value={selectedGender} label={localization.strings().gender} options={genders} />
+                    </div>
+                    <div className="mb-3">
+                        <CustomDropdown onChange={handleChangeRole} value={selectedRoles} label={localization.strings().roles} options={roles} />
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

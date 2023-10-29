@@ -35,9 +35,43 @@ async function setSelectWorkplaceId(workplaceId) {
 }
 
 
+async function createUser(dto) {
+    const url = "api/User/CreateUser";
+    const result = await baseUrlRequest.postData(url, dto);
+    return result;
+}
+
+async function getUsersByCompanyId() {
+    const url = `api/User/GetUsersByCompanyId`;
+    const result = await baseUrlRequest.fetchData(url);
+    return result;
+}
+
+async function getUser(dto) {
+    const url = "api/User/GetUser";
+    const result = await baseUrlRequest.postData(url, dto);
+    return result;
+}
+
+async function updateUser(dto) {
+    const url = "api/User/UpdateUser";
+    const result = await baseUrlRequest.postData(url, dto);
+    return result;
+}
+
+async function deleteUsers(dto) {
+    const url = "api/User/DeleteUsers";
+    const result = await baseUrlRequest.postData(url, dto);
+    return result;
+}
 export const userService = {
     getUserInfo,
     changeLanguage,
     setSelectCompany,
     setSelectWorkplaceId,
+    createUser,
+    getUsersByCompanyId,
+    getUser,
+    updateUser,
+    deleteUsers,
 };  

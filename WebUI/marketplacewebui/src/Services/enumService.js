@@ -9,6 +9,13 @@ async function getRoles() {
     return result;
 }
 
+async function getGenders() {
+    const url = "api/Enum/GetGenders";
+    const result = await baseUrlRequest.fetchData(url);
+    return result;
+}
+
 export const enumService = {
     getRoles,
+    getGenders,
 };  

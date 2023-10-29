@@ -1,8 +1,11 @@
 ﻿using MarketPlace.Bussiness.Abstract;
+using MarketPlace.Bussiness.Helper;
 using MarketPlace.Common.Extentions;
 using MarketPlace.Common.HttpContent;
 using MarketPlace.Common.Resources;
 using MarketPlace.DataTransfer.Dtos.Account;
+using MarketPlace.DataTransfer.Dtos.User;
+using MarketPlace.DataTransfer.Dtos.Workplace;
 using MarketPlace.DataTransfer.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +25,33 @@ namespace MarketPlace.WebAPI.Controllers
         {
             _userService = userService;
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetUsersByCompanyId()
+        {
+            int companyId = SelectedCompany.SelectedCompanyId;
+            string lang = CurrentUser.GetCulture();
+            var result = await _userService.GetUsersByCompanyId(companyId, lang);
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return BadRequest(response);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> GetUserInfo()
@@ -80,6 +110,109 @@ namespace MarketPlace.WebAPI.Controllers
             response.Success = true;
 
             return BadRequest(response);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(CreateUserDto dto)
+        {
+            string lang = CurrentUser.GetCulture();
+            int companyId = SelectedCompany.SelectedCompanyId;
+            dto.CompanyId = companyId;
+            var result = await _userService.CreateUser(dto, lang);
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return BadRequest(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(EditUserParameterDto dto)
+        {
+            string lang = CurrentUser.GetCulture();
+            int companyId = SelectedCompany.SelectedCompanyId;
+            dto.CompanyId = companyId;
+            var result = await _userService.UpdateUser(dto, lang);
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return BadRequest(response);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> GetUser(EditUserDto dto)
+        {
+            string lang = CurrentUser.GetCulture();
+            var result = await _userService.GetUser(dto.Id,lang);
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Ok(response);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUsers(DeleteUserDto dto)
+        {
+            string lang = CurrentUser.GetCulture();
+            var result = await _userService.DeleteUsers(dto.UserIds,lang);
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Ok(response);
         }
     }
 }

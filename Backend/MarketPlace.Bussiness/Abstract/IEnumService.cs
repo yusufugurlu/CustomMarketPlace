@@ -11,5 +11,6 @@ namespace MarketPlace.Bussiness.Abstract
     public interface IEnumService
     {
         Task<List<EnumBaseDto>> GetRoles();
+        Task<List<EnumBaseDto>> GetGenders();
     }
 }

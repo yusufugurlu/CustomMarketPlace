@@ -53,7 +53,7 @@ const PagesPage = () => {
               </Col>
               <Col>
                 <NavLink to="/adminUsers" className="heading stretched-link d-block">
-                  {localization.strings().users}
+                  {localization.strings().userDefinitions}
                 </NavLink>
                 <div className="text-muted">Various pages fit to use for error, faq, pricing and so on.</div>
               </Col>

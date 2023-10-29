@@ -32,5 +32,21 @@ namespace MarketPlace.WebAPI.Controllers
             response.Success = result.Any();
             return Ok(response);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetGenders()
+        {
+            var result = await _enumService.GetGenders();
+            ServiceResponse response = new ServiceResponse();
+            if (result.Any())
+            {
+                response.Data = result;
+            }
+
+            response.Status = 200;
+            response.Success = result.Any();
+            return Ok(response);
+        }
     }
 }

@@ -70,6 +70,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} email is used.
+        /// </summary>
+        public static string EmalIsUsed {
+            get {
+                return ResourceManager.GetString("EmalIsUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operation Success.
         /// </summary>
         public static string OperationSuccess {
@@ -84,6 +93,15 @@ namespace MarketPlace.Common.Resources {
         public static string StoresAreAvailable {
             get {
                 return ResourceManager.GetString("StoresAreAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Doesn&apos;t Exist.
+        /// </summary>
+        public static string UserDoesntExist {
+            get {
+                return ResourceManager.GetString("UserDoesntExist", resourceCulture);
             }
         }
     }

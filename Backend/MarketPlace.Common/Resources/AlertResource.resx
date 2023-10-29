@@ -120,10 +120,16 @@
   <data name="CannotDeleteParentCompany" xml:space="preserve">
     <value>Cannot delete the parent company</value>
   </data>
+  <data name="EmalIsUsed" xml:space="preserve">
+    <value>{0} email is used</value>
+  </data>
   <data name="OperationSuccess" xml:space="preserve">
     <value>Operation Success</value>
   </data>
   <data name="StoresAreAvailable" xml:space="preserve">
     <value>Stores are available you cannot delete</value>
+  </data>
+  <data name="UserDoesntExist" xml:space="preserve">
+    <value>User Doesn't Exist</value>
   </data>
 </root>
