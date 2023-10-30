@@ -3,7 +3,6 @@ using MarketPlace.Bussiness.Abstract;
 using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
-using MarketPlace.DataTransfer.Dtos.Email;
 using MarketPlace.DataTransfer.ServiceResults;
 using Microsoft.Extensions.Configuration;
 using System;

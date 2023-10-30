@@ -1,5 +1,4 @@
-﻿using MarketPlace.DataTransfer.Dtos.Email;
-using MarketPlace.DataTransfer.ServiceResults;
+﻿using MarketPlace.DataTransfer.ServiceResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
