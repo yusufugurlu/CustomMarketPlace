@@ -10,30 +10,33 @@ function convertMenu(data) {
         isHide: false,
     });
 
-    data.forEach((item) => {
-        const menu = {
-            icon: item.icon,
-            label: item.name,
-            path: item.path,
-            isHide: item.isHide,
-        }
+    if (data.length > 0) {
+        data.forEach((item) => {
+            const menu = {
+                icon: item.icon,
+                label: item.name,
+                path: item.path,
+                isHide: item.isHide,
+            }
 
 
-        if (item.subMenus.length > 0) {
-            menu.subs = [];
-            item.subMenus.forEach((subItem) => {
-                if (subItem.isHide === false) {
-                    menu.subs.push({
-                        /*  icon: subItem.icon, */
-                        label: subItem.name,
-                        path: subItem.path,
-                        isHide: subItem.isHide,
-                    });
-                }
-            });
-        }
-        tmpMenu.push(menu);
-    });
+            if (item.subMenus.length > 0) {
+                menu.subs = [];
+                item.subMenus.forEach((subItem) => {
+                    if (subItem.isHide === false) {
+                        menu.subs.push({
+                            /*  icon: subItem.icon, */
+                            label: subItem.name,
+                            path: subItem.path,
+                            isHide: subItem.isHide,
+                        });
+                    }
+                });
+            }
+            tmpMenu.push(menu);
+        });
+
+    }
 
     const menus = tmpMenu;
     return menus;
@@ -81,7 +84,7 @@ function getMenu(data) {
         tmpMenu.push(menu);
 
         if (item.subs && item.subs.length > 0) {
-             processSubs(item.subs);
+            processSubs(item.subs);
         }
     });
 

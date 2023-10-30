@@ -15,11 +15,15 @@ namespace MarketPlace.Bussiness.Concrete
     {
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly IGenericRepository<Menu> _menuRepository;
+        private readonly IGenericRepository<RoleMenu> _roleMenuRepository;
         private readonly IRedisService _redisService;
+        private readonly IGenericRepository<User> _userRepository;
         public MenuManager(IUnitOfWorks unitOfWorks, IRedisService redisService)
         {
             _unitOfWorks = unitOfWorks;
             _menuRepository = _unitOfWorks.GetGenericRepository<Menu>();
+            _roleMenuRepository = _unitOfWorks.GetGenericRepository<RoleMenu>();
+            _userRepository = _unitOfWorks.GetGenericRepository<User>();
             _redisService = redisService;
 
         }
@@ -45,10 +49,13 @@ namespace MarketPlace.Bussiness.Concrete
             }
         }
 
-        public async Task<ServiceResult> GetMenus(string lang)
+        public async Task<ServiceResult> GetMenus(string lang, int userId)
         {
             var menuDtos = new List<MenuDto>();
-            List<Menu> menus = await GetMenusFromCacheOrDatabase();
+          
+            var user = await _userRepository.Get(userId);
+            var roleMenus = await _roleMenuRepository.GetAllToList(x => !x.IsDeleted && x.RoleId == user.RoleId);
+            List<Menu> menus = (await GetMenusFromCacheOrDatabase()).Where(x=> roleMenus.Select(y=>y.MenuId).AsEnumerable().Contains(x.Id)).ToList();
 
             if (menus.Count > 0)
             {

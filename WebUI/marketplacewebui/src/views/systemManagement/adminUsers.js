@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import DataTable from 'customCompanents/DataTables/dataTable';
 import { localization } from 'lang/localization';
-import { companyService } from 'Services/companyService';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { customSweet } from 'customCompanents/swal';
 import CustomTextBox from 'customCompanents/customTextBox';
@@ -12,6 +11,7 @@ import { enumService } from 'Services/enumService';
 import CustomDropdown from 'customCompanents/customDropdown';
 import { userService } from 'Services/userService';
 import CustomButton from 'customCompanents/customButton';
+import { userPasswordRecoveryService } from 'Services/userPasswordRecoveryService';
 
 const adminUsers = () => {
 
@@ -111,8 +111,15 @@ const adminUsers = () => {
     }
 
 
-    const handleResetPassword = (e) => {
-        console.log(e);
+    const handleResetPassword = (selectedRowIds) => {
+        userPasswordRecoveryService.ceatePasswordRecovery({ userId: selectedRowIds.id, guidKey: "", }).then((result) => {
+            if (result.status === 200) {
+                customSweet.customSweetAlert(result.message, "success", 2000);
+            }
+            else {
+                customSweet.customSweetAlert(result.message, "error", 2000);
+            }
+        });
     }
 
     const columns = [

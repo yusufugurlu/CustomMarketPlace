@@ -132,4 +132,7 @@
   <data name="UserDoesntExist" xml:space="preserve">
     <value>Kullanıcı bulunamadı</value>
   </data>
+  <data name="YourProcessingTimeHasExpired" xml:space="preserve">
+    <value>İşlem süreniz dolmuştur</value>
+  </data>
 </root>

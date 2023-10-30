@@ -16,11 +16,14 @@ namespace MarketPlace.WebAPI.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
+        private readonly IUserPasswordRecoveryService _userPasswordRecoveryService;
         private readonly IUserAuthorizedLogService _userAuthorizedLogService;
-        public AccountController(IAccountService accountService, IUserAuthorizedLogService userAuthorizedLogService)
+        public AccountController(IAccountService accountService, IUserAuthorizedLogService userAuthorizedLogService, IUserPasswordRecoveryService userPasswordRecoveryService)
         {
             _accountService = accountService;
             _userAuthorizedLogService = userAuthorizedLogService;
+            _userPasswordRecoveryService = userPasswordRecoveryService;
+
         }
 
         [HttpPost]
@@ -47,6 +50,29 @@ namespace MarketPlace.WebAPI.Controllers
             return Unauthorized(response);
         }
 
+
+        [HttpGet("{checkGuid}")]
+        public async Task<IActionResult> CheckGuid(string checkGuid)
+        {
+            var result = await _userPasswordRecoveryService.CheckGuid(checkGuid, "tr");
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Unauthorized(response);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Logout()
@@ -82,6 +108,30 @@ namespace MarketPlace.WebAPI.Controllers
 
             return Ok(response);
 
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(VerifyPasswordDto dto)
+        {
+            var result = await _accountService.ChangePassword(dto);
+            ServiceResponse response = new ServiceResponse();
+            if (result.HttpStatus == (int)HttpStatusCode.OK)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Unauthorized(response);
         }
     }
 }

@@ -132,4 +132,7 @@
   <data name="UserDoesntExist" xml:space="preserve">
     <value>User Doesn't Exist</value>
   </data>
+  <data name="YourProcessingTimeHasExpired" xml:space="preserve">
+    <value>Your processing time has expired</value>
+  </data>
 </root>

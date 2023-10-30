@@ -1,4 +1,4 @@
-﻿using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
+﻿using MarketPlace.DataTransfer.Dtos.Email;
 using MarketPlace.DataTransfer.ServiceResults;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.Bussiness.Abstract
 {
-    public interface IMenuService
+    public interface IEmailService
     {
-        Task<ServiceResult> GetMenus(string lang,int userId);
-        Task<List<Menu>> GetMenusFromCacheOrDatabase();
+        Task<ServiceResult> SendEmailForPasswordRecovery(int userId, string guidKey);
     }
 }

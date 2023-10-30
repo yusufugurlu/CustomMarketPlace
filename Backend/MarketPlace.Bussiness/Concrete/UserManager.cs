@@ -100,6 +100,7 @@ namespace MarketPlace.Bussiness.Concrete
                     Email = dto.Email,
                     Phone = dto.Phone,
                     CompanyId = dto.CompanyId,
+                    SelectedCompany= dto.CompanyId,
                     Gender = (Gender)dto.Gender,
                     SelectedLanguage = lang == "tr" ? LanguageType.TR : LanguageType.EN,
                     RoleId = dto.RoleId,

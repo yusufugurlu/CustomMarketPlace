@@ -21,16 +21,14 @@ namespace MarketPlace.Bussiness.Concrete
     {
 
         private readonly IUnitOfWorks _unitOfWorks;
-        private readonly IAccountService _accountService;
         private readonly IRedisService _redisService;
         private readonly IGenericRepository<User> _userRepository;
         private readonly IGenericRepository<Company> _companyRepository;
         private readonly IGenericRepository<WorkPlace> _workplaceRepository;
-        public CommonManager(IUnitOfWorks unitOfWorks, IAccountService accountService, IRedisService redisService)
+        public CommonManager(IUnitOfWorks unitOfWorks, IRedisService redisService)
         {
             _unitOfWorks = unitOfWorks;
             _userRepository = _unitOfWorks.GetGenericRepository<User>();
-            _accountService = accountService;
             _redisService = redisService;
             _companyRepository = _unitOfWorks.GetGenericRepository<Company>();
             _workplaceRepository = _unitOfWorks.GetGenericRepository<WorkPlace>();
@@ -52,7 +50,7 @@ namespace MarketPlace.Bussiness.Concrete
                     if (hasValue)
                     {
                         var datas = _redisService.GetDatas<SelectedWorkplaceDto>(CacheConstant.SelectedCompany).Result;
-                        var data = datas.FirstOrDefault(x => x.UserId == CurrentUser.UserId());
+                        var data = datas.FirstOrDefault(x => x.UserId == userId);
 
                         if (data != null)
                         {
@@ -67,7 +65,7 @@ namespace MarketPlace.Bussiness.Concrete
                             dto.CompanyId = companyId;
                             dto.CompanyName = company?.Name ?? "";
                             dto.WorkplaceId = 0;
-                            dto.UserId = CurrentUser.UserId();
+                            dto.UserId = userId;
                             datas.Add(dto);
                             await _redisService.SetData(CacheConstant.SelectedCompany, datas);
                         }
@@ -80,7 +78,7 @@ namespace MarketPlace.Bussiness.Concrete
                         {
                             CompanyName = company?.Name ?? "",
                             CompanyId = companyId,
-                            UserId=CurrentUser.UserId(),
+                            UserId= userId,
                         });
                         await _redisService.SetData(CacheConstant.SelectedCompany, selectedWorkplaceDtos);
                     }
@@ -110,7 +108,7 @@ namespace MarketPlace.Bussiness.Concrete
                     if (hasValue)
                     {
                         var datas = _redisService.GetDatas<SelectedWorkplaceDto>(CacheConstant.SelectedCompany).Result;
-                        var data = datas.FirstOrDefault(x => x.UserId == CurrentUser.UserId());
+                        var data = datas.FirstOrDefault(x => x.UserId == userId);
 
 
                         if (data != null)
@@ -128,7 +126,7 @@ namespace MarketPlace.Bussiness.Concrete
                             dto.CompanyId = companyId;
                             dto.CompanyName = company?.Name ?? "";
                             dto.WorkplaceName = workPlace?.Name ?? "";
-                            dto.UserId = CurrentUser.UserId();
+                            dto.UserId = userId;
                             datas.Add(dto);
                             await _redisService.SetData(CacheConstant.SelectedCompany, datas);
                         }
@@ -142,7 +140,7 @@ namespace MarketPlace.Bussiness.Concrete
                             CompanyId = companyId,
                             WorkplaceId=workplaceId,
                             WorkplaceName=workPlace?.Name ?? "",
-                            UserId = CurrentUser.UserId(),
+                            UserId = userId,
                         });
                         await _redisService.SetData(CacheConstant.SelectedCompany, selectedWorkplaceDtos);
                     }

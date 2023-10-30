@@ -104,5 +104,14 @@ namespace MarketPlace.Common.Resources {
                 return ResourceManager.GetString("UserDoesntExist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your processing time has expired.
+        /// </summary>
+        public static string YourProcessingTimeHasExpired {
+            get {
+                return ResourceManager.GetString("YourProcessingTimeHasExpired", resourceCulture);
+            }
+        }
     }
 }

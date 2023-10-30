@@ -1,13 +1,37 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import LayoutFullpage from 'layout/LayoutFullpage';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import HtmlHead from 'components/html-head/HtmlHead';
+import { userPasswordRecoveryService } from 'Services/userPasswordRecoveryService';
+import { customSweet } from 'customCompanents/swal';
+import { accountService } from 'Services/accountService';
 
 const ResetPassword = () => {
+  const history = useHistory();
+  const [guid, setGuid] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [passwordVerify, setPasswordVerify] = React.useState("");
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const guid1 = urlParams.get('Guid');
+    if (guid1) {
+      userPasswordRecoveryService.checkGuid(guid1).then((result) => {
+        if (result.status !== 200) {
+          customSweet.customSweetAlert(result.message, "error", 2000);
+          history.push("/login");
+        }
+        setGuid(guid1);
+      });
+    }
+    else {
+      history.push("/login");
+    }
+  }, []);
+
   const title = 'Reset Password';
   const description = 'Reset Password Page';
   const validationSchema = Yup.object().shape({
@@ -17,7 +41,24 @@ const ResetPassword = () => {
       .oneOf([Yup.ref('password'), null], 'Must be same with password!'),
   });
   const initialValues = { password: '', passwordConfirm: '' };
-  const onSubmit = (values) => console.log('submit form', values);
+  const onSubmit = (values) => {
+    const dto = {
+      guidKey: guid,
+      password: values.password,
+      passwordConfirm: values.passwordConfirm
+    }
+
+    accountService.changePassword(dto).then((result) => {
+      if (result.status === 200) {
+        customSweet.customSweetAlert(result.message, "success", 2000);
+        history.push("/login");
+      }
+      else {
+        customSweet.customSweetAlert(result.message, "error", 2000);
+      }
+    });
+
+  };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
   const { handleSubmit, handleChange, values, touched, errors } = formik;

@@ -2,6 +2,7 @@
 using MarketPlace.Bussiness.Abstract;
 using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
+using MarketPlace.Common.Extentions;
 using MarketPlace.Common.Helper;
 using MarketPlace.Common.Resources;
 using MarketPlace.Common.TokenHandlers;
@@ -26,16 +27,20 @@ namespace MarketPlace.Bussiness.Concrete
 
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly IGenericRepository<User> _userRepository;
+        private readonly IGenericRepository<UserPasswordRecovery> _userPasswordRecoveryRepository;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IUserAuthorizedLogService _userAuthorizedLogService;
-        public AccountManager(IUnitOfWorks unitOfWorks, IConfiguration config, IMapper mapper, IUserAuthorizedLogService userAuthorizedLogService)
+        private readonly ICommonService _commonService;
+        public AccountManager(IUnitOfWorks unitOfWorks, IConfiguration config, IMapper mapper, IUserAuthorizedLogService userAuthorizedLogService, ICommonService commonService)
         {
             _mapper = mapper;
             _unitOfWorks = unitOfWorks;
             _config = config;
             _userAuthorizedLogService = userAuthorizedLogService;
             _userRepository = _unitOfWorks.GetGenericRepository<User>();
+            _userPasswordRecoveryRepository = _unitOfWorks.GetGenericRepository<UserPasswordRecovery>();
+            _commonService = commonService;
         }
 
         public async Task<Token> AddClaims(LoginPageDto dto, User user)
@@ -56,13 +61,37 @@ namespace MarketPlace.Bussiness.Concrete
             return token;
         }
 
+        public async Task<ServiceResult> ChangePassword(VerifyPasswordDto dto)
+        {
+            var userPasswords = await _userPasswordRecoveryRepository.GetAllToList(x => !x.IsDeleted && x.GuidKey == dto.GuidKey);
+            if (userPasswords.Any())
+            {
+                var userPassword = userPasswords.LastOrDefault();
+                if (userPassword != null)
+                {
+                    var user = await _userRepository.Get(userPassword.UserId);
+                    if (user != null)
+                    {
+                        user.Password = EncryptionHelper.Encrypt(dto.Password);
+                        await _userRepository.Update(user);
+                        userPassword.IsUsed = true;
+                        await _userPasswordRecoveryRepository.Update(userPassword);
+                        return await _unitOfWorks.SaveChanges();
+                    }
+                }
+            }
+
+            var validationEmail = "UserDoesntExist".GetAlertResourceValue("tr");
+            return Result.Fail(validationEmail);
+        }
+
         public async Task<ServiceResult> Login(LoginPageDto dto)
         {
             ServiceResult result = new ServiceResult();
-            var isHasPerson = (await _userRepository.GetAll(x => x.Email == dto.Mail)).FirstOrDefault();
+            var isHasPerson = (await _userRepository.GetAll(x => !x.IsDeleted && x.Email == dto.Mail)).FirstOrDefault();
             if (isHasPerson != null)
             {
-                var isControlPerson = (await _userRepository.GetAll(x => x.Email == dto.Mail && x.Password == EncryptionHelper.Encrypt(dto.Password))).FirstOrDefault();
+                var isControlPerson = (await _userRepository.GetAll(x => !x.IsDeleted && x.Email == dto.Mail && x.Password == EncryptionHelper.Encrypt(dto.Password))).FirstOrDefault();
                 if (isControlPerson != null)
                 {
 
@@ -72,6 +101,8 @@ namespace MarketPlace.Bussiness.Concrete
                     result.Message = AlertResource.OperationSuccess;
                     result.HttpStatus = 200;
                     result.Data = token;
+
+                    await _commonService.SetSelectWorkplace(isControlPerson.Id, isControlPerson?.SelectedCompany ?? 0,isControlPerson.SelectedShop);
 
                     await _userAuthorizedLogService.Create(new UserAuthorizedLogDto()
                     {

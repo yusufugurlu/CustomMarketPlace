@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Bussiness.Abstract;
-using MarketPlace.Common.HttpContent;
+using MarketPlace.DataTransfer.Dtos.Company;
+using MarketPlace.DataTransfer.Dtos.UserPasswordRecovery;
 using MarketPlace.DataTransfer.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -10,21 +11,18 @@ namespace MarketPlace.WebAPI.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
-    public class MenuController : ControllerBase
+    public class UserPasswordRecoveryController : ControllerBase
     {
-        private readonly IMenuService _menuService;
-        public MenuController(IMenuService menuService)
+        private readonly IUserPasswordRecoveryService _userPasswordRecoveryService;
+        public UserPasswordRecoveryController(IUserPasswordRecoveryService userPasswordRecoveryService)
         {
-            _menuService = menuService;
+            _userPasswordRecoveryService = userPasswordRecoveryService;
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> GetMenus()
+        [HttpPost]
+        public async Task<IActionResult> CreatePasswordRecovery(UserPasswordRecoveryDto dto)
         {
-            string lang = CurrentUser.GetCulture();
-            var userId= CurrentUser.UserId();
-            var result = await _menuService.GetMenus(lang, userId);
+            var result = await _userPasswordRecoveryService.CreatePasswordRecovery(dto);
             ServiceResponse response = new ServiceResponse();
             if (result.IsSuccess)
             {
@@ -41,7 +39,7 @@ namespace MarketPlace.WebAPI.Controllers
             response.Status = result.HttpStatus;
             response.Message = result.Message;
             response.Success = result.IsSuccess;
-            return BadRequest(response);
+            return Ok(response);
         }
     }
 }
