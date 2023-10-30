@@ -29,6 +29,7 @@ const Login = () => {
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isToggle, setIsToggle] = useState(false);
+  const [isLock, setIsLock] = useState(false);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email().required('Email is required'),
@@ -118,8 +119,8 @@ const Login = () => {
               {errors.email && touched.email && <div className="d-block invalid-tooltip">{errors.email}</div>}
             </div>
             <div className="mb-3 filled form-group tooltip-end-top">
-              <CsLineIcons icon="lock-off" />
-              <Form.Control type="password" name="password" onChange={handleChange} value={values.password} placeholder="Password" />
+              <CsLineIcons icon={isLock ? "lock-off" : "lock-on"} onClick={() => { setIsLock(!isLock);}} />
+              <Form.Control type={isLock ? "text" : "password"} name="password" onChange={handleChange} value={values.password} placeholder="Password" />
               <NavLink className="text-small position-absolute t-3 e-3" to="/forgot-password">
                 {localization.strings().forgotPassword}
               </NavLink>
