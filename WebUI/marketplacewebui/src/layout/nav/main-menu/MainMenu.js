@@ -41,7 +41,7 @@ const MainMenu = () => {
   const menuItemsMemo = useMemo(
     () =>
       menus,
-    [isLogin, currentUser, attrMobile, useSidebar]
+    [isLogin, currentUser, attrMobile, useSidebar,isChangeMenu]
   );
 
 
@@ -52,7 +52,9 @@ const MainMenu = () => {
         if (res.status === 200) {
           const menuData1 = menuHelper.convertMenu(res.data);
           const menuDataAll = menuHelper.convertMenuAll(res.data);
-          dispatch(menuChangeMenu(true));
+          if (res.data.length > 0) {
+            dispatch(menuChangeMenu(true));
+          }
           dispatch(menuChangeData(menuData1));
           dispatch(menuChangeDataAll(menuDataAll));
           setMenus(menuData1)

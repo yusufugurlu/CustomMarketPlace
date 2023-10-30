@@ -91,18 +91,21 @@ namespace MarketPlace.Bussiness.Concrete
             var isHasPerson = (await _userRepository.GetAll(x => !x.IsDeleted && x.Email == dto.Mail)).FirstOrDefault();
             if (isHasPerson != null)
             {
-                var isControlPerson = (await _userRepository.GetAll(x => !x.IsDeleted && x.Email == dto.Mail && x.Password == EncryptionHelper.Encrypt(dto.Password))).FirstOrDefault();
+                var isControlPerson = (await _userRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted && x.Email == dto.Mail && x.Password == EncryptionHelper.Encrypt(dto.Password))).FirstOrDefault();
                 if (isControlPerson != null)
                 {
 
                     var token = await AddClaims(dto, isControlPerson);
                     token.PersonId = isHasPerson.Id;
                     result.Success = true;
-                    result.Message = AlertResource.OperationSuccess;
+                    result.Message = "OperationSuccess".GetAlertResourceValue(dto.Lang);
                     result.HttpStatus = 200;
                     result.Data = token;
 
-                    await _commonService.SetSelectWorkplace(isControlPerson.Id, isControlPerson?.SelectedCompany ?? 0,isControlPerson.SelectedShop);
+                    await _commonService.SetSelectWorkplace(isControlPerson.Id, isControlPerson?.SelectedCompany ?? 0, isControlPerson.SelectedShop);
+                    isControlPerson.SelectedLanguage = dto.Lang == "TR" ? Common.Enums.LanguageType.TR : Common.Enums.LanguageType.EN;
+                    await _userRepository.Update(isControlPerson);
+                    await _unitOfWorks.SaveChanges();
 
                     await _userAuthorizedLogService.Create(new UserAuthorizedLogDto()
                     {

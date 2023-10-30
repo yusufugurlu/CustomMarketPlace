@@ -10,5 +10,6 @@ namespace MarketPlace.DataTransfer.Dtos.Account
     {
         public string Mail { get; set; }
         public string Password { get; set; }
+        public string Lang { get; set; }
     }
 }

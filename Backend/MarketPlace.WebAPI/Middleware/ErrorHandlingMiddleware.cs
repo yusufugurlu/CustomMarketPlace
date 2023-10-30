@@ -33,6 +33,7 @@ namespace MarketPlace.WebAPI.Middleware
                     List<string> exceptPage = new List<string>();
                     exceptPage.Add("login");
                     exceptPage.Add("reset-password");
+                    exceptPage.Add("forgot-password");
                     exceptPage.Add("");
                     string page = context.Request.Headers["Page"].ToString().Replace("/", "");
 

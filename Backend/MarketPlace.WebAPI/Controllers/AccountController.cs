@@ -29,7 +29,6 @@ namespace MarketPlace.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginPageDto LoginPageDto)
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("tr");
             var result = await _accountService.Login(LoginPageDto);
             ServiceResponse response = new ServiceResponse();
             if (result.HttpStatus == (int)HttpStatusCode.OK)

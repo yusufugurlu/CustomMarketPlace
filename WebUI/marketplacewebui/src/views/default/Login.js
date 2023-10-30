@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Dropdown, Form } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import LayoutFullpage from 'layout/LayoutFullpage';
@@ -11,6 +11,9 @@ import { customSweet } from 'customCompanents/swal';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsLogin } from 'auth/authSlice';
 import { localization } from 'lang/localization';
+import classNames from 'classnames';
+import { langHelper } from 'Helper/langHelper';
+import { changeLang } from 'lang/langSlice';
 
 const Login = () => {
   const title = 'Login';
@@ -22,8 +25,10 @@ const Login = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
   const currentUser = useSelector((state) => state.auth.currentUser);
   const token = useSelector((state) => state.auth.token);
+  const { languages, currentLang } = useSelector((state) => state.lang);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isToggle, setIsToggle] = useState(false);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email().required('Email is required'),
@@ -35,7 +40,8 @@ const Login = () => {
   const onSubmit = (values) => {
     const data = {
       mail: values.email,
-      password: values.password
+      password: values.password,
+      lang: currentLang.code,
     };
     setIsButtonDisabled(true);
     accountService.signIn(data).then((res) => {
@@ -52,6 +58,14 @@ const Login = () => {
     dispatch(setIsLogin(true));
   };
 
+  const onSelectLang = (code) => {
+    langHelper.setLanguageCookie(code);
+    dispatch(changeLang(code));
+  }
+
+  const onToggle = (status, event) => {
+    setIsToggle(status);
+  };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
   const { handleSubmit, handleChange, values, touched, errors } = formik;
@@ -107,13 +121,52 @@ const Login = () => {
               <CsLineIcons icon="lock-off" />
               <Form.Control type="password" name="password" onChange={handleChange} value={values.password} placeholder="Password" />
               <NavLink className="text-small position-absolute t-3 e-3" to="/forgot-password">
-              {localization.strings().forgotPassword}
+                {localization.strings().forgotPassword}
               </NavLink>
               {errors.password && touched.password && <div className="d-block invalid-tooltip">{errors.password}</div>}
             </div>
-            <Button size="lg" type="submit" disabled={isButtonDisabled}>
-              {localization.strings().login}
-            </Button>
+            <div className='row justify-content-between'>
+              <div className='col-4'>
+                <Button size="lg" type="submit" disabled={isButtonDisabled}>
+                  {localization.strings().login}
+                </Button>
+              </div>
+
+              <div className='col-4 offset-md-4'>
+                <Dropdown onToggle={onToggle} show={isToggle} align="end">
+                  <Dropdown.Toggle
+                    variant="primary"
+                    className="language-button btn-lg"
+                  >
+                    {currentLang.code}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu
+                    popperConfig={{
+                      modifiers: [
+                        {
+                          name: 'offset',
+                          options: {
+                            offset: () => {
+                              if (isToggle) {
+                                return [6, 7];
+                              }
+                              return [0, 7];
+                            },
+                          },
+                        },
+                      ],
+                    }}
+                  >
+                    {languages.map((lang) => (
+                      <Dropdown.Item key={lang.locale} onClick={() => onSelectLang(lang.code)}>
+                        {lang.code}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+            </div>
           </form>
         </div>
       </div>
