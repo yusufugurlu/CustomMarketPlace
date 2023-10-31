@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
@@ -7,19 +7,43 @@ import LayoutFullpage from 'layout/LayoutFullpage';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import HtmlHead from 'components/html-head/HtmlHead';
 import { useSelector } from 'react-redux';
+import { accountService } from 'Services/accountService';
+import { customSweet } from 'customCompanents/swal';
 
 const ForgotPassword = () => {
   const title = 'Forgot Password';
   const description = 'Forgot Password Page';
-
   
+  const history = useHistory();
+
+
   const { isLogin, currentUser } = useSelector((state) => state.auth);
+  const { languages, currentLang } = useSelector((state) => state.lang);
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email().required('Email is required'),
   });
   const initialValues = { email: '' };
-  const onSubmit = (values) => console.log('submit form', isLogin);
+  const onSubmit = (values) => {
+    const data = {
+      email: values.email,
+      lang: currentLang.code,
+    };
+    setIsButtonDisabled(true);
+    accountService.checkHasEmail(data).then((res) => {
+      if (res.success) {
+        customSweet.customSweetAlert(res.message, 'success', 2000);
+        history.push("/");
+
+      }
+      else {
+        customSweet.customSweetAlert(res.message, 'warning', 2000);
+      }
+      setIsButtonDisabled(false);
+    });
+  };
 
   const formik = useFormik({ initialValues, validationSchema, onSubmit });
   const { handleSubmit, handleChange, values, touched, errors } = formik;
@@ -71,7 +95,7 @@ const ForgotPassword = () => {
               <Form.Control type="text" name="email" placeholder="Email" value={values.email} onChange={handleChange} />
               {errors.email && touched.email && <div className="d-block invalid-tooltip">{errors.email}</div>}
             </div>
-            <Button size="lg" type="submit">
+            <Button size="lg" type="submit" disabled={isButtonDisabled}>
               Send Reset Email
             </Button>
           </form>

@@ -22,9 +22,6 @@ const Login = () => {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.auth.isLogin);
-  const currentUser = useSelector((state) => state.auth.currentUser);
-  const token = useSelector((state) => state.auth.token);
   const { languages, currentLang } = useSelector((state) => state.lang);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);

@@ -10,7 +10,7 @@ const RouteIdentifier = ({ isLoggedIn, routes, fallback = <div className="loadin
   useEffect(() => {
     isLoggedIn = baseUrlRequest.activeLogin();
     if (!isLoggedIn) {
-      if(!window.location.pathname.includes("/reset-password")){
+      if(!window.location.pathname.includes("/reset-password") && !window.location.pathname.includes("/forgot-password")){
         history.push("/login");
       }
     }

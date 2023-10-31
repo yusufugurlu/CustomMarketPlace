@@ -33,8 +33,16 @@ async function changePassword(data) {
     
     return result;
 }
+
+
+async function checkHasEmail(data) {
+    const url = "api/Account/CheckHasEmail";
+    const result = await baseUrlRequest.postDataNoToken(url, data);
+    return result;
+}
 export const accountService = {
     signIn,
     logout,
     changePassword,
+    checkHasEmail,
 };  

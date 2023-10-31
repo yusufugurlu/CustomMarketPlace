@@ -16,5 +16,6 @@ namespace MarketPlace.Bussiness.Abstract
         Task<Token> AddClaims(LoginPageDto dto, User user);
         Token UpdateClaims(LoginPageDto dto, User user);
         Task<ServiceResult> ChangePassword(VerifyPasswordDto dto);
+        Task<ServiceResult> CheckHasEmail(ForgotPasswordDto dto);
     }
 }

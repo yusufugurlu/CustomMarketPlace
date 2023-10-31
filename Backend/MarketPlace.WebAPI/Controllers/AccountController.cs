@@ -132,5 +132,28 @@ namespace MarketPlace.WebAPI.Controllers
             response.Success = result.IsSuccess;
             return Unauthorized(response);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckHasEmail(ForgotPasswordDto dto)
+        {
+            var result = await _accountService.CheckHasEmail(dto);
+            ServiceResponse response = new ServiceResponse();
+            if (result.HttpStatus == (int)HttpStatusCode.OK)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Unauthorized(response);
+        }
     }
 }
