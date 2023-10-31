@@ -12,8 +12,6 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels
     public class UserPasswordHistory : BaseModel
     {
         public int UserId { get; set; }
-        public bool IsUsed { get; set; }
-        public string GuidKey { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        public string? Password { get; set; }
     }
 }
