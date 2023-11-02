@@ -17,7 +17,9 @@ namespace MarketPlace.WebAPI.Mapper
             CreateMap<ErrorLogDto, ErrorLog>().ReverseMap();
             CreateMap<UserAuthorizedLogDto, UserAuthorizedLog>().ReverseMap();
             CreateMap<CompanyDto, Company>().ReverseMap();
+            CreateMap<CreateCompanyDto, Company>().ReverseMap();
             CreateMap<WorkplaceDto, WorkPlace>().ReverseMap();
+            CreateMap<CreateWorklaceDto, WorkPlace>().ReverseMap();
             CreateMap<UserPasswordRecoveryDto, UserPasswordRecovery>().ReverseMap();
         }
     }
