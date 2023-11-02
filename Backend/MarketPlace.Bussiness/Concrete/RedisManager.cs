@@ -88,10 +88,11 @@ namespace MarketPlace.Bussiness.Concrete
                 var keyType = database.KeyType(key).ToString();
                 cacheKeys.Add(new CacheViewDto
                 {
-                    Id= key.ToString(),
+                    Id = key.ToString(),
                     Name = key.ToString(),
-                    Type = keyType
-                });
+                    Type = keyType,
+                    Definition = CacheConstant.listOfKeyDefinitions.FirstOrDefault(x => x.Key == key.ToString())?.Definition ?? ""
+                }); ;
             }
 
             return Task.FromResult(cacheKeys);

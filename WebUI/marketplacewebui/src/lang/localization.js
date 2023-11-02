@@ -52,6 +52,7 @@ const labels = {
         "phone": "Phone",
         "cacheManagement":"Cache Management",
         "cacheAlert":"If you delete these records, your session will end.",
+        "definition":"Definition",
     },
     tr: {
         "en": "tr",
@@ -104,6 +105,7 @@ const labels = {
         "phone": "Telefon",
         "cacheManagement":"Ön Bellek Yönetimi",
         "cacheAlert":"Bu kayıtları silerseniz oturumunuz sonlanacaktır.",
+        "definition":"Açıklama",
     }
 };
 

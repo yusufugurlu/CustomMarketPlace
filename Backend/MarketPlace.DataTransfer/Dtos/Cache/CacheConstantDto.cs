@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace MarketPlace.DataTransfer.Dtos.Cache
 {
-    public class CacheViewDto
+    public class CacheConstantDto
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string? Type { get; set; }
+        public string Key { get; set; }
         public string Definition { get; set; }
+        public bool IsGlobal { get; set; }
     }
 }

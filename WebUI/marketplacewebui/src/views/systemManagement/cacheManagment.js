@@ -34,6 +34,7 @@ const cacheManagment = () => {
 
   const columns = [
     { Header: localization.strings().name, accessor: 'name', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
+    { Header: localization.strings().definition, accessor: 'definition', sortable: true, headerClassName: 'text-muted text-small text-uppercase w-10' },
     {
       Header: '',
       id: 'action',
