@@ -10,7 +10,6 @@ import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import useCustomLayout from 'hooks/useCustomLayout';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useWindowSize } from 'hooks/useWindowSize';
-import CustomTextbox from 'customCompanents/customTextbox';
 import CustomDropdown from 'customCompanents/customDropdown';
 import CustomNotification from 'customCompanents/customNotification';
 
@@ -43,7 +42,6 @@ const NavContent = () => {
           </Nav.Link>
         </div>
       </div>
-      <CustomTextbox label="Test" value="0" onChange={()=>console.log("a")}/>
       
       <CustomDropdown loadOptions={options} onChange={(selectedOption)=>console.log(selectedOption)}/>
 

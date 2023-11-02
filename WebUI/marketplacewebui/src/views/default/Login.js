@@ -44,7 +44,6 @@ const Login = () => {
     setIsButtonDisabled(true);
     accountService.signIn(data).then((res) => {
       if (res.success) {
-        CustomNotification({mesaj:"test"});
         history.push("/");
 
       }
