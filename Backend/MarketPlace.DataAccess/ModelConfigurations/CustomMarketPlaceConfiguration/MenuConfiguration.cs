@@ -23,7 +23,8 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
     new Menu() { Id = 2, Name = "Settings", CreatedDate = DateTime.Now, Icon = "", OrderNumber = 1, Path = "/settings", ParentId = 1, UIName = "settings", },
     new Menu() { Id = 3, Name = "AdminWorkplaces", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/adminWorkplaces", ParentId = 2, UIName = "adminWorkplaces", IsHide = true, IsDeleted = false, },
       new Menu() { Id = 4, Name = "AdminCompanies", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/adminCompanies", ParentId = 2, UIName = "adminCompanies", IsHide = true, IsDeleted = false, },
-        new Menu() { Id = 5, Name = "AdminUsers", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/adminUsers", ParentId = 2, UIName = "adminUsers", IsHide = true, IsDeleted = false, }
+        new Menu() { Id = 5, Name = "AdminUsers", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/adminUsers", ParentId = 2, UIName = "adminUsers", IsHide = true, IsDeleted = false, },
+          new Menu() { Id = 6, Name = "CacheManagment", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/cacheManagment", ParentId = 2, UIName = "cacheManagment", IsHide = true, IsDeleted = false, }
     );
         }
     }
