@@ -15,12 +15,413 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
         {
 
             builder.HasData(
-new City()
-{
-    Id = 1,
-    Name = "Adana"
-}
-);
+                new City()
+                {
+                    Id = 1,
+                    Name = "Adana"
+                },
+                new City()
+                {
+                    Id = 2,
+                    Name = "Adıyaman"
+                },
+                new City()
+                {
+                    Id = 3,
+                    Name = "Afyon"
+                },
+                new City()
+                {
+                    Id = 4,
+                    Name = "Ağrı"
+                },
+                new City()
+                {
+                    Id = 5,
+                    Name = "Amasya"
+                },
+                new City()
+                {
+                    Id = 6,
+                    Name = "Ankara"
+                },
+                new City()
+                {
+                    Id = 7,
+                    Name = "Antalya"
+                },
+                new City()
+                {
+                    Id = 8,
+                    Name = "Ardahan"
+                },
+                new City()
+                {
+                    Id = 9,
+                    Name = "Artvin"
+                },
+                new City()
+                {
+                    Id = 10,
+                    Name = "Aydın"
+                },
+                new City()
+                {
+                    Id = 11,
+                    Name = "Balıkesir"
+                },
+                new City()
+                {
+                    Id = 12,
+                    Name = "Bartın"
+                },
+                new City()
+                {
+                    Id = 13,
+                    Name = "Batman"
+                },
+                new City()
+                {
+                    Id = 14,
+                    Name = "Bayburt"
+                },
+                new City()
+                {
+                    Id = 15,
+                    Name = "Bilecik"
+                },
+                new City()
+                {
+                    Id = 16,
+                    Name = "Bingöl"
+                },
+                new City()
+                {
+                    Id = 17,
+                    Name = "Bitlis"
+                },
+                new City()
+                {
+                    Id = 18,
+                    Name = "Bolu"
+                },
+                new City()
+                {
+                    Id = 19,
+                    Name = "Burdur"
+                },
+                new City()
+                {
+                    Id = 20,
+                    Name = "Bursa"
+                },
+                new City()
+                {
+                    Id = 21,
+                    Name = "Çanakkale"
+                },
+                new City()
+                {
+                    Id = 22,
+                    Name = "Çankırı"
+                },
+                new City()
+                {
+                    Id = 23,
+                    Name = "Çorum"
+                },
+                new City()
+                {
+                    Id = 24,
+                    Name = "Denizli"
+                },
+                new City()
+                {
+                    Id = 25,
+                    Name = "Diyarbakır"
+                },
+                new City()
+                {
+                    Id = 26,
+                    Name = "Düzce"
+                },
+                new City()
+                {
+                    Id = 27,
+                    Name = "Edirne"
+                },
+                new City()
+                {
+                    Id = 28,
+                    Name = "Elazığ"
+                },
+                new City()
+                {
+                    Id = 29,
+                    Name = "Erzincan"
+                },
+                new City()
+                {
+                    Id = 30,
+                    Name = "Erzurum"
+                },
+                new City()
+                {
+                    Id = 31,
+                    Name = "Eskişehir"
+                },
+                new City()
+                {
+                    Id = 32,
+                    Name = "Gaziantep"
+                },
+                new City()
+                {
+                    Id = 33,
+                    Name = "Giresun"
+                },
+                new City()
+                {
+                    Id = 34,
+                    Name = "Gümüşhane"
+                },
+                new City()
+                {
+                    Id = 35,
+                    Name = "Hakkâri"
+                },
+                new City()
+                {
+                    Id = 36,
+                    Name = "Hatay"
+                },
+                new City()
+                {
+                    Id = 37,
+                    Name = "Iğdır"
+                },
+                new City()
+                {
+                    Id = 38,
+                    Name = "Isparta"
+                },
+                new City()
+                {
+                    Id = 39,
+                    Name = "İstanbul"
+                },
+                new City()
+                {
+                    Id = 40,
+                    Name = "İzmir"
+                },
+                new City()
+                {
+                    Id = 41,
+                    Name = "Kahramanmaraş"
+                },
+                new City()
+                {
+                    Id = 42,
+                    Name = "Karabük"
+                },
+                new City()
+                {
+                    Id = 43,
+                    Name = "Karaman"
+                },
+                new City()
+                {
+                    Id = 44,
+                    Name = "Kars"
+                },
+                new City()
+                {
+                    Id = 45,
+                    Name = "Kastamonu"
+                },
+                new City()
+                {
+                    Id = 46,
+                    Name = "Kayseri"
+                },
+                new City()
+                {
+                    Id = 47,
+                    Name = "Kilis"
+                },
+                new City()
+                {
+                    Id = 48,
+                    Name = "Kırıkkale"
+                },
+                new City()
+                {
+                    Id = 49,
+                    Name = "Kırklareli"
+                },
+                new City()
+                {
+                    Id = 50,
+                    Name = "Kırşehir"
+                },
+                new City()
+                {
+                    Id = 51,
+                    Name = "Kocaeli"
+                },
+                new City()
+                {
+                    Id = 52,
+                    Name = "Konya"
+                },
+                new City()
+                {
+                    Id = 53,
+                    Name = "Kütahya"
+                },
+                new City()
+                {
+                    Id = 54,
+                    Name = "Malatya"
+                },
+                new City()
+                {
+                    Id = 55,
+                    Name = "Manisa"
+                },
+                new City()
+                {
+                    Id = 56,
+                    Name = "Mardin"
+                },
+                new City()
+                {
+                    Id = 57,
+                    Name = "Mersin"
+                },
+                new City()
+                {
+                    Id = 58,
+                    Name = "Muğla"
+                },
+                new City()
+                {
+                    Id = 59,
+                    Name = "Muş"
+                },
+                new City()
+                {
+                    Id = 60,
+                    Name = "Nevşehir"
+                },
+                new City()
+                {
+                    Id = 61,
+                    Name = "Niğde"
+                },
+                new City()
+                {
+                    Id = 62,
+                    Name = "Ordu"
+                },
+                new City()
+                {
+                    Id = 63,
+                    Name = "Osmaniye"
+                },
+                new City()
+                {
+                    Id = 64,
+                    Name = "Rize"
+                },
+                new City()
+                {
+                    Id = 65,
+                    Name = "Sakarya"
+                },
+                new City()
+                {
+                    Id = 66,
+                    Name = "Samsun"
+                },
+                new City()
+                {
+                    Id = 67,
+                    Name = "Siirt"
+                },
+                new City()
+                {
+                    Id = 68,
+                    Name = "Sinop"
+                },
+                new City()
+                {
+                    Id = 69,
+                    Name = "Sivas"
+                },
+                new City()
+                {
+                    Id = 70,
+                    Name = "Şanlıurfa"
+                },
+                new City()
+                {
+                    Id = 71,
+                    Name = "Şırnak"
+                },
+                new City()
+                {
+                    Id = 72,
+                    Name = "Tekirdağ"
+                },
+                new City()
+                {
+                    Id = 73,
+                    Name = "Tokat"
+                },
+                new City()
+                {
+                    Id = 74,
+                    Name = "Trabzon"
+                },
+                new City()
+                {
+                    Id = 75,
+                    Name = "Tunceli"
+                },
+                new City()
+                {
+                    Id = 76,
+                    Name = "Uşak"
+                },
+                new City()
+                {
+                    Id = 77,
+                    Name = "Van"
+                },
+                new City()
+                {
+                    Id = 78,
+                    Name = "Yalova"
+                },
+                new City()
+                {
+                    Id = 79,
+                    Name = "Yozgat"
+                },
+                new City()
+                {
+                    Id = 80,
+                    Name = "Zonguldak"
+                },
+                new City()
+                {
+                    Id = 81,
+                    Name = "Aksaray"
+                }
+
+            );
         }
     }
 }

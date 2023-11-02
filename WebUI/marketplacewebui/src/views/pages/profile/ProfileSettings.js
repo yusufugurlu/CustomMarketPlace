@@ -10,8 +10,17 @@ import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import useCustomLayout from 'hooks/useCustomLayout';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useWindowSize } from 'hooks/useWindowSize';
+import CustomTextbox from 'customCompanents/customTextbox';
+import CustomDropdown from 'customCompanents/customDropdown';
+import CustomNotification from 'customCompanents/customNotification';
+
+
 
 const NavContent = () => {
+  const options = [
+    { value: '1', label: 'Öğe 1' },
+    { value: '2', label: 'Öğe 2' },
+];
   return (
     <Nav className="flex-column">
       <div className="mb-2">
@@ -34,6 +43,12 @@ const NavContent = () => {
           </Nav.Link>
         </div>
       </div>
+      <CustomTextbox label="Test" value="0" onChange={()=>console.log("a")}/>
+      
+      <CustomDropdown loadOptions={options} onChange={(selectedOption)=>console.log(selectedOption)}/>
+
+      
+      
       <div className="mb-2">
         <Nav.Link className="px-0">
           <CsLineIcons icon="credit-card" className="me-2 sw-3" size="17" />

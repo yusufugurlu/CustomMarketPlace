@@ -38,8 +38,8 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new MenuConfiguration());
-            modelBuilder.ApplyConfiguration(new CityConfiguration());
-            modelBuilder.ApplyConfiguration(new DistrictConfiguration());
+            //modelBuilder.ApplyConfiguration(new CityConfiguration());
+            //modelBuilder.ApplyConfiguration(new DistrictConfiguration());
             modelBuilder.ApplyConfiguration(new RoleMenuConfiguration());
             modelBuilder.ApplyConfiguration(new WorkplaceConfiguration());
             modelBuilder.ApplyConfiguration(new UserPasswordRecoveryConfiguration());
