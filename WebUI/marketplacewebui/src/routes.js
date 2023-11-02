@@ -145,6 +145,7 @@ const systemManagment = {
   adminUsers: lazy(() => import('views/systemManagement/adminUsers')),
   adminCompanies: lazy(() => import('views/systemManagement/adminCompanies')),
   adminWorkplaces: lazy(() => import('views/systemManagement/adminWorkplaces')),
+  cacheManagment: lazy(() => import('views/systemManagement/cacheManagment')),
 
 };
 const appRoot = DEFAULT_PATHS.APP.endsWith('/') ? DEFAULT_PATHS.APP.slice(1, DEFAULT_PATHS.APP.length) : DEFAULT_PATHS.APP;
@@ -174,6 +175,7 @@ const routesAndMenuItems = {
         { path: '/adminUsers', label: 'adminUsers', component: systemManagment.adminUsers },
         { path: '/adminCompanies', label: 'adminCompanies', component: systemManagment.adminCompanies },
         { path: '/adminWorkplaces', label: 'createCompany', component: systemManagment.adminWorkplaces },
+        { path: '/cacheManagment', label: 'createCompany', component: systemManagment.cacheManagment },
       ],
     }
     , {

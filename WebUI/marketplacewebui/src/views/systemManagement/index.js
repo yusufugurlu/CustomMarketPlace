@@ -67,8 +67,8 @@ const PagesPage = () => {
                 <CsLineIcons icon="suitcase" className="text-primary" />
               </Col>
               <Col>
-                <NavLink to="/pages/portfolio" className="heading stretched-link d-block">
-                  Portfolio
+                <NavLink to="/cacheManagment" className="heading stretched-link d-block">
+                  {localization.strings().cacheManagement}
                 </NavLink>
                 <div className="text-muted">Collection of thumbnails and detail page to showcase work.</div>
               </Col>

@@ -88,6 +88,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cache Managment.
+        /// </summary>
+        public static string CacheManagment {
+            get {
+                return ResourceManager.GetString("CacheManagment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Company Admin.
         /// </summary>
         public static string CompanyAdmin {

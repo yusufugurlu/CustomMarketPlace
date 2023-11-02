@@ -25,8 +25,9 @@ namespace MarketPlace.Bussiness.Concrete
         private readonly IMenuService _menuService;
         private readonly ICompanyService _companyService;
         private readonly IWorkplaceService _workplaceService;
+        private readonly IGenericRepository<Role> _roleRepository;
         public RolePermissionManager(IUnitOfWorks unitOfWorks,
-            IMenuService menuService, 
+            IMenuService menuService,
             ICompanyService companyService,
             IWorkplaceService workplaceService)
         {
@@ -37,6 +38,7 @@ namespace MarketPlace.Bussiness.Concrete
             _roleMenuRepository = _unitOfWorks.GetGenericRepository<RoleMenu>();
             _companyService = companyService;
             _workplaceService = workplaceService;
+            _roleRepository = _unitOfWorks.GetGenericRepository<Role>();
         }
 
         public async Task<List<RoleCompanyDto>> GetCompanyByUserId(int userId)
@@ -51,7 +53,7 @@ namespace MarketPlace.Bussiness.Concrete
                     Id = x.Id,
                     CompanyName = x.Name
                 })
-                    .OrderBy(x=>x.CompanyName)
+                    .OrderBy(x => x.CompanyName)
                     .ToList();
 
             }
@@ -94,6 +96,22 @@ namespace MarketPlace.Bussiness.Concrete
                         return roleMenuList.Any();
                     }
                 }
+            }
+
+            return false;
+        }
+
+        public async Task<bool> HasUserSuperAdminRole(int userId)
+        {
+            var user = await _userRepository.Get(userId);
+            if (user != null)
+            {
+                var role = await _roleRepository.Get(user.RoleId);
+                if (role != null)
+                {
+                    return role.RoleType == RoleType.SuperAdmin;
+                }
+
             }
 
             return false;

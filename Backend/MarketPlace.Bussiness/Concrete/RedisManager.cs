@@ -1,5 +1,7 @@
 ﻿using MarketPlace.Bussiness.Abstract;
 using MarketPlace.Common.Helper;
+using MarketPlace.DataTransfer.Dtos.Cache;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -70,6 +72,37 @@ namespace MarketPlace.Bussiness.Concrete
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public Task<List<CacheViewDto>> GetAllKeys()
+        {
+            var database = GetDatabase();
+            var server = _redis.GetServer(_redis.GetEndPoints().First());
+            var keys = server.Keys();
+
+            List<CacheViewDto> cacheKeys = new List<CacheViewDto>();
+
+            foreach (var key in keys)
+            {
+                var keyType = database.KeyType(key).ToString();
+                cacheKeys.Add(new CacheViewDto
+                {
+                    Id= key.ToString(),
+                    Name = key.ToString(),
+                    Type = keyType
+                });
+            }
+
+            return Task.FromResult(cacheKeys);
+        }
+
+        public async Task DeleteDatas(List<string> keys)
+        {
+            var database = GetDatabase();
+            foreach (var key in keys)
+            {
+                database.KeyDelete(key);
             }
         }
     }

@@ -19,9 +19,11 @@ namespace MarketPlace.WebAPI.Controllers
     {
 
         private readonly ICommonService _commonService;
-        public CommonController(ICommonService commonService)
+        private readonly IRedisService _redisService;
+        public CommonController(ICommonService commonService, IRedisService redisService)
         {
             _commonService = commonService;
+            _redisService = redisService;
         }
 
 
@@ -42,7 +44,6 @@ namespace MarketPlace.WebAPI.Controllers
 
             }
 
-
             response.Status = result.HttpStatus;
             response.Message = result.Message;
             response.Success = result.IsSuccess;
@@ -53,8 +54,8 @@ namespace MarketPlace.WebAPI.Controllers
         public async Task<IActionResult> SetSelectWorkplaceId(int workplaceId)
         {
             int currentUserId = CurrentUser.UserId();
-            int companyId =  SelectedCompany.SelectedCompanyId;
-            var result = await _commonService.SetSelectWorkplace(currentUserId, companyId,workplaceId);
+            int companyId = SelectedCompany.SelectedCompanyId;
+            var result = await _commonService.SetSelectWorkplace(currentUserId, companyId, workplaceId);
             ServiceResponse response = new ServiceResponse();
             if (result.IsSuccess)
             {
@@ -67,11 +68,44 @@ namespace MarketPlace.WebAPI.Controllers
 
             }
 
-
             response.Status = result.HttpStatus;
             response.Message = result.Message;
             response.Success = result.IsSuccess;
             return BadRequest(response);
+        }
+
+
+        [HttpGet()]
+        public async Task<IActionResult> GetAllKeys()
+        {
+            var result = await _redisService.GetAllKeys();
+            ServiceResponse response = new ServiceResponse();
+            if (result.Any())
+            {
+                response.Data = result;
+                response.Status = 200;
+                response.Success = true;
+
+                return Ok(response);
+
+            }
+
+            response.Status = 201;
+            response.Success = false;
+            return BadRequest(response);
+        }
+
+
+        [HttpPost()]
+        public async Task<IActionResult> DeleteDatas(List<string> keys)
+        {
+            var lang = CurrentUser.GetCulture();
+            await _redisService.DeleteDatas(keys);
+            ServiceResponse response = new ServiceResponse();
+            response.Status = 200;
+            response.Message = "OperationSuccess".GetAlertResourceValue(lang);
+            response.Success = true;
+            return Ok(response);
         }
     }
 }

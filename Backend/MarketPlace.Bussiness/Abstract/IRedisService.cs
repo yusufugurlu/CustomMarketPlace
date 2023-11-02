@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using MarketPlace.DataTransfer.Dtos.Cache;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace MarketPlace.Bussiness.Abstract
         Task<T> GetData<T>(string key);
         Task<List<T>> GetDatas<T>(string key);
         Task<bool> DeleteData(string key);
+        Task DeleteDatas(List<string> keys);
         Task<bool> ExistKey(string key);
+        Task<List<CacheViewDto>> GetAllKeys();
     }
 }

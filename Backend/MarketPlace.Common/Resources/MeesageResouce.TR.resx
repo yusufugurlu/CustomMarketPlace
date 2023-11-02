@@ -126,6 +126,9 @@
   <data name="AdminWorkplaces" xml:space="preserve">
     <value>Mağazalar</value>
   </data>
+  <data name="CacheManagment" xml:space="preserve">
+    <value>Ön Bellek Yönetimi</value>
+  </data>
   <data name="CompanyAdmin" xml:space="preserve">
     <value>Şitket Yetkisi</value>
   </data>

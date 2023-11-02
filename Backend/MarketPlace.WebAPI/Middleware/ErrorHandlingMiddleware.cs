@@ -21,7 +21,7 @@ namespace MarketPlace.WebAPI.Middleware
 
         public async Task InvokeAsync(HttpContext context, ILoggerService loggerService, IRolePermissionService rolePermissionService)
         {
-            string controller = context.GetRouteData().Values["controller"]?.ToString() ??"";
+            string controller = context.GetRouteData().Values["controller"]?.ToString() ?? "";
             string action = context.GetRouteData().Values["action"]?.ToString() ?? "";
 
 
@@ -37,9 +37,13 @@ namespace MarketPlace.WebAPI.Middleware
                     exceptPage.Add("");
                     string page = context.Request.Headers["Page"].ToString().Replace("/", "");
 
-                    if (!exceptPage.Any(x => x == page))
+                    var userId = CurrentUser.UserId();
+
+                    //süper admin ise bütün sayfaları görebilecek.
+                    var hasAdminUser = await rolePermissionService.HasUserSuperAdminRole(userId);
+
+                    if (!exceptPage.Any(x => x == page) && !hasAdminUser)
                     {
-                        var userId = CurrentUser.UserId();
                         bool existMenu = await rolePermissionService.HasPermissionInMenu(userId, page);
                         if (!existMenu)
                         {

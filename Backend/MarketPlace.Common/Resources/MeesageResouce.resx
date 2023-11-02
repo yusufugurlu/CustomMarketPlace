@@ -126,6 +126,9 @@
   <data name="AdminWorkplaces" xml:space="preserve">
     <value>Shops</value>
   </data>
+  <data name="CacheManagment" xml:space="preserve">
+    <value>Cache Managment</value>
+  </data>
   <data name="CompanyAdmin" xml:space="preserve">
     <value>Company Admin</value>
   </data>

@@ -50,6 +50,8 @@ const labels = {
         "editUser": "Edit User",
         "gender": "Gender",
         "phone": "Phone",
+        "cacheManagement":"Cache Management",
+        "cacheAlert":"If you delete these records, your session will end.",
     },
     tr: {
         "en": "tr",
@@ -100,6 +102,8 @@ const labels = {
         "editUser": "Kullanıcıyı Düzenle",
         "gender": "Cinsiyet",
         "phone": "Telefon",
+        "cacheManagement":"Ön Bellek Yönetimi",
+        "cacheAlert":"Bu kayıtları silerseniz oturumunuz sonlanacaktır.",
     }
 };
 
