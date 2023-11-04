@@ -42,6 +42,7 @@ namespace MarketPlace.Bussiness.Concrete
             {
 
                 user.SelectedCompany = companyId;
+                user.SelectedShop = 0;
                 await _userRepository.Update(user);
                 var result = await _unitOfWorks.SaveChanges();
                 if (result.Success)

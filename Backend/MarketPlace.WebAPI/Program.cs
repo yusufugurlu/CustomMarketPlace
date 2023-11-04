@@ -113,6 +113,7 @@ builder.Services.AddScoped<ICommonService, CommonManager>();
 builder.Services.AddScoped<IEnumService, EnumManager>();
 builder.Services.AddScoped<IUserPasswordRecoveryService, UserPasswordRecoveryManager>();
 builder.Services.AddScoped<IEmailService, EmailManager>();
+builder.Services.AddScoped<IWorkplaceIntegrationService, WorkplaceIntegrationManager>();
 
 var app = builder.Build();
 

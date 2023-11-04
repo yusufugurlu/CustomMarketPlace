@@ -6,6 +6,7 @@ using MarketPlace.DataTransfer.Dtos.Errors;
 using MarketPlace.DataTransfer.Dtos.UserAuthorizedLogs;
 using MarketPlace.DataTransfer.Dtos.UserPasswordRecovery;
 using MarketPlace.DataTransfer.Dtos.Workplace;
+using MarketPlace.DataTransfer.Dtos.WorkplaceIntegration;
 
 namespace MarketPlace.WebAPI.Mapper
 {
@@ -21,6 +22,9 @@ namespace MarketPlace.WebAPI.Mapper
             CreateMap<WorkplaceDto, WorkPlace>().ReverseMap();
             CreateMap<CreateWorklaceDto, WorkPlace>().ReverseMap();
             CreateMap<UserPasswordRecoveryDto, UserPasswordRecovery>().ReverseMap();
+            CreateMap<CreateWorkplaceIntegrationDto, IntegrationForWorkPlace>().ReverseMap();
+            CreateMap<WorkplaceIntegrationViewDto, IntegrationForWorkPlace>().ReverseMap();
+            
         }
     }
 }

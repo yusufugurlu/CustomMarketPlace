@@ -19,6 +19,12 @@ namespace MarketPlace.Bussiness.Concrete
             return EnumHelper.GetAllEnumBaseDtos<Gender>(lang);
         }
 
+        public async Task<List<EnumBaseDto>> GetIntegrationType()
+        {
+            var lang = CurrentUser.GetCulture();
+            return EnumHelper.GetAllEnumBaseDtos<IntegrationType>(lang);
+        }
+
         public async Task<List<EnumBaseDto>> GetRoles()
         {
             var lang = CurrentUser.GetCulture();

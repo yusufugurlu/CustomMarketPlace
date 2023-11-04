@@ -169,7 +169,7 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Integration Managment.
+        ///   Looks up a localized string similar to Integration.
         /// </summary>
         public static string IntegrationManagment {
             get {

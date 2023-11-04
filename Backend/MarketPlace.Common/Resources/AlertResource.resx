@@ -126,6 +126,9 @@
   <data name="OperationSuccess" xml:space="preserve">
     <value>Operation Success</value>
   </data>
+  <data name="PleaseSelectShop" xml:space="preserve">
+    <value>Please Select Shop</value>
+  </data>
   <data name="StoresAreAvailable" xml:space="preserve">
     <value>Stores are available you cannot delete</value>
   </data>

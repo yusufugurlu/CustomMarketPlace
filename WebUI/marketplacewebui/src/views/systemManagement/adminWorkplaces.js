@@ -167,7 +167,7 @@ const adminWorkplaces = () => {
         getWorkplaces();
       }
       else {
-        customSweet.customSweetAlert(result.message, result.status, 2000);
+        customSweet.customSweetAlert(result.message, "error", 2000);
       }
       sendShop();
       setIsOpenAddModal(false);

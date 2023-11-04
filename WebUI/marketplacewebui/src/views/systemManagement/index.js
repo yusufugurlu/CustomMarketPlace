@@ -52,6 +52,22 @@ const PagesPage = () => {
                 <CsLineIcons icon="layout-1" className="text-primary" />
               </Col>
               <Col>
+                <NavLink to="/integrationManagment" className="heading stretched-link d-block">
+                  {localization.strings().integrationManagment}
+                </NavLink>
+                <div className="text-muted">Various pages fit to use for error, faq, pricing and so on.</div>
+              </Col>
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col>
+          <Card className="h-100">
+            <Card.Body className="row gx-4">
+              <Col xs="auto">
+                <CsLineIcons icon="layout-1" className="text-primary" />
+              </Col>
+              <Col>
                 <NavLink to="/adminUsers" className="heading stretched-link d-block">
                   {localization.strings().userDefinitions}
                 </NavLink>
@@ -71,21 +87,6 @@ const PagesPage = () => {
                   {localization.strings().cacheManagement}
                 </NavLink>
                 <div className="text-muted">Collection of thumbnails and detail page to showcase work.</div>
-              </Col>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card className="h-100">
-            <Card.Body className="row gx-4">
-              <Col xs="auto">
-                <CsLineIcons icon="user" className="text-primary" />
-              </Col>
-              <Col>
-                <NavLink to="/pages/profile" className="heading stretched-link d-block">
-                  Profile
-                </NavLink>
-                <div className="text-muted">Layouts for settings and social aspects of a user page.</div>
               </Col>
             </Card.Body>
           </Card>

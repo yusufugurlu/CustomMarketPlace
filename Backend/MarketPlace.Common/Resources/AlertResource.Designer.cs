@@ -88,6 +88,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please Select Shop.
+        /// </summary>
+        public static string PleaseSelectShop {
+            get {
+                return ResourceManager.GetString("PleaseSelectShop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stores are available you cannot delete.
         /// </summary>
         public static string StoresAreAvailable {

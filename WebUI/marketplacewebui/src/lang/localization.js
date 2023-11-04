@@ -53,6 +53,8 @@ const labels = {
         "cacheManagement":"Cache Management",
         "cacheAlert":"If you delete these records, your session will end.",
         "definition":"Definition",
+        "integrationManagment":"Integration",
+        "integrationType":"Integration Type",
     },
     tr: {
         "en": "tr",
@@ -106,6 +108,8 @@ const labels = {
         "cacheManagement":"Ön Bellek Yönetimi",
         "cacheAlert":"Bu kayıtları silerseniz oturumunuz sonlanacaktır.",
         "definition":"Açıklama",
+        "integrationManagment":"Entegrasyon",
+        "integrationType":"Entegrasyon Tipi",
     }
 };
 

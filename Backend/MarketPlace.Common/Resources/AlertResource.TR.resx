@@ -126,6 +126,9 @@
   <data name="OperationSuccess" xml:space="preserve">
     <value>İşlem Başarılı</value>
   </data>
+  <data name="PleaseSelectShop" xml:space="preserve">
+    <value>Mağaza seçiniz</value>
+  </data>
   <data name="StoresAreAvailable" xml:space="preserve">
     <value>Mağazalar mevcuttur silemezsiniz</value>
   </data>

@@ -51,7 +51,7 @@ namespace MarketPlace.Common.Extentions
                     {
                         return key;
                     }
-                    return resourceManager?.GetString(key, cultureInfo) ?? "";
+                    return resourceManager?.GetString(key, cultureInfo) ?? key;
                 }
             }
             return key;
@@ -82,7 +82,7 @@ namespace MarketPlace.Common.Extentions
                     {
                         return key;
                     }
-                    return resourceManager?.GetString(key, cultureInfo) ?? "";
+                    return resourceManager?.GetString(key, cultureInfo) ?? key;
                 }
 
             }
@@ -100,7 +100,7 @@ namespace MarketPlace.Common.Extentions
                 var entry = _resourceManager.GetResourceSet(new System.Globalization.CultureInfo(culture), true, true).GetString(key);
 
 
-                return entry?.ToString() ?? "";
+                return entry?.ToString() ?? key;
             }
             return key;
         }
