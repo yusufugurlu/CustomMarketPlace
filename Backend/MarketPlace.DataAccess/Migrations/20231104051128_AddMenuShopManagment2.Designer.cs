@@ -3,6 +3,7 @@ using System;
 using MarketPlace.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MarketPlace.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231104051128_AddMenuShopManagment2")]
+    partial class AddMenuShopManagment2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +90,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 479, DateTimeKind.Local).AddTicks(9540),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(490),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -237,7 +240,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(512),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1302),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -247,7 +250,7 @@ namespace MarketPlace.DataAccess.Migrations
                             Name = "SystemManagement",
                             OrderNumber = 1,
                             ParentId = 0,
-                            Path = "/systemManagement",
+                            Path = "/",
                             UIName = "systemManagement",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UpdatedUserId = 0
@@ -255,7 +258,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(516),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1306),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -273,7 +276,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(519),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1308),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -291,7 +294,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(522),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1311),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -309,7 +312,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(524),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1313),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -327,7 +330,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(527),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1315),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -345,7 +348,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(529),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1317),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -363,7 +366,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(532),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1319),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -381,7 +384,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(534),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1321),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -446,7 +449,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 479, DateTimeKind.Local).AddTicks(9963),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(871),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -460,7 +463,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 479, DateTimeKind.Local).AddTicks(9967),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(876),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -474,7 +477,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 479, DateTimeKind.Local).AddTicks(9995),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(878),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -488,7 +491,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 479, DateTimeKind.Local).AddTicks(9997),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(879),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -548,7 +551,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(781),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1549),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -561,7 +564,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(784),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1551),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -574,7 +577,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(786),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1553),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -587,7 +590,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(787),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1555),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -600,7 +603,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(789),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1556),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -613,7 +616,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(791),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1558),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -626,7 +629,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(793),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1559),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -639,7 +642,7 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(795),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1560),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
@@ -652,39 +655,13 @@ namespace MarketPlace.DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(797),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1562),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
                             IsDeleted = false,
                             MenuId = 9,
                             RoleId = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedUserId = 0
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(798),
-                            CreatedUserId = 0,
-                            DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedUserId = 0,
-                            IsDeleted = false,
-                            MenuId = 8,
-                            RoleId = 2,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UpdatedUserId = 0
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(800),
-                            CreatedUserId = 0,
-                            DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DeletedUserId = 0,
-                            IsDeleted = false,
-                            MenuId = 9,
-                            RoleId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UpdatedUserId = 0
                         });
@@ -773,7 +750,7 @@ namespace MarketPlace.DataAccess.Migrations
                         {
                             Id = 1,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2023, 11, 3, 23, 44, 35, 480, DateTimeKind.Local).AddTicks(249),
+                            CreatedDate = new DateTime(2023, 11, 3, 22, 11, 28, 345, DateTimeKind.Local).AddTicks(1105),
                             CreatedUserId = 0,
                             DeletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DeletedUserId = 0,
