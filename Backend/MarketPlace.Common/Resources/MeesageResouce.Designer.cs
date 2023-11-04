@@ -171,6 +171,15 @@ namespace MarketPlace.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Integration.
         /// </summary>
+        public static string Integration {
+            get {
+                return ResourceManager.GetString("Integration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integration.
+        /// </summary>
         public static string IntegrationManagment {
             get {
                 return ResourceManager.GetString("IntegrationManagment", resourceCulture);
@@ -228,6 +237,15 @@ namespace MarketPlace.Common.Resources {
         public static string True {
             get {
                 return ResourceManager.GetString("True", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shop Managment.
+        /// </summary>
+        public static string WorkplaceManagment {
+            get {
+                return ResourceManager.GetString("WorkplaceManagment", resourceCulture);
             }
         }
     }

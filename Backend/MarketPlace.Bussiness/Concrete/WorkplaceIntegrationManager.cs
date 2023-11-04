@@ -45,7 +45,6 @@ namespace MarketPlace.Bussiness.Concrete
                 else //updated
                 {
                     var integrationForWorkPlace = await _integrationForWorkPlaceRepository.Get(dto.Id);
-                    integrationForWorkPlace.IntegrationType = (IntegrationType)dto.IntegrationType;
                     integrationForWorkPlace.ApiSecret = dto.ApiSecret;
                     integrationForWorkPlace.ApiKey = dto.ApiKey;
                     integrationForWorkPlace.IdForApi = dto.IdForApi;

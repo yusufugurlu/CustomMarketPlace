@@ -16,6 +16,9 @@ const DataTable = (
         handlerDeleteButton,
         isActiveEditButton,
         handlerEditButton,
+        isActiveBuyButton,
+        handleBuyButton,
+
         isLoading }) => {
     const columns = React.useMemo(() => columnList, [columnList]);
 
@@ -25,7 +28,7 @@ const DataTable = (
         if (dataList.length > 0) {
             setData(dataList);
         }
-        else{
+        else {
             setData([]);
         }
     }, [dataList]);
@@ -144,6 +147,9 @@ const DataTable = (
     };
 
 
+    const handleBuyButton2=()=>{
+        handleBuyButton();
+    }
     return (
         !isLoading ? (
             <>
@@ -159,6 +165,12 @@ const DataTable = (
                                     {isActiveAddButton && (
                                         <Button variant="outline-primary" className="btn-icon btn-icon-start w-100 w-md-auto add-datatable" onClick={addButtonClick}>
                                             <CsLineIcons icon="plus" /> <span>{localization.strings().add}</span>
+                                        </Button>
+                                    )}
+
+                                    {isActiveBuyButton && (
+                                        <Button variant="outline-primary" className="btn-icon btn-icon-start w-100 w-md-auto add-datatable" onClick={handleBuyButton2}>
+                                            <CsLineIcons icon="shipping" /> <span>{localization.strings().buyNow}</span>
                                         </Button>
                                     )}
 

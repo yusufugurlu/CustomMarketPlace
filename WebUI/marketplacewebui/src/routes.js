@@ -151,6 +151,12 @@ const systemManagment = {
 };
 
 
+const workplaceManagment = {
+  integration: lazy(() => import('views/workplaceManagment/integration')),
+
+
+};
+
 const appRoot = DEFAULT_PATHS.APP.endsWith('/') ? DEFAULT_PATHS.APP.slice(1, DEFAULT_PATHS.APP.length) : DEFAULT_PATHS.APP;
 
 const routesAndMenuItems = {
@@ -180,6 +186,14 @@ const routesAndMenuItems = {
         { path: '/adminWorkplaces', label: 'createCompany', component: systemManagment.adminWorkplaces },
         { path: '/cacheManagment', label: 'createCompany', component: systemManagment.cacheManagment },
         { path: '/integrationManagment', label: 'createCompany', component: systemManagment.integrationManagment },
+      ],
+    },
+    {
+      path: `${appRoot}/workplaceManagment`,
+      label: 'workplaceManagment',
+      icon: 'home',
+      subs: [
+        { path: '/integration', label: 'settings', component: workplaceManagment.integration },
       ],
     }
     , {

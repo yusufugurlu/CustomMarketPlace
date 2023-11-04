@@ -55,6 +55,7 @@ const labels = {
         "definition":"Definition",
         "integrationManagment":"Integration",
         "integrationType":"Integration Type",
+        "buyNow":"Buy Now",
     },
     tr: {
         "en": "tr",
@@ -110,6 +111,7 @@ const labels = {
         "definition":"Açıklama",
         "integrationManagment":"Entegrasyon",
         "integrationType":"Entegrasyon Tipi",
+        "buyNow":"Hemen Satın Al",
     }
 };
 
