@@ -12,7 +12,7 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
     {
         
         public int WorkPlaceId { get; set; }
-        public WorkPlace WorkPlace { get; set; }
+        public virtual WorkPlace WorkPlace { get; set; }
         public virtual IntegrationType IntegrationType { get; set; }
         public string ApiKey { get; set; }
         public string ApiSecret { get; set; }

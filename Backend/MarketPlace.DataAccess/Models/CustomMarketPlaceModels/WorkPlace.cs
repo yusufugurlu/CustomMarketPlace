@@ -22,7 +22,7 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
         public int DistrictId { get; set; }
         public bool IsActive { get; set; }
         public int CompanyId { get; set; }
-        public Company Company { get; set; }
+        public virtual Company Company { get; set; }
         public ICollection<IntegrationForWorkPlace> IntegrationForWorkPlaces { get; set; }
 
 
