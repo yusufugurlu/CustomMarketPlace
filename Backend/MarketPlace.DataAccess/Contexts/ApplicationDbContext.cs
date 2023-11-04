@@ -43,7 +43,8 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new RoleMenuConfiguration());
             modelBuilder.ApplyConfiguration(new WorkplaceConfiguration());
             modelBuilder.ApplyConfiguration(new UserPasswordRecoveryConfiguration());
-            
+            modelBuilder.ApplyConfiguration(new IntegrationForWorkPlaceConfiguration());
+           
         }
 
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
