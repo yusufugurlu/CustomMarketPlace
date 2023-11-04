@@ -169,6 +169,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Integration Managment.
+        /// </summary>
+        public static string IntegrationManagment {
+            get {
+                return ResourceManager.GetString("IntegrationManagment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Male.
         /// </summary>
         public static string Male {

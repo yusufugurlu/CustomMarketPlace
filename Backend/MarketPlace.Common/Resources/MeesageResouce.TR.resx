@@ -153,6 +153,9 @@
   <data name="Hello" xml:space="preserve">
     <value>Merhaba</value>
   </data>
+  <data name="IntegrationManagment" xml:space="preserve">
+    <value>Entegrasyon Yönetimi</value>
+  </data>
   <data name="Male" xml:space="preserve">
     <value>Erkek</value>
   </data>
