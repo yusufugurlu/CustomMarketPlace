@@ -246,8 +246,9 @@ const adminUsers = () => {
                     getAuthCompanies();
                 }
                 else {
-                    customSweet.customSweetAlert(result.message, result.status, 2000);
+                    customSweet.customSweetAlert(result.message, "error", 2000);
                 }
+
                 setIsOpenAddModal(false);
                 handlerClear();
             });
@@ -262,7 +263,6 @@ const adminUsers = () => {
                 "gender": selectedGender,
             }
 
-            console.log(dto);
             setIsDataLoading(true);
             userService.createUser(dto).then((result) => {
                 if (result.status === 200) {
@@ -271,9 +271,10 @@ const adminUsers = () => {
                     getAuthCompanies();
                 }
                 else {
-                    customSweet.customSweetAlert(result.message, result.status, 2000);
+                    customSweet.customSweetAlert(result.message, "error", 2000);
                 }
                 setIsOpenAddModal(false);
+                setIsDataLoading(false);
                 handlerClear();
             });
         }

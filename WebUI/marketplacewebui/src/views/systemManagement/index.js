@@ -48,6 +48,12 @@ const PagesPage = () => {
       headingText={localization.strings().shopDefinition}
       descriptionText="Multiple blog pages for home, detail and listing layouts."
     />
+    <ListSection
+      icon="content"
+      to="/adminAllWorkplaces"
+      headingText={localization.strings().shopDefinition}
+      descriptionText="Multiple blog pages for home, detail and listing layouts."
+    />
   </Row>
 </section>
 <div style={{ height: '50px' }} />
