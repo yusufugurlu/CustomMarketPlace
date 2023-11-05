@@ -98,7 +98,11 @@ const ForgotPassword = () => {
             <Button size="lg" type="submit" disabled={isButtonDisabled}>
               Send Reset Email
             </Button>
+            
           </form>
+          <p className="h6 mt-3">
+  If you remember your password, please <NavLink to="/login">click here</NavLink> to return to the login page.
+</p>
         </div>
       </div>
     </div>

@@ -4,6 +4,26 @@ import { NavLink } from 'react-router-dom';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { localization } from 'lang/localization';
 
+const ListSection = ({ icon, to, headingText, descriptionText }) => {
+  return (
+    <Col>
+      <Card className="h-100">
+        <Card.Body className="row gx-4">
+          <Col xs="auto">
+            <CsLineIcons icon={icon} className="text-primary" />
+          </Col>
+          <Col>
+            <NavLink to={to} className="heading stretched-link d-block">
+              {headingText}
+            </NavLink>
+            <div className="text-muted">{descriptionText}</div>
+          </Col>
+        </Card.Body>
+      </Card>
+    </Col>
+  );
+};
+
 const PagesPage = () => {
   const title = 'Pages';
   const description = 'Layouts that are focused on different project needs. Contains html blocks and specific plugins that are fit for the context.';
@@ -13,85 +33,47 @@ const PagesPage = () => {
   return (
     <>
 
-      {/* List Items Start */}
-      <Row xs="1" sm="2" xl="3" className="g-2">
-        <Col>
-          <Card className="h-100">
-            <Card.Body className="row gx-4">
-              <Col xs="auto">
-                <CsLineIcons icon="lock-on" className="text-primary" />
-              </Col>
-              <Col>
-                <NavLink to="/adminCompanies" className="heading stretched-link d-block">
-                  {localization.strings().companyDefinition}
-                </NavLink>
-                <div className="text-muted">User verification, registration and recovery pages.</div>
-              </Col>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card className="h-100">
-            <Card.Body className="row gx-4">
-              <Col xs="auto">
-                <CsLineIcons icon="content" className="text-primary" />
-              </Col>
-              <Col>
-                <NavLink to="/adminWorkplaces" className="heading stretched-link d-block">
-                  {localization.strings().shopDefinition}
-                </NavLink>
-                <div className="text-muted">Multiple blog pages for home, detail and listing layouts.</div>
-              </Col>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card className="h-100">
-            <Card.Body className="row gx-4">
-              <Col xs="auto">
-                <CsLineIcons icon="layout-1" className="text-primary" />
-              </Col>
-              <Col>
-                <NavLink to="/integrationManagment" className="heading stretched-link d-block">
-                  {localization.strings().integrationManagment}
-                </NavLink>
-                <div className="text-muted">Various pages fit to use for error, faq, pricing and so on.</div>
-              </Col>
-            </Card.Body>
-          </Card>
-        </Col>
-
-        <Col>
-          <Card className="h-100">
-            <Card.Body className="row gx-4">
-              <Col xs="auto">
-                <CsLineIcons icon="layout-1" className="text-primary" />
-              </Col>
-              <Col>
-                <NavLink to="/adminUsers" className="heading stretched-link d-block">
-                  {localization.strings().userDefinitions}
-                </NavLink>
-                <div className="text-muted">Various pages fit to use for error, faq, pricing and so on.</div>
-              </Col>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card className="h-100">
-            <Card.Body className="row gx-4">
-              <Col xs="auto">
-                <CsLineIcons icon="suitcase" className="text-primary" />
-              </Col>
-              <Col>
-                <NavLink to="/cacheManagment" className="heading stretched-link d-block">
-                  {localization.strings().cacheManagement}
-                </NavLink>
-                <div className="text-muted">Collection of thumbnails and detail page to showcase work.</div>
-              </Col>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+<section className="scroll-section" id="multipleInputs">
+  <h2 className="small-title">Multiple Inputs</h2>
+  <Row xs="1" sm="2" xl="3" className="g-2">
+    <ListSection
+      icon="lock-on"
+      to="/adminCompanies"
+      headingText={localization.strings().companyDefinition}
+      descriptionText="User verification, registration and recovery pages."
+    />
+    <ListSection
+      icon="content"
+      to="/adminWorkplaces"
+      headingText={localization.strings().shopDefinition}
+      descriptionText="Multiple blog pages for home, detail and listing layouts."
+    />
+  </Row>
+</section>
+<div style={{ height: '50px' }} />
+<section className="scroll-section" id="multipleInputs">
+  <h2 className="small-title">Multiple Inputs</h2>
+  <Row xs="1" sm="2" xl="3" className="g-2">
+    <ListSection
+      icon="layout-1"
+      to="/integrationManagment"
+      headingText={localization.strings().integrationManagment}
+      descriptionText="Various pages fit to use for error, faq, pricing and so on."
+    />
+    <ListSection
+      icon="layout-1"
+      to="/adminUsers"
+      headingText={localization.strings().userDefinitions}
+      descriptionText="Various pages fit to use for error, faq, pricing and so on."
+    />
+    <ListSection
+      icon="suitcase"
+      to="/cacheManagment"
+      headingText={localization.strings().cacheManagement}
+      descriptionText="Collection of thumbnails and detail page to showcase work."
+    />
+  </Row>
+</section>
       {/* List Items End */}
     </>
   );
