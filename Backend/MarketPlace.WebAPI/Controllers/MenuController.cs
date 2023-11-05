@@ -43,5 +43,30 @@ namespace MarketPlace.WebAPI.Controllers
             response.Success = result.IsSuccess;
             return BadRequest(response);
         }
+
+
+        [HttpGet("{path}")]
+        public async Task<IActionResult> GetBreadcrumbs(string path)
+        {
+            var lang = CurrentUser.GetCulture();
+            var result = await _menuService.GetBreadcrumbs(path, lang);
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Ok(response);
+        }
     }
 }

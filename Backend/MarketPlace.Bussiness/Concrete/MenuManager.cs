@@ -4,6 +4,7 @@ using MarketPlace.Bussiness.UnitOfWorks;
 using MarketPlace.Common.Extentions;
 using MarketPlace.Common.Helper;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
+using MarketPlace.DataTransfer.Dtos.Breadcrumb;
 using MarketPlace.DataTransfer.Dtos.Menus;
 using MarketPlace.DataTransfer.ServiceResults;
 using Microsoft.EntityFrameworkCore;
@@ -52,10 +53,10 @@ namespace MarketPlace.Bussiness.Concrete
         public async Task<ServiceResult> GetMenus(string lang, int userId)
         {
             var menuDtos = new List<MenuDto>();
-          
+
             var user = await _userRepository.Get(userId);
             var roleMenus = await _roleMenuRepository.GetAllToList(x => !x.IsDeleted && x.RoleId == user.RoleId);
-            List<Menu> menus = (await GetMenusFromCacheOrDatabase()).Where(x=> roleMenus.Select(y=>y.MenuId).AsEnumerable().Contains(x.Id)).ToList();
+            List<Menu> menus = (await GetMenusFromCacheOrDatabase()).Where(x => roleMenus.Select(y => y.MenuId).AsEnumerable().Contains(x.Id)).ToList();
 
             if (menus.Count > 0)
             {
@@ -104,6 +105,43 @@ namespace MarketPlace.Bussiness.Concrete
             }
 
             return menuDtos;
+        }
+
+        public async Task<ServiceResult> GetBreadcrumbs(string path, string lang)
+        {
+            List<BreadcrumbDto> breadcrumbDtos = new List<BreadcrumbDto>();
+            var menus = await GetMenusFromCacheOrDatabase();
+            if (menus.Count > 0)
+            {
+                var selectedMenu = menus.FirstOrDefault(x => x.UIName == path);
+                if (selectedMenu != null)
+                {
+                    int parentId = selectedMenu.ParentId;
+                    breadcrumbDtos.Add(new BreadcrumbDto()
+                    {
+                        To = selectedMenu.UIName,
+                        Text = selectedMenu.Name.GetMessageResourceValue(lang),
+                    });
+
+                    do
+                    {
+                        var parentMenu = menus.FirstOrDefault(x =>x.Id == parentId);
+                        parentId = parentMenu?.ParentId ?? 0;
+                        if (parentMenu != null)
+                        {
+                            breadcrumbDtos.Add(new BreadcrumbDto()
+                            {
+                                To = parentMenu.UIName,
+                                Text = parentMenu.Name.GetMessageResourceValue(lang),
+                            });
+                        }
+
+                    }
+                    while (parentId > 0);
+                }
+            }
+            breadcrumbDtos.Reverse();
+            return Result.Success("", 200, data: breadcrumbDtos);
         }
     }
 }

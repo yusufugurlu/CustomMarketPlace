@@ -12,5 +12,6 @@ namespace MarketPlace.Bussiness.Abstract
     {
         Task<ServiceResult> GetMenus(string lang,int userId);
         Task<List<Menu>> GetMenusFromCacheOrDatabase();
+        Task<ServiceResult> GetBreadcrumbs(string path, string lang);
     }
 }
