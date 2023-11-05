@@ -220,6 +220,12 @@ const adminUsers = () => {
 
     const handleSave = (e) => {
 
+        if (data.length >= 5) {
+            setIsOpenAddModal(false);
+            customSweet.customSweetAlert("Maksimum 5 adet kullanıcı tanımlayabilirsiniz.", "error", 2000);
+            return;
+        }
+
         if (userId > 0) {
             const dto = {
                 "id": userId,

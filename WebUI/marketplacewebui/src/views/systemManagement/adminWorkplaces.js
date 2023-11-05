@@ -109,6 +109,7 @@ const adminWorkplaces = () => {
   const handlerAdd = () => {
     handlerClear();
     setIsOpenAddModal(true);
+    
   }
 
   const handlerDelete = (selectedRowIds) => {
@@ -152,6 +153,12 @@ const adminWorkplaces = () => {
   }
 
   const handleSave = (e) => {
+    if (data.length >= 3) {
+      setIsOpenAddModal(false);
+      customSweet.customSweetAlert("Maksimum 3 adet mağaza tanımlayabilirsiniz.", "error", 2000);
+      return;
+    }
+
     const dto = {
       "id": workplaceId,
       "name": workplaceName,

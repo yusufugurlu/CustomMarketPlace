@@ -36,7 +36,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("MarketPlace.DataAccess.Models.CustomMarketPlaceModels.Company", b =>
@@ -81,7 +81,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
 
                     b.HasData(
                         new
@@ -119,7 +119,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Districts");
+                    b.ToTable("Districts", (string)null);
                 });
 
             modelBuilder.Entity("MarketPlace.DataAccess.Models.CustomMarketPlaceModels.IntegrationForWorkPlace", b =>
@@ -172,7 +172,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasIndex("WorkPlaceId");
 
-                    b.ToTable("IntegrationForWorkPlaces");
+                    b.ToTable("IntegrationForWorkPlaces", (string)null);
                 });
 
             modelBuilder.Entity("MarketPlace.DataAccess.Models.CustomMarketPlaceModels.Menu", b =>
@@ -231,7 +231,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Menus");
+                    b.ToTable("Menus", (string)null);
 
                     b.HasData(
                         new
@@ -440,7 +440,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -542,7 +542,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleMenus");
+                    b.ToTable("RoleMenus", (string)null);
 
                     b.HasData(
                         new
@@ -766,7 +766,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -837,7 +837,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserPasswordRecoveries");
+                    b.ToTable("UserPasswordRecoveries", (string)null);
                 });
 
             modelBuilder.Entity("MarketPlace.DataAccess.Models.CustomMarketPlaceModels.WorkPlace", b =>
@@ -897,7 +897,7 @@ namespace MarketPlace.DataAccess.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("WorkPlaces");
+                    b.ToTable("WorkPlaces", (string)null);
                 });
 
             modelBuilder.Entity("MarketPlace.DataAccess.Models.CustomMarketPlaceModels.District", b =>
