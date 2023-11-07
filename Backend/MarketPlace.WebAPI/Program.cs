@@ -90,7 +90,21 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = builder.Configuration["Token:Audience"], // Güvenilen 'audience'
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Token:SecurityKey"]?.ToString() ?? "")),
     };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.HttpContext.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chatHub"))
+            {
+                context.Token = accessToken;
+            }
+            return Task.CompletedTask;
+        }
+    };
 });
+
 
 
 
@@ -100,6 +114,8 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ILoggerService, LoggerManager>();
 builder.Services.AddScoped<IUnitOfWorks, UnitOfWorks>();
 builder.Services.AddScoped<IUnitOfWorksLog, UnitOfWorksLog>();
+builder.Services.AddScoped<IHubService, ChatHub>();
+
 
 builder.Services.AddScoped<IAccountService, AccountManager>();
 builder.Services.AddScoped<IUserAuthorizedLogService, UserAuthorizedLogManager>();
@@ -115,6 +131,12 @@ builder.Services.AddScoped<IUserPasswordRecoveryService, UserPasswordRecoveryMan
 builder.Services.AddScoped<IEmailService, EmailManager>();
 builder.Services.AddScoped<IWorkplaceIntegrationService, WorkplaceIntegrationManager>();
 
+
+builder.Services.AddSignalR(options =>
+{
+    options.EnableDetailedErrors = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -126,6 +148,21 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("_testPolicy");
 
+app.UseRouting(); // Routing middleware'i ekleyin
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    endpoints.MapHub<ChatHub>("/chatHub", options =>
+    {
+        options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+    });
+});
+
 
 CurrentUser.Configure(app.Services.GetRequiredService<IHttpContextAccessor>());
 
@@ -135,7 +172,6 @@ app.UseErrorHandlingMiddleware();
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 
 app.MapControllers();
 

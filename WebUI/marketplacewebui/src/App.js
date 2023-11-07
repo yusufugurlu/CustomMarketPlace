@@ -15,6 +15,7 @@ import { getRoutes } from 'routing/helper';
 import { routes } from 'routes.js';
 import Loading from 'components/loading/Loading';
 import { baseUrlRequest } from 'Services/baseUrlRequest';
+import SignalRListener from 'signalR/SignalRListener';
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
   if (routes1) {
     return (
       <Layout>
+        <SignalRListener />
         <RouteIdentifier isLoggedIn={isLoggedIn} routes={routes1} fallback={<Loading />} />
       </Layout>
     );

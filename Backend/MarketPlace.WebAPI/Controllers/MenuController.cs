@@ -1,9 +1,11 @@
 ﻿using MarketPlace.Bussiness.Abstract;
+using MarketPlace.Bussiness.Concrete;
 using MarketPlace.Common.HttpContent;
 using MarketPlace.DataTransfer.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace MarketPlace.WebAPI.Controllers
 {
@@ -13,15 +15,18 @@ namespace MarketPlace.WebAPI.Controllers
     public class MenuController : ControllerBase
     {
         private readonly IMenuService _menuService;
-        public MenuController(IMenuService menuService)
+        private readonly IHubContext<ChatHub> _hubService;
+        public MenuController(IMenuService menuService, IHubContext<ChatHub> hubService)
         {
             _menuService = menuService;
+            _hubService = hubService;
         }
 
 
         [HttpGet]
         public async Task<IActionResult> GetMenus()
         {
+            await _hubService.Clients.All.SendAsync("ReceiveMessage", "test");
             string lang = CurrentUser.GetCulture();
             var userId= CurrentUser.UserId();
             var result = await _menuService.GetMenus(lang, userId);
