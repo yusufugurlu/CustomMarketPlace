@@ -16,11 +16,11 @@ function customSweetAlert(message, type, time, footer) {
     if (type === "success") {
         options = {
             position: "top-end",
-            type: "success",
             title: message,
             showConfirmButton: false, 
             timer: time,
-            heightAuto: false
+            heightAuto: false,
+            icon: "success"
         };
     } else if (type === "error") {
         options = {
