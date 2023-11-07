@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import DataTable from 'customCompanents/DataTables/dataTable';
 import { localization } from 'lang/localization';
 import {  Form } from 'react-bootstrap';
@@ -8,6 +9,8 @@ import Cookies from 'js-cookie';
 
 
 const cacheManagment = () => {
+  const history = useHistory();
+
   const [data, setData] = React.useState([]);
   const [isDataLoading, setIsDataLoading] = React.useState(false);
 
@@ -47,7 +50,6 @@ const cacheManagment = () => {
   ];
 
   const handlerDelete = (selectedRowIds) => {
-    console.log(selectedRowIds);
     customSweet.customAlertQuestion(
       localization.strings().delete,
       localization.strings().cacheAlert,
@@ -60,11 +62,11 @@ const cacheManagment = () => {
         setIsDataLoading(true);
         commonService.deleteDatas(dtos).then((result) => {
           if (result.status === 200) {
-            customSweet.customSweetAlert(result.message, "success", 2000);
             const currentUser = Cookies.get("currentUser");
             if (currentUser) {
                 Cookies.remove("currentUser");
             }
+            history.push("/login");
           }
           else {
             customSweet.customSweetAlert(result.message, "error", 2000);
