@@ -135,6 +135,9 @@
   <data name="UserDoesntExist" xml:space="preserve">
     <value>Kullanıcı bulunamadı</value>
   </data>
+  <data name="YouCanChooseOneOfSameTypeOfIntegration" xml:space="preserve">
+    <value>Bir mağazaya aynı entegrasyon türünden bir tane seçebilirsiniz.</value>
+  </data>
   <data name="YourProcessingTimeHasExpired" xml:space="preserve">
     <value>İşlem süreniz dolmuştur</value>
   </data>

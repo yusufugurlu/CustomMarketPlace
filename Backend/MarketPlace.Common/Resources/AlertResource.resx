@@ -135,6 +135,9 @@
   <data name="UserDoesntExist" xml:space="preserve">
     <value>User Doesn't Exist</value>
   </data>
+  <data name="YouCanChooseOneOfSameTypeOfIntegration" xml:space="preserve">
+    <value>You can choose one of the same type of integration to a store.</value>
+  </data>
   <data name="YourProcessingTimeHasExpired" xml:space="preserve">
     <value>Your processing time has expired</value>
   </data>

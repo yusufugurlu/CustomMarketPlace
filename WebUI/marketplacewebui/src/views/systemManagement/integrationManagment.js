@@ -117,6 +117,7 @@ const integrationManagment = () => {
         setIdForApi("");
         setIsOpenAddModal(false);
         setWorkplaceIntegrationId(0);
+        setSelectedIntegrationType(0);
         setApiKey("");
     }
 
