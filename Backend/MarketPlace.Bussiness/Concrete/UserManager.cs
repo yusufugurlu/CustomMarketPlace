@@ -214,5 +214,33 @@ namespace MarketPlace.Bussiness.Concrete
                 return Result.Fail(validationEmail);
             }
         }
+
+        public async Task<ServiceResult> CreateUserForNormalRole(CreateUserDto dto, string lang)
+        {
+            var users = await _userRepository.GetAllToList(x => !x.IsDeleted && x.Email == dto.Email);
+            if (!users.Any() && dto.RoleId !=(int) RoleType.SuperAdmin )
+            {
+                var userModel = new User()
+                {
+                    Name = dto.Name,
+                    SurName = dto.SurName,
+                    Email = dto.Email,
+                    Phone = dto.Phone,
+                    CompanyId = dto.CompanyId,
+                    SelectedCompany = dto.CompanyId,
+                    Gender = (Gender)dto.Gender,
+                    SelectedLanguage = lang == "tr" ? LanguageType.TR : LanguageType.EN,
+                    RoleId = dto.RoleId,
+                    Password = "",
+                };
+                await _userRepository.Add(userModel);
+                return await _unitOfWorks.SaveChanges();
+            }
+            else
+            {
+                var validationEmail = string.Format("EmalIsUsed".GetAlertResourceValue(lang), dto.Email);
+                return Result.Fail(validationEmail);
+            }
+        }
     }
 }

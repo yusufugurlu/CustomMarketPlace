@@ -2,6 +2,7 @@
 using MarketPlace.Bussiness.Abstract;
 using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
+using MarketPlace.Common.Helper;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.ServiceResults;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +44,7 @@ namespace MarketPlace.Bussiness.Concrete
             try
             {
                 var systemParameter = await _systemParameterService.GetSystemParameterFromCacheOrDatabase();
+                string password = EncryptionHelper.Decrypt(systemParameter.SmtpPassword);
                 using (var client = new SmtpClient(systemParameter.SmtpHost))
                 {
                     var mail = new MailMessage
@@ -60,7 +62,7 @@ namespace MarketPlace.Bussiness.Concrete
                     mail.Body = HttpUtility.HtmlDecode(htmlContent);
 
                     //Şifreyi ikili doğrulamaya açıp mail seçilip oradan application password alınmalıdır.
-                    client.Credentials = new System.Net.NetworkCredential(systemParameter.SmtpUserName, systemParameter.SmtpPassword);
+                    client.Credentials = new System.Net.NetworkCredential(systemParameter.SmtpUserName, password);
                     client.EnableSsl = true;
                     client.Port = systemParameter.SmtpPort;
                     client.Send(mail);

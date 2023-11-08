@@ -18,5 +18,6 @@ namespace MarketPlace.Bussiness.Abstract
         Task<ServiceResult> GetUser(int userId, string lang);
         Task<ServiceResult> UpdateUser(EditUserParameterDto dto, string lang);
         Task<ServiceResult> DeleteUsers(List<int> userIds, string lang);
+        Task<ServiceResult> CreateUserForNormalRole(CreateUserDto dto, string lang);
     }
 }

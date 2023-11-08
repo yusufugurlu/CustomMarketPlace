@@ -21,8 +21,15 @@ async function getIntegrationType() {
     return result;
 }
 
+async function getRolesForNormalRole() {
+    const url = "api/Enum/GetRolesForNormalRole";
+    const result = await baseUrlRequest.fetchData(url);
+    return result;
+}
+
 export const enumService = {
     getRoles,
     getGenders,
     getIntegrationType,
+    getRolesForNormalRole,
 };  

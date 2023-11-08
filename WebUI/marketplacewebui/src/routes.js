@@ -156,7 +156,7 @@ const systemManagment = {
 const workplaceManagment = {
   integration: lazy(() => import('views/workplaceManagment/integration')),
   workplaces: lazy(() => import('views/workplaceManagment/workplaces')),
-
+  users: lazy(() => import('views/workplaceManagment/users')),
 };
 
 const appRoot = DEFAULT_PATHS.APP.endsWith('/') ? DEFAULT_PATHS.APP.slice(1, DEFAULT_PATHS.APP.length) : DEFAULT_PATHS.APP;
@@ -199,6 +199,7 @@ const routesAndMenuItems = {
       subs: [
         { path: '/integration', label: 'settings', component: workplaceManagment.integration },
         { path: '/workplaces', label: 'settings', component: workplaceManagment.workplaces },
+        { path: '/users', label: 'settings', component: workplaceManagment.users },
       ],
     }
     , {

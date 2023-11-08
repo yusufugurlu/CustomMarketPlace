@@ -13,5 +13,6 @@ namespace MarketPlace.Bussiness.Abstract
         Task<List<EnumBaseDto>> GetRoles();
         Task<List<EnumBaseDto>> GetGenders();
         Task<List<EnumBaseDto>> GetIntegrationType();
+        Task<List<EnumBaseDto>> GetRolesForNormalRole();
     }
 }
