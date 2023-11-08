@@ -183,7 +183,13 @@
   <data name="True" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
   <data name="WorkplaceManagment" xml:space="preserve">
     <value>Shop Managment</value>
+  </data>
+  <data name="Workplaces" xml:space="preserve">
+    <value>Workplaces</value>
   </data>
 </root>

@@ -259,11 +259,29 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string Users {
+            get {
+                return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shop Managment.
         /// </summary>
         public static string WorkplaceManagment {
             get {
                 return ResourceManager.GetString("WorkplaceManagment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workplaces.
+        /// </summary>
+        public static string Workplaces {
+            get {
+                return ResourceManager.GetString("Workplaces", resourceCulture);
             }
         }
     }

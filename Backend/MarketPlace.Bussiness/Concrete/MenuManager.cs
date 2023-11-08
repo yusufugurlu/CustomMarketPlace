@@ -19,6 +19,7 @@ namespace MarketPlace.Bussiness.Concrete
         private readonly IGenericRepository<RoleMenu> _roleMenuRepository;
         private readonly IRedisService _redisService;
         private readonly IGenericRepository<User> _userRepository;
+        private readonly IGenericRepository<Role> _roleRepository;
         public MenuManager(IUnitOfWorks unitOfWorks, IRedisService redisService)
         {
             _unitOfWorks = unitOfWorks;
@@ -26,6 +27,7 @@ namespace MarketPlace.Bussiness.Concrete
             _roleMenuRepository = _unitOfWorks.GetGenericRepository<RoleMenu>();
             _userRepository = _unitOfWorks.GetGenericRepository<User>();
             _redisService = redisService;
+            _roleRepository = _unitOfWorks.GetGenericRepository<Role>();
 
         }
 
@@ -55,8 +57,12 @@ namespace MarketPlace.Bussiness.Concrete
             var menuDtos = new List<MenuDto>();
 
             var user = await _userRepository.Get(userId);
+            var role = await _roleRepository.Get(user.RoleId);
+            //Eğer süper adminse bütün sayfaları görebilecek.
+            bool doesHasSuperAdmin = role.RoleType == Common.Enums.RoleType.SuperAdmin;
+
             var roleMenus = await _roleMenuRepository.GetAllToList(x => !x.IsDeleted && x.RoleId == user.RoleId);
-            List<Menu> menus = (await GetMenusFromCacheOrDatabase()).Where(x => roleMenus.Select(y => y.MenuId).AsEnumerable().Contains(x.Id)).ToList();
+            List<Menu> menus = (await GetMenusFromCacheOrDatabase()).Where(x => doesHasSuperAdmin || roleMenus.Select(y => y.MenuId).AsEnumerable().Contains(x.Id)).ToList();
 
             if (menus.Count > 0)
             {
@@ -125,7 +131,7 @@ namespace MarketPlace.Bussiness.Concrete
 
                     do
                     {
-                        var parentMenu = menus.FirstOrDefault(x =>x.Id == parentId);
+                        var parentMenu = menus.FirstOrDefault(x => x.Id == parentId);
                         parentId = parentMenu?.ParentId ?? 0;
                         if (parentMenu != null)
                         {
