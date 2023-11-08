@@ -241,6 +241,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to System Parameters.
+        /// </summary>
+        public static string SystemParameter {
+            get {
+                return ResourceManager.GetString("SystemParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string True {

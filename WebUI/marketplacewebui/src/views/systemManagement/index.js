@@ -33,53 +33,59 @@ const PagesPage = () => {
   return (
     <>
 
-<section className="scroll-section" id="multipleInputs">
-  <h2 className="small-title">Multiple Inputs</h2>
-  <Row xs="1" sm="2" xl="3" className="g-2">
-    <ListSection
-      icon="lock-on"
-      to="/adminCompanies"
-      headingText={localization.strings().companyDefinition}
-      descriptionText="User verification, registration and recovery pages."
-    />
-    <ListSection
-      icon="content"
-      to="/adminWorkplaces"
-      headingText={localization.strings().shopDefinition}
-      descriptionText="Multiple blog pages for home, detail and listing layouts."
-    />
-    <ListSection
-      icon="content"
-      to="/adminAllWorkplaces"
-      headingText={localization.strings().shopDefinition}
-      descriptionText="Multiple blog pages for home, detail and listing layouts."
-    />
-  </Row>
-</section>
-<div style={{ height: '50px' }} />
-<section className="scroll-section" id="multipleInputs">
-  <h2 className="small-title">Multiple Inputs</h2>
-  <Row xs="1" sm="2" xl="3" className="g-2">
-    <ListSection
-      icon="layout-1"
-      to="/integrationManagment"
-      headingText={localization.strings().integrationManagment}
-      descriptionText="Various pages fit to use for error, faq, pricing and so on."
-    />
-    <ListSection
-      icon="layout-1"
-      to="/adminUsers"
-      headingText={localization.strings().userDefinitions}
-      descriptionText="Various pages fit to use for error, faq, pricing and so on."
-    />
-    <ListSection
-      icon="suitcase"
-      to="/cacheManagment"
-      headingText={localization.strings().cacheManagement}
-      descriptionText="Collection of thumbnails and detail page to showcase work."
-    />
-  </Row>
-</section>
+      <section className="scroll-section" id="multipleInputs">
+        <h2 className="small-title">Multiple Inputs</h2>
+        <Row xs="1" sm="2" xl="3" className="g-2">
+          <ListSection
+            icon="lock-on"
+            to="/adminCompanies"
+            headingText={localization.strings().companyDefinition}
+            descriptionText="User verification, registration and recovery pages."
+          />
+          <ListSection
+            icon="content"
+            to="/adminWorkplaces"
+            headingText={localization.strings().shopDefinition}
+            descriptionText="Multiple blog pages for home, detail and listing layouts."
+          />
+          <ListSection
+            icon="content"
+            to="/adminAllWorkplaces"
+            headingText={localization.strings().shopDefinition}
+            descriptionText="Multiple blog pages for home, detail and listing layouts."
+          />
+        </Row>
+      </section>
+      <div style={{ height: '50px' }} />
+      <section className="scroll-section" id="multipleInputs">
+        <h2 className="small-title">Multiple Inputs</h2>
+        <Row xs="1" sm="2" xl="3" className="g-2">
+          <ListSection
+            icon="layout-1"
+            to="/integrationManagment"
+            headingText={localization.strings().integrationManagment}
+            descriptionText="Various pages fit to use for error, faq, pricing and so on."
+          />
+          <ListSection
+            icon="layout-1"
+            to="/adminUsers"
+            headingText={localization.strings().userDefinitions}
+            descriptionText="Various pages fit to use for error, faq, pricing and so on."
+          />
+          <ListSection
+            icon="suitcase"
+            to="/cacheManagment"
+            headingText={localization.strings().cacheManagement}
+            descriptionText="Collection of thumbnails and detail page to showcase work."
+          />
+          <ListSection
+            icon="suitcase"
+            to="/systemParameter"
+            headingText={localization.strings().systemParameters}
+            descriptionText="Collection of thumbnails and detail page to showcase work."
+          />
+        </Row>
+      </section>
       {/* List Items End */}
     </>
   );

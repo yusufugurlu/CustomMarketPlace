@@ -177,6 +177,9 @@
   <data name="SystemManagement" xml:space="preserve">
     <value>System Management</value>
   </data>
+  <data name="SystemParameter" xml:space="preserve">
+    <value>System Parameters</value>
+  </data>
   <data name="True" xml:space="preserve">
     <value>Yes</value>
   </data>
