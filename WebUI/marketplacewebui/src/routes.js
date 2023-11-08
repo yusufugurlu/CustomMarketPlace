@@ -155,7 +155,7 @@ const systemManagment = {
 
 const workplaceManagment = {
   integration: lazy(() => import('views/workplaceManagment/integration')),
-
+  workplaces: lazy(() => import('views/workplaceManagment/workplaces')),
 
 };
 
@@ -198,6 +198,7 @@ const routesAndMenuItems = {
       icon: 'home',
       subs: [
         { path: '/integration', label: 'settings', component: workplaceManagment.integration },
+        { path: '/workplaces', label: 'settings', component: workplaceManagment.workplaces },
       ],
     }
     , {

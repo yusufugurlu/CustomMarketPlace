@@ -63,6 +63,7 @@ const labels = {
         "smtpPort":"SMTP Port",
         "maximumWorkplaceNumber":"Maximum Workplace Number",
         "maximumUserNumber":"Maximum User Number",
+        "shops":"Shops",
     },
     tr: {
         "en": "tr",
@@ -126,6 +127,7 @@ const labels = {
         "smtpPort":"SMTP Port",
         "maximumWorkplaceNumber":"Maksimum Mağaza Sayısı",
         "maximumUserNumber":"Maksimum Kullanıcı Sayısı",
+        "shops":"Mağazalar",
     }
 };
 

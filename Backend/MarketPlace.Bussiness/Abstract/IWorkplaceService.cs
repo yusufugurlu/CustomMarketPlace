@@ -16,5 +16,6 @@ namespace MarketPlace.Bussiness.Abstract
         Task<ServiceResult> CreateWorkPlace(CreateWorklaceDto dto);
         Task<ServiceResult> GetWorkPlace(int workplaceId);
         Task<ServiceResult> DeleteWorkPlace(DeleteWorkplaceDto dto);
+        Task<ServiceResult> UpdateWorkPlaceForCompanyAdmin(CreateWorklaceDto dto);
     }
 }

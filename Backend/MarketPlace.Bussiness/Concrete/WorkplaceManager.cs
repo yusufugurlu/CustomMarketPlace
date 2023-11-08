@@ -74,7 +74,7 @@ namespace MarketPlace.Bussiness.Concrete
         public async Task<ServiceResult> GetActiveWorkPlaces(int companyId)
         {
             string lang = CurrentUser.GetCulture();
-            var workPlaces = ((await _workplaceRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted && x.CompanyId == companyId && x.IsActive))).ToList();
+            var workPlaces = (await _workplaceRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted && x.CompanyId == companyId && x.IsActive)).ToList();
             List<WorkplaceDto> mapDtos = _mapper.Map<List<WorkplaceDto>>(workPlaces);
             mapDtos.ForEach((item) => { item.IsActiveByLang = item.IsActive.ToString().GetMessageResourceKey(lang); });
             return Result.Success("", 200, 0, mapDtos);
@@ -84,10 +84,25 @@ namespace MarketPlace.Bussiness.Concrete
         public async Task<ServiceResult> GetWorkPlaces(int companyId)
         {
             string lang = CurrentUser.GetCulture();
-            var workPlaces = ((await _workplaceRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted && x.CompanyId == companyId))).ToList();
+            var workPlaces = (await _workplaceRepository.GetAllWithOuthAsNoTracking(x => !x.IsDeleted && x.CompanyId == companyId)).ToList();
             List<WorkplaceDto> mapDtos = _mapper.Map<List<WorkplaceDto>>(workPlaces);
             mapDtos.ForEach((item) => { item.IsActiveByLang = item.IsActive.ToString().GetMessageResourceKey(lang); });
             return Result.Success("", 200, 0, mapDtos);
+        }
+
+        public async Task<ServiceResult> UpdateWorkPlaceForCompanyAdmin(CreateWorklaceDto dto)
+        {
+            if (dto != null)
+            {
+                var workplace = await _workplaceRepository.Get(dto.Id);
+                workplace.Name = dto.Name;
+                workplace.VKN = dto.VKN;
+                workplace.Code = dto.Code;
+                await _workplaceRepository.Update(workplace);
+                return await _unitOfWorks.SaveChanges();
+            }
+
+            return Result.Fail("", 500);
         }
     }
 }
