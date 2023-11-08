@@ -29,7 +29,9 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
     new Menu() { Id = 8, Name = "WorkplaceManagment", CreatedDate = DateTime.Now, Icon = "shop", OrderNumber = 2, Path = "/workplaceManagment", ParentId = 0, UIName = "WorkplaceManagment", IsHide = false, IsDeleted = false, },
     new Menu() { Id = 9, Name = "Integration", CreatedDate = DateTime.Now, Icon = "", OrderNumber = 2, Path = "/integration", ParentId = 8, UIName = "integration", IsHide = false, IsDeleted = false, },
     new Menu() { Id = 10, Name = "AdminAllWorkplaces", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/adminAllWorkplaces", ParentId = 2, UIName = "adminAllWorkplaces", IsHide = true, IsDeleted = false, },
-     new Menu() { Id = 11, Name = "SystemParameter", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/systemParameter", ParentId = 2, UIName = "systemParameter", IsHide = true, IsDeleted = false, }
+     new Menu() { Id = 11, Name = "SystemParameter", CreatedDate = DateTime.Now, Icon = "user", OrderNumber = 2, Path = "/systemParameter", ParentId = 2, UIName = "systemParameter", IsHide = true, IsDeleted = false, },
+     new Menu() { Id = 12, Name = "Workplaces", CreatedDate = DateTime.Now, Icon = "", OrderNumber = 2, Path = "/workplaces", ParentId = 8, UIName = "workplaces", IsHide = false, IsDeleted = false, },
+     new Menu() { Id = 13, Name = "Users", CreatedDate = DateTime.Now, Icon = "", OrderNumber = 2, Path = "/users", ParentId = 8, UIName = "users", IsHide = false, IsDeleted = false, }
     );
         }
     }

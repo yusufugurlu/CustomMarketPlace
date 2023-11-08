@@ -28,7 +28,9 @@ namespace MarketPlace.DataAccess.ModelConfigurations.CustomMarketPlaceConfigurat
             new RoleMenu() { Id = 8, RoleId = 1, MenuId = 8, CreatedDate = DateTime.Now, },
             new RoleMenu() { Id = 9, RoleId = 1, MenuId = 9, CreatedDate = DateTime.Now, },
             new RoleMenu() { Id = 10, RoleId = 2, MenuId = 8, CreatedDate = DateTime.Now, },
-            new RoleMenu() { Id = 11, RoleId = 2, MenuId = 9, CreatedDate = DateTime.Now, }
+            new RoleMenu() { Id = 11, RoleId = 2, MenuId = 9, CreatedDate = DateTime.Now, },
+            new RoleMenu() { Id = 12, RoleId = 2, MenuId = 12, CreatedDate = DateTime.Now, },
+             new RoleMenu() { Id = 13, RoleId = 2, MenuId = 13, CreatedDate = DateTime.Now, }
             );
         }
     }
