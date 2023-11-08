@@ -19,17 +19,11 @@ const workplaces = () => {
     const [data, setData] = React.useState([]);
     const [isDataLoading, setIsDataLoading] = React.useState(false);
     const [isOpenAddModal, setIsOpenAddModal] = React.useState(false);
-    const [apiSecret, setApiSecret] = React.useState("");
-    const [apiKey, setApiKey] = React.useState("");
-    const [idForApi, setIdForApi] = React.useState("");
-    const [workplaceIntegrationId, setWorkplaceIntegrationId] = React.useState(0);
-    const [selectedIntegrationType, setSelectedIntegrationType] = React.useState(null);
 
     const [workplaceName, setWorkplaceName] = React.useState("");
     const [code, setCode] = React.useState("");
     const [vkn, setVkn] = React.useState("");
     const [workplaceId, setWorkplaceId] = React.useState(0);
-    const [isActive, setIsActive] = React.useState(false);
 
     const getWorkplaces = () => {
 
@@ -59,7 +53,6 @@ const workplaces = () => {
                 setWorkplaceName(result.data.name);
                 setVkn(result.data.vkn);
                 setCode(result.data.code);
-                setIsActive(result.data.isActive);
                 setIsOpenAddModal(true);
             }
             else {
@@ -106,11 +99,11 @@ const workplaces = () => {
 
 
     const handlerClear = () => {
-        setApiSecret("");
-        setIdForApi("");
+        setWorkplaceName("");
+        setVkn("");
         setIsOpenAddModal(false);
-        setWorkplaceIntegrationId(0);
-        setApiKey("");
+        setWorkplaceId(0);
+        setCode("");
     }
 
 

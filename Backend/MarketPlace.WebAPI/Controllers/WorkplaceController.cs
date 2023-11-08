@@ -146,8 +146,7 @@ namespace MarketPlace.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateWorkPlaceForCompanyAdmin(CreateWorklaceDto dto)
         {
-            var companyId = SelectedCompany.SelectedCompanyId;
-            dto.CompanyId = companyId;
+
             var result = await _workplaceService.UpdateWorkPlaceForCompanyAdmin(dto);
             ServiceResponse response = new ServiceResponse();
             if (result.IsSuccess)
