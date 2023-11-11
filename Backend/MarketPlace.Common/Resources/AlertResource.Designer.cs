@@ -115,6 +115,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can choose one of the same type of integration to a store..
+        /// </summary>
+        public static string YouCanChooseOneOfSameTypeOfIntegration {
+            get {
+                return ResourceManager.GetString("YouCanChooseOneOfSameTypeOfIntegration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your processing time has expired.
         /// </summary>
         public static string YourProcessingTimeHasExpired {

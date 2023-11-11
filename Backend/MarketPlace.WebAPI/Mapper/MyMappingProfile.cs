@@ -3,6 +3,7 @@ using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos.Company;
 using MarketPlace.DataTransfer.Dtos.Errors;
+using MarketPlace.DataTransfer.Dtos.SystemParameter;
 using MarketPlace.DataTransfer.Dtos.UserAuthorizedLogs;
 using MarketPlace.DataTransfer.Dtos.UserPasswordRecovery;
 using MarketPlace.DataTransfer.Dtos.Workplace;
@@ -24,7 +25,8 @@ namespace MarketPlace.WebAPI.Mapper
             CreateMap<UserPasswordRecoveryDto, UserPasswordRecovery>().ReverseMap();
             CreateMap<CreateWorkplaceIntegrationDto, IntegrationForWorkPlace>().ReverseMap();
             CreateMap<WorkplaceIntegrationViewDto, IntegrationForWorkPlace>().ReverseMap();
-            
+            CreateMap<SystemParameterDto, SystemParameter>().ReverseMap();
+
         }
     }
 }

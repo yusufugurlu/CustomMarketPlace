@@ -16,19 +16,19 @@ function customSweetAlert(message, type, time, footer) {
     if (type === "success") {
         options = {
             position: "top-end",
-            type: "success",
             title: message,
             showConfirmButton: false, 
             timer: time,
-            heightAuto: false
+            heightAuto: false,
+            icon: "success"
         };
     } else if (type === "error") {
         options = {
-            type: "error",
             title: localization.strings().error,
             text: message,
             confirmButtonText: localization.strings().ok,
-            heightAuto: false
+            heightAuto: false,
+            icon: "error"
         };
     } else if (type === "warning") {
         options = {
@@ -36,7 +36,8 @@ function customSweetAlert(message, type, time, footer) {
             title: localization.strings().warning,
             text: message,
             confirmButtonText: localization.strings().ok,
-            heightAuto: false
+            heightAuto: false,
+            icon: "warning"
         };
     } else if (type === "info") {
         options = {

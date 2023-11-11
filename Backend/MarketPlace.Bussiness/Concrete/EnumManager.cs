@@ -30,5 +30,12 @@ namespace MarketPlace.Bussiness.Concrete
             var lang = CurrentUser.GetCulture();
             return EnumHelper.GetAllEnumBaseDtos<RoleType>(lang);
         }
+
+        public async Task<List<EnumBaseDto>> GetRolesForNormalRole()
+        {
+            var lang = CurrentUser.GetCulture();
+            var result= EnumHelper.GetAllEnumBaseDtos<RoleType>(lang);
+            return result.Where(x=>x.Id == (int)RoleType.CompanyAdmin || x.Id == (int)RoleType.CompanyUser).ToList();
+        }
     }
 }

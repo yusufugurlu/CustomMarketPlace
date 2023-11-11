@@ -31,6 +31,7 @@ namespace MarketPlace.DataAccess.Contexts
         public DbSet<WorkPlace> WorkPlaces { get; set; }
         public DbSet<IntegrationForWorkPlace> IntegrationForWorkPlaces { get; set; }
         public DbSet<UserPasswordRecovery> UserPasswordRecoveries { get; set; }
+        public DbSet<SystemParameter> SystemParameters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,7 +45,8 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new WorkplaceConfiguration());
             modelBuilder.ApplyConfiguration(new UserPasswordRecoveryConfiguration());
             modelBuilder.ApplyConfiguration(new IntegrationForWorkPlaceConfiguration());
-           
+            modelBuilder.ApplyConfiguration(new SystemParameterConfiguration());
+
         }
 
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)

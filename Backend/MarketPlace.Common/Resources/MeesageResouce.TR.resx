@@ -177,10 +177,19 @@
   <data name="SystemManagement" xml:space="preserve">
     <value>Sistem Yönetimi</value>
   </data>
+  <data name="SystemParameter" xml:space="preserve">
+    <value>Sistem Parametreleri</value>
+  </data>
   <data name="True" xml:space="preserve">
     <value>Evet</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Kullanıcılar</value>
+  </data>
   <data name="WorkplaceManagment" xml:space="preserve">
     <value>Mağaza Yönetimi</value>
+  </data>
+  <data name="Workplaces" xml:space="preserve">
+    <value>Mağazalar</value>
   </data>
 </root>

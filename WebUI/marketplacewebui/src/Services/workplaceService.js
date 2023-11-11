@@ -33,10 +33,18 @@ async function getWorkPlaces() {
     return result;
 }
 
+async function updateWorkPlaceForCompanyAdmin(dto) {
+    const url = "api/Workplace/UpdateWorkPlaceForCompanyAdmin";
+    const result = await baseUrlRequest.postData(url,dto);
+    return result;
+}
+
+
 export const workplaceService = {
     getActiveWorkPlaces,
     createWorkPlace,
     getWorkPlace,
     deleteWorkPlaces,
     getWorkPlaces,
+    updateWorkPlaceForCompanyAdmin,
 };  

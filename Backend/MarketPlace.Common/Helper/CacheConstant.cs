@@ -11,6 +11,7 @@ namespace MarketPlace.Common.Helper
     {
         public readonly static string MenuCache = "MarketPlace.Menus";
         public readonly static string SelectedCompany = "MarketPlace.SelectedCompany";
+        public readonly static string SystemParameter = "MarketPlace.SystemParameter";
         public static string RedisConnection { get; set; } = "";
 
         public readonly static List<CacheConstantDto> listOfKeyDefinitions = new List<CacheConstantDto>()
@@ -26,6 +27,12 @@ namespace MarketPlace.Common.Helper
                 Key="MarketPlace.SelectedCompany",
                 IsGlobal=false,
                 Definition="Sistemi kullanan kişilerin seçili şirket ve iş yerlerinin id' lerin bilgilerini listeler."
+            },
+             new CacheConstantDto()
+            {
+                Key="MarketPlace.SystemParameter",
+                IsGlobal=true,
+                Definition="Sistem için genel bilgileri tutar (Örnek smtp bilgiler v.b.)"
             },
         };
     }

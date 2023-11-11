@@ -56,6 +56,14 @@ const labels = {
         "integrationManagment":"Integration",
         "integrationType":"Integration Type",
         "buyNow":"Buy Now",
+        "systemParameters":"System Parameters",
+        "smtpHost":"SMTP Host",
+        "smtpUserName":"SMTP User Name",
+        "smtpPassword":"SMTP Password",
+        "smtpPort":"SMTP Port",
+        "maximumWorkplaceNumber":"Maximum Workplace Number",
+        "maximumUserNumber":"Maximum User Number",
+        "shops":"Shops",
     },
     tr: {
         "en": "tr",
@@ -112,6 +120,14 @@ const labels = {
         "integrationManagment":"Entegrasyon",
         "integrationType":"Entegrasyon Tipi",
         "buyNow":"Hemen Satın Al",
+        "systemParameters":"Sistem Parametreleri",
+        "smtpHost":"SMTP Alan Adı",
+        "smtpUserName":"SMTP Kullanıcı Adı",
+        "smtpPassword":"SMTP Sifre",
+        "smtpPort":"SMTP Port",
+        "maximumWorkplaceNumber":"Maksimum Mağaza Sayısı",
+        "maximumUserNumber":"Maksimum Kullanıcı Sayısı",
+        "shops":"Mağazalar",
     }
 };
 

@@ -61,7 +61,7 @@ const MainMenu = () => {
         };
       });
     }
-  }, [isChangeMenu]);
+  }, [isChangeMenu,isLogin]);
 
 
   useEffect(() => {

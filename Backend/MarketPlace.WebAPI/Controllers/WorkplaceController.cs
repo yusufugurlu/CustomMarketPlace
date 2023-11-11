@@ -142,5 +142,29 @@ namespace MarketPlace.WebAPI.Controllers
             response.Success = result.IsSuccess;
             return Ok(response);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateWorkPlaceForCompanyAdmin(CreateWorklaceDto dto)
+        {
+
+            var result = await _workplaceService.UpdateWorkPlaceForCompanyAdmin(dto);
+            ServiceResponse response = new ServiceResponse();
+            if (result.IsSuccess)
+            {
+                response.Data = result.Data;
+                response.Status = result.HttpStatus;
+                response.Message = result.Message;
+                response.Success = result.IsSuccess;
+
+                return Ok(response);
+
+            }
+
+
+            response.Status = result.HttpStatus;
+            response.Message = result.Message;
+            response.Success = result.IsSuccess;
+            return Ok(response);
+        }
     }
 }

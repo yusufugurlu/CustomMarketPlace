@@ -64,6 +64,13 @@ async function deleteUsers(dto) {
     const result = await baseUrlRequest.postData(url, dto);
     return result;
 }
+
+async function createUserForNormalRole(dto) {
+    const url = "api/User/CreateUserForNormalRole";
+    const result = await baseUrlRequest.postData(url, dto);
+    return result;
+}
+
 export const userService = {
     getUserInfo,
     changeLanguage,
@@ -74,4 +81,5 @@ export const userService = {
     getUser,
     updateUser,
     deleteUsers,
+    createUserForNormalRole,
 };  
