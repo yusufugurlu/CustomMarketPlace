@@ -1,14 +1,16 @@
 // src/components/SignalRListener.js
 
 import { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import connection from "./connection";
 import { receiveData } from "./signalRActions";
+import { notificationChangeData } from "./signalrReducer";
 
 const SignalRListener = ({ receiveData1 }) => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    connection.on("ReceiveData", (data) => {
-      receiveData(data);
+    connection.on("ReceiveMessage", (data) => {
+      dispatch(notificationChangeData(data));
     });
   }, [receiveData]);
 

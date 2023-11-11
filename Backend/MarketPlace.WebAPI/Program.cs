@@ -131,6 +131,7 @@ builder.Services.AddScoped<IUserPasswordRecoveryService, UserPasswordRecoveryMan
 builder.Services.AddScoped<IEmailService, EmailManager>();
 builder.Services.AddScoped<IWorkplaceIntegrationService, WorkplaceIntegrationManager>();
 builder.Services.AddScoped<ISystemParameterService, SystemParameterManager>();
+builder.Services.AddScoped<INotificationService, NotificationManager>();
 
 
 builder.Services.AddSignalR(options =>

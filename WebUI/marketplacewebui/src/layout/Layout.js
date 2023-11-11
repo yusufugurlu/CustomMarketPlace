@@ -22,6 +22,7 @@ import { menuService } from 'Services/menuService';
 import { menuChangeName } from './nav/main-menu/menuDataSlice';
 
 
+
 const Layout = ({ children }) => {
   useLayout();
   const dispatch = useDispatch();
@@ -29,6 +30,8 @@ const Layout = ({ children }) => {
   const { pathname } = useLocation();
   const { isLogin, currentUser, authCompany } = useSelector((state) => state.auth);
   const { menuData, menuDataAll } = useSelector((state) => state.menuData);
+
+  const { data } = useSelector((state) => state.signalRData);
 
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const [menuName, setMenuName] = useState([]);
@@ -113,6 +116,15 @@ const Layout = ({ children }) => {
     }
 
   }, [pathname, menuData]);
+
+
+  useEffect(() => {
+    if(data){
+      const dto = JSON.parse(data);
+      console.log(dto.message);
+    }
+
+  }, [data]);
 
   return (
     <>

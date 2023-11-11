@@ -1,12 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {  useMemo, useState } from 'react';
 
 // import redux for auth guard
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // import layout
 import Layout from 'layout/Layout';
 
-import { Redirect } from 'react-router-dom';
 
 
 // import routing modules

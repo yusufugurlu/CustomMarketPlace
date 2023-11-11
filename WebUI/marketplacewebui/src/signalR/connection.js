@@ -17,13 +17,6 @@ const connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Trace)
     .build();
 
-const hubConnection=connection;
-if(hubConnection){
-    console.log(hubConnection);
-    connection.on("ReceiveMessage", (data) => {
-        console.log(data);
-    });
-}
 connection.start().catch((error) => console.error(error));
 
 export default connection;

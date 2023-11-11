@@ -15,20 +15,20 @@ namespace MarketPlace.WebAPI.Controllers
     public class MenuController : ControllerBase
     {
         private readonly IMenuService _menuService;
-        private readonly IHubContext<ChatHub> _hubService;
-        public MenuController(IMenuService menuService, IHubContext<ChatHub> hubService)
+        private readonly INotificationService _notificationService;
+        public MenuController(IMenuService menuService, INotificationService notificationService)
         {
             _menuService = menuService;
-            _hubService = hubService;
+            _notificationService = notificationService;
         }
 
 
         [HttpGet]
         public async Task<IActionResult> GetMenus()
         {
-            await _hubService.Clients.All.SendAsync("ReceiveMessage", "test");
+            await _notificationService.SendNotificationAllUserAsync(new DataTransfer.Dtos.NotificationDto() { Message = "tes" });
             string lang = CurrentUser.GetCulture();
-            var userId= CurrentUser.UserId();
+            var userId = CurrentUser.UserId();
             var result = await _menuService.GetMenus(lang, userId);
             ServiceResponse response = new ServiceResponse();
             if (result.IsSuccess)

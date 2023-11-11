@@ -10,22 +10,14 @@ const signalR = createSlice({
     name: 'signalR',
     initialState,
     reducers: {
-        menuChangeData(state = initialState, action) {
-            switch (action.type) {
-                case "RECEIVE_DATA":
-                    return {
-                        ...state,
-                        data: action.payload,
-                    };
-                default:
-                    return state;
-            }
+        notificationChangeData(state = initialState, action) {
+            state.data = action.payload;
         },
     },
 });
 
 export const {
-    menuChangeData,
+    notificationChangeData,
 } = signalR.actions;
 const signalRReducer = signalR.reducer;
 
