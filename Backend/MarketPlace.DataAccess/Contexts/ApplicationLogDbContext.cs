@@ -18,7 +18,7 @@ namespace MarketPlace.DataAccess.Contexts
         public DbSet<ErrorLog> ErrorLogs { get; set; }
         public DbSet<DataBaseLogEntry> DataBaseLogEntries { get; set; }
         public DbSet<UserAuthorizedLog> UserAuthorizedLogs { get; set; }
-        public DbSet<Queue> Queues { get; set; }
+        public DbSet<CustomQueue> CustomQueues { get; set; }
         public DbSet<QueueHistory> QueueHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -17,6 +17,6 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels
         public int QueueId { get; set; }
         public QueueProcessType QueueProcessType { get; set; }
         public DateTime CreatedDate { get; set; }
-        public virtual Queue Queue { get; set; }
+        public virtual CustomQueue Queue { get; set; }
     }
 }

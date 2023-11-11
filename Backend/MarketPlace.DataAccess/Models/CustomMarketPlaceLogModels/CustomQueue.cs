@@ -10,9 +10,9 @@ using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 
 namespace MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels
 {
-    public class Queue
+    public class CustomQueue
     {
-        public Queue()
+        public CustomQueue()
         {
             QueueHistories = new HashSet<QueueHistory>();
         }
@@ -20,6 +20,7 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public int UserId { get; set; }
         public IntegrationType IntegrationType { get; set; }
         public QueueActionType QueueActionType { get; set; }
         public QueueProcessType QueueProcessType { get; set; }
