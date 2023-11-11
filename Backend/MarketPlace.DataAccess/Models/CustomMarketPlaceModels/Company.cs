@@ -20,5 +20,7 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
 
         public ICollection<User> Users { get; set; }
         public ICollection<WorkPlace> WorkPlaces { get; set; }
+
+        public int WorkplaceLimit { get; set; }
     }
 }

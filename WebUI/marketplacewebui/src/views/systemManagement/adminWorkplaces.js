@@ -27,6 +27,7 @@ const adminWorkplaces = () => {
     setIsDataLoading(true);
     workplaceService.getWorkPlaces().then((result) => {
       if (result.data.length > 0) {
+        console.log(result.data);
         setData(result.data);
       }
       else {
@@ -153,11 +154,7 @@ const adminWorkplaces = () => {
   }
 
   const handleSave = (e) => {
-    if (data.length >= 3) {
-      setIsOpenAddModal(false);
-      customSweet.customSweetAlert("Maksimum 3 adet mağaza tanımlayabilirsiniz.", "error", 2000);
-      return;
-    }
+    
 
     const dto = {
       "id": workplaceId,

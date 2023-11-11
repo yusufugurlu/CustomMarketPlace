@@ -24,6 +24,7 @@ namespace MarketPlace.DataAccess.Models.CustomMarketPlaceModels
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
         public ICollection<IntegrationForWorkPlace> IntegrationForWorkPlaces { get; set; }
+        public int UserLimit { get; set; }
 
 
     }

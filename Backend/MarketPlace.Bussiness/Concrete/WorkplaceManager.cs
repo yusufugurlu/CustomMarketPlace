@@ -38,6 +38,7 @@ namespace MarketPlace.Bussiness.Concrete
                 if (dto.Id == 0) //added
                 {
                     var workplace = _mapper.Map<WorkPlace>(dto);
+                    
                     await _workplaceRepository.Add(workplace);
                 }
                 else //updated
