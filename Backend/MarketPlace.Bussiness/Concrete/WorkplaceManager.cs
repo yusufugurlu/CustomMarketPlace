@@ -7,6 +7,7 @@ using MarketPlace.Common.HttpContent;
 using MarketPlace.Common.Resources;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos.Company;
+using MarketPlace.DataTransfer.Dtos.Notifications;
 using MarketPlace.DataTransfer.Dtos.Workplace;
 using MarketPlace.DataTransfer.ServiceResults;
 using System;
@@ -22,24 +23,28 @@ namespace MarketPlace.Bussiness.Concrete
     {
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly IMapper _mapper;
+        private readonly INotificationService _notificationService;
         private readonly IGenericRepository<WorkPlace> _workplaceRepository;
-        public WorkplaceManager(IUnitOfWorks unitOfWorks, IMapper mapper)
+        private readonly IGenericRepository<User> _UserRepository;
+        public WorkplaceManager(IUnitOfWorks unitOfWorks, IMapper mapper, INotificationService notificationService)
         {
             _unitOfWorks = unitOfWorks;
             _mapper = mapper;
             _workplaceRepository = _unitOfWorks.GetGenericRepository<WorkPlace>();
-
+            _UserRepository = _unitOfWorks.GetGenericRepository<User>();
+            _notificationService = notificationService;
         }
-        public async Task<ServiceResult> CreateWorkPlace(CreateWorklaceDto dto)
+        public async Task<ServiceResult> CreateWorkPlace(CreateWorklaceDto dto, string lang)
         {
             if (dto != null)
             {
-
+                bool isAdd = false;
                 if (dto.Id == 0) //added
                 {
                     var workplace = _mapper.Map<WorkPlace>(dto);
                     
                     await _workplaceRepository.Add(workplace);
+                    isAdd = true;
                 }
                 else //updated
                 {
@@ -51,7 +56,30 @@ namespace MarketPlace.Bussiness.Concrete
                     await _workplaceRepository.Update(workplace);
                 }
 
-                return await _unitOfWorks.SaveChanges();
+                var result = await _unitOfWorks.SaveChanges();
+                if (result.IsSuccess && isAdd)
+                {
+                    var users = await _UserRepository.GetAllToList(x => !x.IsDeleted && x.CompanyId == dto.CompanyId);
+                    var userNotifications = users.Select(x => new NotificationUserDto()
+                    {
+                        Id = x.Id,
+                        Language = x.SelectedLanguage.ToString().ToLower(),
+                    }).ToList();
+
+                    string messageTr = "WorkplacHasBeenOpened".GetMessageResourceValue("tr").Replace("{x}", dto.Name);
+                    string messageEn = "WorkplacHasBeenOpened".GetMessageResourceValue("en").Replace("{x}", dto.Name);
+                    await _notificationService.SendNotificationAsync(new DataTransfer.Dtos.NotificationDto()
+                    {
+                        MessageEn= messageEn,
+                        MessageTr=messageTr,
+                        DescriptionEn = "NewWorkplace".GetMessageResourceValue("en"),
+                        DescriptionTr = "NewWorkplace".GetMessageResourceValue("tr"),
+                        NotificationUsers = userNotifications
+                    });
+
+
+                }
+                return result;
             }
 
             return Result.Fail("", 500);

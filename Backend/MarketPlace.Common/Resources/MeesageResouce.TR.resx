@@ -165,6 +165,9 @@
   <data name="Male" xml:space="preserve">
     <value>Erkek</value>
   </data>
+  <data name="NewWorkplace" xml:space="preserve">
+    <value>Yeni İş Yeri</value>
+  </data>
   <data name="Other" xml:space="preserve">
     <value>Diğer</value>
   </data>
@@ -191,5 +194,8 @@
   </data>
   <data name="Workplaces" xml:space="preserve">
     <value>Mağazalar</value>
+  </data>
+  <data name="WorkplacHasBeenOpened" xml:space="preserve">
+    <value>{x} iş yeri açılmıştır.</value>
   </data>
 </root>

@@ -18,8 +18,11 @@ import { localization } from 'lang/localization';
 import { enumHelper } from 'Helper/enum';
 import SelectedWorkplace from 'components/selectedCompanies/SelectedWorkplace';
 import { menuService } from 'Services/menuService';
+import { notificationHelper } from 'views/interface/plugins/notification/notificationHelper';
 
 import { menuChangeName } from './nav/main-menu/menuDataSlice';
+import { notificationsIsChange } from './nav/Notifications/notificationSlice';
+
 
 
 const Layout = ({ children }) => {
@@ -29,6 +32,8 @@ const Layout = ({ children }) => {
   const { pathname } = useLocation();
   const { isLogin, currentUser, authCompany } = useSelector((state) => state.auth);
   const { menuData, menuDataAll } = useSelector((state) => state.menuData);
+
+  const { data } = useSelector((state) => state.signalRData);
 
   const [breadcrumbs, setBreadcrumbs] = useState([]);
   const [menuName, setMenuName] = useState([]);
@@ -113,6 +118,23 @@ const Layout = ({ children }) => {
     }
 
   }, [pathname, menuData]);
+
+
+  useEffect(() => {
+    if (data) {
+      const dto = JSON.parse(data);
+      const language = langHelper.getLanguageCookie();
+      let message = dto.messageTr;
+      let description = dto.descriptionTr;
+      if (language === "EN") {
+        message = dto.messageEn;
+        description = dto.descriptionEn;
+      }
+      notificationHelper.callToast(description, message, "success");
+      dispatch(notificationsIsChange(false));
+    }
+
+  }, [data]);
 
   return (
     <>

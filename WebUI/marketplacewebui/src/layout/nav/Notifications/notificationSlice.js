@@ -4,30 +4,25 @@ import { SERVICE_URL } from 'config.js';
 
 const initialState = {
   status: 'idle',
-  items: [],
+  notificationItems: [],
+  isChangeNotification: false,
 };
 
 const notificationSlice = createSlice({
   name: 'notification',
   initialState,
   reducers: {
-    notificationsLoading(state) {
-      state.status = 'loading';
+
+    notificationsIsChange(state, action) {
+      state.isChangeNotification = action.payload;
     },
-    notificationsLoaded(state, action) {
-      state.items = action.payload;
-      state.status = 'idle';
+    notificationsitems(state, action) {
+      state.notificationItems = action.payload;
     },
   },
 });
 
-export const { notificationsLoading, notificationsLoaded } = notificationSlice.actions;
-
-export const fetchNotifications = () => async (dispatch) => {
-  dispatch(notificationsLoading());
-  const response = await axios.get(`${SERVICE_URL}/notifications`);
-  dispatch(notificationsLoaded(response.data));
-};
+export const { notificationsIsChange,notificationsitems } = notificationSlice.actions;
 
 const notificationReducer = notificationSlice.reducer;
 export default notificationReducer;

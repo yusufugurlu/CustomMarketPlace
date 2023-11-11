@@ -6,6 +6,7 @@ import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { settingsChangeColor } from 'settings/settingsSlice';
 import SearchModal from './search/SearchModal';
 import { menuChangeBehaviour } from './main-menu/menuSlice';
+import Notifications from './Notifications/Notifications';
 
 const NavIconMenu = () => {
   const { pinButtonEnable, behaviour } = useSelector((state) => state.menu);
@@ -62,6 +63,7 @@ const NavIconMenu = () => {
             <CsLineIcons icon="light-off" size="18" className="dark" />
           </a>
         </li>
+        <Notifications />
       </ul>
       <SearchModal show={showSearchModal} setShow={setShowSearchModal} />
     </>

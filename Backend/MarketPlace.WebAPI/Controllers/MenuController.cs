@@ -1,9 +1,11 @@
 ﻿using MarketPlace.Bussiness.Abstract;
+using MarketPlace.Bussiness.Concrete;
 using MarketPlace.Common.HttpContent;
 using MarketPlace.DataTransfer.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace MarketPlace.WebAPI.Controllers
 {
@@ -23,7 +25,7 @@ namespace MarketPlace.WebAPI.Controllers
         public async Task<IActionResult> GetMenus()
         {
             string lang = CurrentUser.GetCulture();
-            var userId= CurrentUser.UserId();
+            var userId = CurrentUser.UserId();
             var result = await _menuService.GetMenus(lang, userId);
             ServiceResponse response = new ServiceResponse();
             if (result.IsSuccess)

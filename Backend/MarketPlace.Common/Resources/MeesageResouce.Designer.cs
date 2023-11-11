@@ -205,6 +205,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Workplace.
+        /// </summary>
+        public static string NewWorkplace {
+            get {
+                return ResourceManager.GetString("NewWorkplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
         public static string Other {
@@ -282,6 +291,15 @@ namespace MarketPlace.Common.Resources {
         public static string Workplaces {
             get {
                 return ResourceManager.GetString("Workplaces", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {x} workplace has been opened..
+        /// </summary>
+        public static string WorkplacHasBeenOpened {
+            get {
+                return ResourceManager.GetString("WorkplacHasBeenOpened", resourceCulture);
             }
         }
     }

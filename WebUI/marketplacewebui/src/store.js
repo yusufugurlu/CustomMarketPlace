@@ -23,6 +23,8 @@ import tasksReducer from 'views/apps/tasks/tasksSlice';
 // import persist key
 import { REDUX_PERSIST_KEY } from 'config.js';
 import menuDataSlice from 'layout/nav/main-menu/menuDataSlice';
+import signalRReducer from 'signalR/signalrReducer';
+import notificationReducer from 'layout/nav/Notifications/notificationSlice';
 
 const persistConfig = {
   key: REDUX_PERSIST_KEY,
@@ -45,6 +47,8 @@ const persistedReducer = persistReducer(
     mailbox: mailboxReducer,
     tasks: tasksReducer,
     menuData: menuDataSlice,
+    signalRData: signalRReducer,
+    notification: notificationReducer,
   })
 );
 const store = configureStore({

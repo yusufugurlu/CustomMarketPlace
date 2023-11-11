@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
@@ -7,7 +7,54 @@ import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import { MENU_PLACEMENT } from 'constants.js';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { layoutShowingNavMenu } from 'layout/layoutSlice';
-import { fetchNotifications } from './notificationSlice';
+import { notificationService } from 'Services/notificationService';
+import { notificationsIsChange, notificationsitems } from './notificationSlice';
+
+
+
+
+let doesHasNorification = false;
+const MENU_NAME = 'Notifications';
+
+let NotificationsDropdownMenu = React.memo(
+  React.forwardRef(({ style, className, labeledBy, items }, ref) => {
+    return (
+      <div ref={ref} style={style} className={classNames('wide notification-dropdown scroll-out', className)} aria-labelledby={labeledBy}>
+        <OverlayScrollbarsComponent
+          options={{
+            scrollbars: { autoHide: 'leave', autoHideDelay: 600 },
+            overflowBehavior: { x: 'hidden', y: 'scroll' },
+          }}
+          className="scroll"
+        >
+          <ul className="list-unstyled border-last-none">
+            {items.map((item, itemIndex) => (
+              <NotificationItem key={`notificationItem.${itemIndex}`} detail={item.detail} link={item.link} title={item.title} />
+            ))}
+          </ul>
+        </OverlayScrollbarsComponent>
+      </div>
+    );
+  })
+);
+
+NotificationsDropdownMenu.displayName = 'NotificationsDropdownMenu';
+
+
+const NotificationItem = ({ title = '', link = '', detail = '' }) => (
+  <li className="mb-3 pb-3 border-bottom border-separator-light d-flex">
+    <div className="align-self-center">
+      <NavLink to={link} activeClassName="">
+        <strong>{title}</strong>
+
+        <div className='text-muted'>
+          {detail}
+        </div>
+      </NavLink>
+    </div>
+  </li>
+);
+
 
 const NotificationsDropdownToggle = React.memo(
   React.forwardRef(({ onClick, expanded = false }, ref) => (
@@ -25,48 +72,23 @@ const NotificationsDropdownToggle = React.memo(
     >
       <div className="position-relative d-inline-flex">
         <CsLineIcons icon="bell" size="18" />
-        <span className="position-absolute notification-dot rounded-xl" />
+        <span className={doesHasNorification ? "position-absolute notification-dot rounded-xl" : "position-absolute notification-dot rounded-xl"} />
+
       </div>
     </a>
   ))
 );
-const NotificationItem = ({ img = '', link = '', detail = '' }) => (
-  <li className="mb-3 pb-3 border-bottom border-separator-light d-flex">
-    <img src={img} className="me-3 sw-4 sh-4 rounded-xl align-self-center" alt="notification" />
-    <div className="align-self-center">
-      <NavLink to={link} activeClassName="">
-        {detail}
-      </NavLink>
-    </div>
-  </li>
-);
 
-const NotificationsDropdownMenu = React.memo(
-  React.forwardRef(({ style, className, labeledBy, items }, ref) => {
-    return (
-      <div ref={ref} style={style} className={classNames('wide notification-dropdown scroll-out', className)} aria-labelledby={labeledBy}>
-        <OverlayScrollbarsComponent
-          options={{
-            scrollbars: { autoHide: 'leave', autoHideDelay: 600 },
-            overflowBehavior: { x: 'hidden', y: 'scroll' },
-          }}
-          className="scroll"
-        >
-          <ul className="list-unstyled border-last-none">
-            {items.map((item, itemIndex) => (
-              <NotificationItem key={`notificationItem.${itemIndex}`} detail={item.detail} link={item.link} img={item.img} />
-            ))}
-          </ul>
-        </OverlayScrollbarsComponent>
-      </div>
-    );
-  })
-);
-NotificationsDropdownMenu.displayName = 'NotificationsDropdownMenu';
 
-const MENU_NAME = 'Notifications';
 const Notifications = () => {
   const dispatch = useDispatch();
+
+
+
+  const [notificationData, setNotificationData] = useState([]);
+
+  const { isChangeNotification } = useSelector((state) => state.notification);
+
 
   const {
     placementStatus: { view: placement },
@@ -75,14 +97,44 @@ const Notifications = () => {
     attrMenuAnimate,
   } = useSelector((state) => state.menu);
   const { color } = useSelector((state) => state.settings);
-  const { items } = useSelector((state) => state.notification);
   const { showingNavMenu } = useSelector((state) => state.layout);
 
+  const getNotificationForTopMenuByUserId = () => {
+    notificationService.getNotificationForTopMenuByUserId().then((res) => {
+      if (res.status === 200) {
+        setNotificationData(res.data);
+        dispatch(notificationsIsChange(true));
+        dispatch(notificationsitems(res.data));
+
+        NotificationsDropdownMenu = React.memo(
+          React.forwardRef(({ style, className, labeledBy, items }, ref) => {
+            return (
+              <div ref={ref} style={style} className={classNames('wide notification-dropdown scroll-out', className)} aria-labelledby={labeledBy}>
+                <OverlayScrollbarsComponent
+                  options={{
+                    scrollbars: { autoHide: 'leave', autoHideDelay: 600 },
+                    overflowBehavior: { x: 'hidden', y: 'scroll' },
+                  }}
+                  className="scroll"
+                >
+                  <ul className="list-unstyled border-last-none">
+                    {items.map((item, itemIndex) => (
+                      <NotificationItem key={`notificationItem.${itemIndex}`} detail={item.detail} link={item.link} title={item.title} />
+                    ))}
+                  </ul>
+                </OverlayScrollbarsComponent>
+              </div>
+            );
+          })
+        );
+      }
+    });
+  }
+
   useEffect(() => {
-    dispatch(fetchNotifications());
-    return () => {};
-    // eslint-disable-next-line
-  }, []);
+    getNotificationForTopMenuByUserId();
+    doesHasNorification = isChangeNotification;
+  }, [isChangeNotification]);
 
   const onToggle = (status, event) => {
     if (event && event.stopPropagation) event.stopPropagation();
@@ -95,7 +147,7 @@ const Notifications = () => {
     // eslint-disable-next-line
   }, [attrMenuAnimate, behaviourHtmlData, attrMobile, color]);
 
-  if (items && items.length > 0) {
+  if (notificationData && notificationData.length > 0) {
     return (
       <Dropdown
         as="li"
@@ -107,7 +159,7 @@ const Notifications = () => {
         <Dropdown.Toggle as={NotificationsDropdownToggle} />
         <Dropdown.Menu
           as={NotificationsDropdownMenu}
-          items={items}
+          items={notificationData}
           popperConfig={{
             modifiers: [
               {
