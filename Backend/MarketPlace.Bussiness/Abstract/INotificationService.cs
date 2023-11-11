@@ -1,4 +1,5 @@
 ﻿using MarketPlace.DataTransfer.Dtos;
+using MarketPlace.DataTransfer.ServiceResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace MarketPlace.Bussiness.Abstract
     {
         Task SendNotificationAllUserAsync(NotificationDto dto);
         Task SendNotificationAsync(NotificationDto dto);
+        Task<ServiceResult> GetNotificationForTopMenuByUserId(int userId,string lang);
     }
 }

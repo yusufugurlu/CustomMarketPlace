@@ -21,6 +21,7 @@ import { menuService } from 'Services/menuService';
 import { notificationHelper } from 'views/interface/plugins/notification/notificationHelper';
 
 import { menuChangeName } from './nav/main-menu/menuDataSlice';
+import { notificationsIsChange } from './nav/Notifications/notificationSlice';
 
 
 
@@ -123,14 +124,14 @@ const Layout = ({ children }) => {
     if (data) {
       const dto = JSON.parse(data);
       const language = langHelper.getLanguageCookie();
-      console.log(dto);
       let message = dto.messageTr;
       let description = dto.descriptionTr;
       if (language === "EN") {
         message = dto.messageEn;
         description = dto.descriptionEn;
       }
-      notificationHelper.callToast(description,message, "success");
+      notificationHelper.callToast(description, message, "success");
+      dispatch(notificationsIsChange(false));
     }
 
   }, [data]);

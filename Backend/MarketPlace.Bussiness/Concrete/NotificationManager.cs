@@ -6,6 +6,7 @@ using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos;
 using MarketPlace.DataTransfer.Dtos.Notifications;
+using MarketPlace.DataTransfer.ServiceResults;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -32,6 +33,20 @@ namespace MarketPlace.Bussiness.Concrete
             _notificationRepository = _unitOfWorks.GetGenericRepository<Notification>();
         }
 
+        public async Task<ServiceResult> GetNotificationForTopMenuByUserId(int userId, string lang)
+        {
+            var datas = await _notificationRepository.GetAllToList(x => !x.IsDeleted && !x.IsRead && x.UserId == userId);
+            var dtos = datas.OrderByDescending(x=>x.Id).Take(3).Select(x => new NotificationTopLeftMenuDto()
+            {
+                Id = x.Id,
+                Title = lang == "tr" ? x.DescriptionTr : x.DescriptionEn,
+                Detail = lang == "tr" ? x.MessageTr : x.MessageEn,
+                Link= "#/"
+            }).ToList();
+
+            return Result.Success("", 200,0, dtos);
+        }
+
         public async Task SendNotificationAllUserAsync(NotificationDto dto)
         {
             var users = await _userRepository.GetAllToList(x => !x.IsDeleted && x.Id != 1);
@@ -51,7 +66,7 @@ namespace MarketPlace.Bussiness.Concrete
                     UserId = userId.Id
                 });
 
-                 viewDto = new NotificationViewDto()
+                viewDto = new NotificationViewDto()
                 {
                     NotificationType = dto.NotificationType,
                     MessageTr = dto.MessageTr,
