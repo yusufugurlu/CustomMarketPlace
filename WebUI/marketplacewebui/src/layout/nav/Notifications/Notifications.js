@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'react-bootstrap';
@@ -8,6 +8,7 @@ import { MENU_PLACEMENT } from 'constants.js';
 import CsLineIcons from 'cs-line-icons/CsLineIcons';
 import { layoutShowingNavMenu } from 'layout/layoutSlice';
 import { fetchNotifications } from './notificationSlice';
+
 
 const NotificationsDropdownToggle = React.memo(
   React.forwardRef(({ onClick, expanded = false }, ref) => (
@@ -65,9 +66,33 @@ const NotificationsDropdownMenu = React.memo(
 NotificationsDropdownMenu.displayName = 'NotificationsDropdownMenu';
 
 const MENU_NAME = 'Notifications';
+
+
 const Notifications = () => {
   const dispatch = useDispatch();
-
+  const [notificationData, setNotificationData] = useState([
+    {
+      id: 1,
+      img: '/img/profile/profile-1.webp',
+      title: 'profile-1',
+      detail: 'Joisse Kaycee just sent a new comment!',
+      link: '#/',
+    },
+    {
+      id: 2,
+      img: '/img/profile/profile-2.webp',
+      title: 'profile-2',
+      detail: 'New order received! It is total $147,20.',
+      link: '#/',
+    },
+    {
+      id: 3,
+      img: '/img/profile/profile-3.webp',
+      title: 'profile-3',
+      detail: '3 items just added to wish list by a user!',
+      link: '#/',
+    }
+  ]);
   const {
     placementStatus: { view: placement },
     behaviourStatus: { behaviourHtmlData },
@@ -75,13 +100,9 @@ const Notifications = () => {
     attrMenuAnimate,
   } = useSelector((state) => state.menu);
   const { color } = useSelector((state) => state.settings);
-  const { items } = useSelector((state) => state.notification);
   const { showingNavMenu } = useSelector((state) => state.layout);
 
   useEffect(() => {
-    dispatch(fetchNotifications());
-    return () => {};
-    // eslint-disable-next-line
   }, []);
 
   const onToggle = (status, event) => {
@@ -95,7 +116,7 @@ const Notifications = () => {
     // eslint-disable-next-line
   }, [attrMenuAnimate, behaviourHtmlData, attrMobile, color]);
 
-  if (items && items.length > 0) {
+  if (notificationData && notificationData.length > 0) {
     return (
       <Dropdown
         as="li"
@@ -107,7 +128,7 @@ const Notifications = () => {
         <Dropdown.Toggle as={NotificationsDropdownToggle} />
         <Dropdown.Menu
           as={NotificationsDropdownMenu}
-          items={items}
+          items={notificationData}
           popperConfig={{
             modifiers: [
               {

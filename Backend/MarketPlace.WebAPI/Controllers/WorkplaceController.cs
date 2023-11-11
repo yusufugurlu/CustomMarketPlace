@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Bussiness.Abstract;
 using MarketPlace.Bussiness.Helper;
+using MarketPlace.Common.HttpContent;
 using MarketPlace.DataTransfer.Dtos.Company;
 using MarketPlace.DataTransfer.Dtos.Workplace;
 using MarketPlace.DataTransfer.Responses;
@@ -75,8 +76,9 @@ namespace MarketPlace.WebAPI.Controllers
         public async Task<IActionResult> CreateWorkPlace(CreateWorklaceDto dto)
         {
             var companyId = SelectedCompany.SelectedCompanyId;
+            string lang =  CurrentUser.GetCulture();
             dto.CompanyId = companyId;
-            var result = await _workplaceService.CreateWorkPlace(dto);
+            var result = await _workplaceService.CreateWorkPlace(dto, lang);
             ServiceResponse response = new ServiceResponse();
             if (result.IsSuccess)
             {

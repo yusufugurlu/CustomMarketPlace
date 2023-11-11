@@ -18,6 +18,7 @@ import { localization } from 'lang/localization';
 import { enumHelper } from 'Helper/enum';
 import SelectedWorkplace from 'components/selectedCompanies/SelectedWorkplace';
 import { menuService } from 'Services/menuService';
+import { notificationHelper } from 'views/interface/plugins/notification/notificationHelper';
 
 import { menuChangeName } from './nav/main-menu/menuDataSlice';
 
@@ -119,9 +120,17 @@ const Layout = ({ children }) => {
 
 
   useEffect(() => {
-    if(data){
+    if (data) {
       const dto = JSON.parse(data);
-      console.log(dto.message);
+      const language = langHelper.getLanguageCookie();
+      console.log(dto);
+      let message = dto.messageTr;
+      let description = dto.descriptionTr;
+      if (language === "EN") {
+        message = dto.messageEn;
+        description = dto.descriptionEn;
+      }
+      notificationHelper.callToast(description,message, "success");
     }
 
   }, [data]);

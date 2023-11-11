@@ -10,6 +10,6 @@ namespace MarketPlace.Bussiness.Abstract
     public interface INotificationService
     {
         Task SendNotificationAllUserAsync(NotificationDto dto);
-        Task SendNotificationAsync(NotificationDto dto, List<string> userIds);
+        Task SendNotificationAsync(NotificationDto dto);
     }
 }

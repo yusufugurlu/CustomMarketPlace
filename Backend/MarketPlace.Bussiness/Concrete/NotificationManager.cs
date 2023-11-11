@@ -5,6 +5,7 @@ using MarketPlace.Common.Enums;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos;
+using MarketPlace.DataTransfer.Dtos.Notifications;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -34,16 +35,30 @@ namespace MarketPlace.Bussiness.Concrete
         public async Task SendNotificationAllUserAsync(NotificationDto dto)
         {
             var users = await _userRepository.GetAllToList(x => !x.IsDeleted && x.Id != 1);
-            var userIds = users.Select(c => c.Id).ToList();
+            var userIds = users.Select(c => new { c.Id, c.SelectedLanguage }).ToList();
             List<Notification> dtos = new List<Notification>();
+            NotificationViewDto viewDto = new NotificationViewDto();
+
             foreach (var userId in userIds)
             {
                 dtos.Add(new Notification()
                 {
-                    Message = dto.Message,
+                    MessageTr = dto.MessageTr,
+                    MessageEn = dto.MessageEn,
+                    DescriptionTr = dto.DescriptionTr,
+                    DescriptionEn = dto.DescriptionEn,
                     NotificationType = (NotificationType)dto.NotificationType,
-                    UserId = userId
+                    UserId = userId.Id
                 });
+
+                 viewDto = new NotificationViewDto()
+                {
+                    NotificationType = dto.NotificationType,
+                    MessageTr = dto.MessageTr,
+                    MessageEn = dto.MessageEn,
+                    DescriptionTr = dto.DescriptionTr,
+                    DescriptionEn = dto.DescriptionEn,
+                };
             }
 
             await _notificationRepository.AddRange(dtos);
@@ -55,7 +70,7 @@ namespace MarketPlace.Bussiness.Concrete
                     NamingStrategy = new CamelCaseNamingStrategy()
                 };
 
-                var resultSerialize = JsonConvert.SerializeObject(dto, new JsonSerializerSettings
+                var resultSerialize = JsonConvert.SerializeObject(viewDto, new JsonSerializerSettings
                 {
                     ContractResolver = contractResolver,
                     Formatting = Formatting.Indented
@@ -65,37 +80,51 @@ namespace MarketPlace.Bussiness.Concrete
 
         }
 
-        public async Task SendNotificationAsync(NotificationDto dto, List<string> userIds)
+        public async Task SendNotificationAsync(NotificationDto dto)
         {
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
             List<Notification> dtos = new List<Notification>();
-            foreach (var userId in userIds)
+            foreach (var userId in dto.NotificationUsers)
             {
                 dtos.Add(new Notification()
                 {
-                    Message = dto.Message,
+                    MessageTr = dto.MessageTr,
+                    MessageEn = dto.MessageEn,
+                    DescriptionTr = dto.DescriptionTr,
+                    DescriptionEn = dto.DescriptionEn,
                     NotificationType = (NotificationType)dto.NotificationType,
-                    UserId = Convert.ToInt32(userId)
+                    UserId = Convert.ToInt32(userId.Id)
                 });
-            }
 
-            await _notificationRepository.AddRange(dtos);
-            var result = await _unitOfWorks.SaveChanges();
-
-            if (result.IsSuccess)
-            {
-                DefaultContractResolver contractResolver = new DefaultContractResolver
+                var viewDto = new NotificationViewDto()
                 {
-                    NamingStrategy = new CamelCaseNamingStrategy()
+                    Message = userId.Language == "tr" ? dto.MessageTr : dto.MessageEn,
+                    Description = userId.Language == "tr" ? dto.DescriptionTr : dto.DescriptionEn,
+                    NotificationType = dto.NotificationType,
+                    MessageTr = dto.MessageTr,
+                    MessageEn = dto.MessageEn,
+                    DescriptionTr = dto.DescriptionTr,
+                    DescriptionEn = dto.DescriptionEn,
                 };
 
-                var resultSerialize = JsonConvert.SerializeObject(dto, new JsonSerializerSettings
+                var resultSerialize = JsonConvert.SerializeObject(viewDto, new JsonSerializerSettings
                 {
                     ContractResolver = contractResolver,
                     Formatting = Formatting.Indented
                 });
 
+                var userIds = new List<string>() { userId.Id.ToString() };
                 await _hubService.Clients.Users(userIds).SendAsync("ReceiveMessage", resultSerialize);
+
             }
+
+            await _notificationRepository.AddRange(dtos);
+            await _unitOfWorks.SaveChanges();
+
         }
     }
 }

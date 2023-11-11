@@ -13,7 +13,7 @@ namespace MarketPlace.Bussiness.Abstract
     {
         Task<ServiceResult> GetWorkPlaces(int companyId);
         Task<ServiceResult> GetActiveWorkPlaces(int companyId);
-        Task<ServiceResult> CreateWorkPlace(CreateWorklaceDto dto);
+        Task<ServiceResult> CreateWorkPlace(CreateWorklaceDto dto,string lang);
         Task<ServiceResult> GetWorkPlace(int workplaceId);
         Task<ServiceResult> DeleteWorkPlace(DeleteWorkplaceDto dto);
         Task<ServiceResult> UpdateWorkPlaceForCompanyAdmin(CreateWorklaceDto dto);
