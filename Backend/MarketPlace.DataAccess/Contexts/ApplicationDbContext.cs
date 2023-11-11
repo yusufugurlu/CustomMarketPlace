@@ -32,6 +32,7 @@ namespace MarketPlace.DataAccess.Contexts
         public DbSet<IntegrationForWorkPlace> IntegrationForWorkPlaces { get; set; }
         public DbSet<UserPasswordRecovery> UserPasswordRecoveries { get; set; }
         public DbSet<SystemParameter> SystemParameters { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,6 +47,7 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new UserPasswordRecoveryConfiguration());
             modelBuilder.ApplyConfiguration(new IntegrationForWorkPlaceConfiguration());
             modelBuilder.ApplyConfiguration(new SystemParameterConfiguration());
+            modelBuilder.ApplyConfiguration(new NotificationConfiguration());
 
         }
 
