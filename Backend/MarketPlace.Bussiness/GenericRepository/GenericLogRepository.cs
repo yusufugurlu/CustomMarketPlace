@@ -24,17 +24,14 @@ namespace MarketPlace.Bussiness.GenericRepository
         {
             if (entity != null)
             {
+                _dbSet.Add(entity);
+
                 if (entity is BaseModel baseEntity)
                 {
                     baseEntity.CreatedDate = DateTime.Now;
                     baseEntity.CreatedUserId = CurrentUser.UserId();
 
                     _dbSet.Update(entity);
-                }
-                else
-                {
-                    // if not baseEntity is remove
-                    _dbSet.Remove(entity);
                 }
             }
         }
@@ -43,21 +40,15 @@ namespace MarketPlace.Bussiness.GenericRepository
         {
             foreach (var entity in entites)
             {
-                if (entity != null)
+                if (entity is BaseModel baseEntity)
                 {
-                    if (entity is BaseModel baseEntity)
-                    {
-                        baseEntity.CreatedDate = DateTime.Now;
-                        baseEntity.CreatedUserId = CurrentUser.UserId();
-                        _dbSet.Update(entity);
-                    }
-                    else
-                    {
-                        // if not baseEntity is remove
-                        _dbSet.Remove(entity);
-                    }
+                    baseEntity.CreatedDate = DateTime.Now;
+                    baseEntity.CreatedUserId = CurrentUser.UserId();
+                    _dbSet.Update(entity);
                 }
             }
+
+            await _dbSet.AddRangeAsync(entites);
         }
 
         public async Task Delete(int id)

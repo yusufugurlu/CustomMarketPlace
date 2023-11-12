@@ -59,7 +59,7 @@ var hizmetTuru = serviceProvider.GetRequiredService<IQueueService>().GetType();
 
 var hizmet = ActivatorUtilities.CreateInstance(serviceProvider, hizmetTuru) as IQueueService;
 
-RecurringJob.AddOrUpdate(() => hizmet.RunQueueAsync(), Cron.Minutely());
+RecurringJob.AddOrUpdate(() => hizmet.RunQueueAsync(), Cron.MinuteInterval(5));
 
 app.UseHttpsRedirection();
 

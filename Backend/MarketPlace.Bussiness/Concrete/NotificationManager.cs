@@ -2,6 +2,7 @@
 using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
 using MarketPlace.Common.Enums;
+using MarketPlace.Common.Extentions;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos;
@@ -36,15 +37,15 @@ namespace MarketPlace.Bussiness.Concrete
         public async Task<ServiceResult> GetNotificationForTopMenuByUserId(int userId, string lang)
         {
             var datas = await _notificationRepository.GetAllToList(x => !x.IsDeleted && !x.IsRead && x.UserId == userId);
-            var dtos = datas.OrderByDescending(x=>x.Id).Take(3).Select(x => new NotificationTopLeftMenuDto()
+            var dtos = datas.OrderByDescending(x => x.Id).Take(3).Select(x => new NotificationTopLeftMenuDto()
             {
                 Id = x.Id,
                 Title = lang == "tr" ? x.DescriptionTr : x.DescriptionEn,
                 Detail = lang == "tr" ? x.MessageTr : x.MessageEn,
-                Link= "#/"
+                Link = "#/"
             }).ToList();
 
-            return Result.Success("", 200,0, dtos);
+            return Result.Success("", 200, 0, dtos);
         }
 
         public async Task SendNotificationAllUserAsync(NotificationDto dto)
@@ -144,35 +145,79 @@ namespace MarketPlace.Bussiness.Concrete
 
         public async Task<ServiceResult> SendNotificationHangfireAsync(List<NotificationHangfireDto> dtos)
         {
-            var userIds = dtos.Select(x => x.UserId.ToString()).ToList();
-            string message = dtos[0].Message;
-            string title = dtos[0].Title;
-
             DefaultContractResolver contractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new CamelCaseNamingStrategy()
             };
 
-            var viewDto = new NotificationViewDto()
+            List<Notification> notificationDtos = new List<Notification>();
+
+            foreach (var dto in dtos)
             {
-                Message = message,
-                Description = title,
-                NotificationType = 0,
-                MessageTr = message,
-                MessageEn = message,
-                DescriptionTr = title,
-                DescriptionEn = title,
-            };
+                var messegeDto = GetNotificationHangFireMessage(dto.QueueProcessType, dto.QueueId);
+                NotificationLanguageDto titleDto = new NotificationLanguageDto()
+                {
+                    NameEn = "Information".GetAlertResourceValue("en"),
+                    NameTr = "Information".GetAlertResourceValue("tr")
+                };
+                var viewDto = new NotificationViewDto()
+                {
+                    Message = messegeDto.NameTr,
+                    Description = titleDto.NameTr,
+                    NotificationType = 0,
+                    MessageTr = messegeDto.NameTr,
+                    MessageEn = messegeDto.NameEn,
+                    DescriptionTr = titleDto.NameTr,
+                    DescriptionEn = titleDto.NameTr,
+                };
 
-            var resultSerialize = JsonConvert.SerializeObject(viewDto, new JsonSerializerSettings
+                notificationDtos.Add(new Notification()
+                {
+                    MessageTr = messegeDto.NameTr,
+                    MessageEn = messegeDto.NameEn,
+                    DescriptionTr = titleDto.NameTr,
+                    DescriptionEn = titleDto.NameTr,
+                    NotificationType = NotificationType.Info,
+                    UserId = dto.UserId
+                });
+
+                var resultSerialize = JsonConvert.SerializeObject(viewDto, new JsonSerializerSettings
+                {
+                    ContractResolver = contractResolver,
+                    Formatting = Formatting.Indented
+                });
+
+                var userIds = new List<string>() { dto.UserId.ToString() };
+                await _hubService.Clients.Users(userIds).SendAsync("ReceiveMessage", resultSerialize);
+            }
+
+
+            await _notificationRepository.AddRange(notificationDtos);
+            return await _unitOfWorks.SaveChanges();
+        }
+
+        private NotificationLanguageDto GetNotificationHangFireMessage(int processType, int processId)
+        {
+            QueueProcessType type = (QueueProcessType)processType;
+            NotificationLanguageDto dto = new NotificationLanguageDto();
+
+            switch (type)
             {
-                ContractResolver = contractResolver,
-                Formatting = Formatting.Indented
-            });
+                case QueueProcessType.InWaiting:
+                    dto.NameTr = "ProcessNumberWaitingProcess".GetAlertResourceValue("tr").Replace("{0}", processId.ToString());
+                    dto.NameEn = "ProcessNumberWaitingProcess".GetAlertResourceValue("en").Replace("{0}", processId.ToString());
+                    break;
+                case QueueProcessType.InProcess:
+                    dto.NameTr = "TransactionNumberProcessed".GetAlertResourceValue("tr").Replace("{0}", processId.ToString());
+                    dto.NameEn = "TransactionNumberProcessed".GetAlertResourceValue("en").Replace("{0}", processId.ToString());
+                    break;
+                case QueueProcessType.Done:
+                    dto.NameTr = "PorecessCompleted".GetAlertResourceValue("tr").Replace("{0}", processId.ToString());
+                    dto.NameEn = "PorecessCompleted".GetAlertResourceValue("en").Replace("{0}", processId.ToString());
+                    break;
+            }
 
-            await _hubService.Clients.Users(userIds).SendAsync("ReceiveMessage", resultSerialize);
-
-            return Result.Success("", 200, 0);
+            return dto;
         }
     }
 }

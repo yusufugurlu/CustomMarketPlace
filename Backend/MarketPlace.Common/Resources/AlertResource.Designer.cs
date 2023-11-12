@@ -79,6 +79,15 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string Information {
+            get {
+                return ResourceManager.GetString("Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operation Success.
         /// </summary>
         public static string OperationSuccess {
@@ -97,11 +106,38 @@ namespace MarketPlace.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation {0} completed.
+        /// </summary>
+        public static string PorecessCompleted {
+            get {
+                return ResourceManager.GetString("PorecessCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process number {0} is in the waiting process.
+        /// </summary>
+        public static string ProcessNumberWaitingProcess {
+            get {
+                return ResourceManager.GetString("ProcessNumberWaitingProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stores are available you cannot delete.
         /// </summary>
         public static string StoresAreAvailable {
             get {
                 return ResourceManager.GetString("StoresAreAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} transaction number processed.
+        /// </summary>
+        public static string TransactionNumberProcessed {
+            get {
+                return ResourceManager.GetString("TransactionNumberProcessed", resourceCulture);
             }
         }
         

@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Bussiness.GenericRepository;
 using MarketPlace.Bussiness.UnitOfWorks;
+using MarketPlace.Common.Enums;
 using MarketPlace.Common.Helper;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
@@ -29,38 +30,62 @@ namespace MarketPlace.Queue.Concrete
         }
         public async Task RunQueueAsync()
         {
-            var integrations = await _customQueueRepository.GetAll(x => x.QueueProcessType == Common.Enums.QueueProcessType.InWaiting);
-            await SendNotificationAsync(new List<CustomQueue>()
+            var model = new CustomQueue()
             {
-                new CustomQueue()
-                {
-                    Id=1,
-                    UserId=1
-                }
-            });
+                UserId = 1,
+                CreatedDate = DateTime.Now,
+                IntegrationType = IntegrationType.Hepsiburada,
+                QueueActionType = QueueActionType.Get,
+                QueueProcessType = QueueProcessType.InWaiting
+            };
+            await _customQueueRepository.Add(model);
+            await _unitOfWorks.SaveChanges();
+
+            //var inProcessQueues = await _customQueueRepository.GetAll(x => x.QueueProcessType == QueueProcessType.InWaiting);
+            var list = new List<CustomQueue>() { model };
+            await SendNotificationAsync(list);
+
+            await Task.Delay(20000);
+
+            foreach (var item in list)
+            {
+
+                item.QueueProcessType = QueueProcessType.InProcess;
+                await _customQueueRepository.Update(item);
+                await _unitOfWorks.SaveChanges();
+                await SendNotificationAsync(list);
+                await Task.Delay(10000);
+
+                item.QueueProcessType = QueueProcessType.Done;
+                await _customQueueRepository.Update(item);
+                await _unitOfWorks.SaveChanges();
+                await SendNotificationAsync(list);
+            }
         }
 
 
         private async Task SendNotificationAsync(List<CustomQueue> queues)
         {
-            List<NotificationHangfireDto> notificationHangfireDtos = new List<NotificationHangfireDto>();
-
-            foreach (var queue in queues)
+            if (queues.Count < 1)
             {
-                notificationHangfireDtos.Add(new NotificationHangfireDto()
-                {
-                    UserId = queue.UserId,
-                    QueueId = queue.Id,
-                    Title = "edfsds",
-                    Message = "dsadas"
-                });
+                return;
             }
+
+            List<NotificationHangfireDto> notificationHangfireDtos = queues.Select(x => new NotificationHangfireDto()
+            {
+                QueueId = x.Id,
+                IntegrationType = (int)x.IntegrationType,
+                QueueActionType = (int)x.QueueActionType,
+                QueueProcessType = (int)x.QueueProcessType,
+                UserId = x.UserId
+            }).ToList();
+
 
             string connectionType = DatabaseConnectConfiguration.ConnectionString();
             string apiUrl = _configuration.GetSection("BackendUrl")[connectionType]?.ToString() ?? "";
             string fullPathApiUr = apiUrl + "Hangfire/SendNotificationHangfire";
 
-            string guidHeaderValue = _configuration.GetSection("SignalRKey")[connectionType]?.ToString() ?? ""; 
+            string guidHeaderValue = _configuration.GetSection("SignalRKey")[connectionType]?.ToString() ?? "";
             string jsonData = JsonConvert.SerializeObject(notificationHangfireDtos);
 
             using (var httpClient = new HttpClient())
@@ -73,7 +98,7 @@ namespace MarketPlace.Queue.Concrete
                     request.Content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 }
 
-               await httpClient.SendAsync(request);
+                await httpClient.SendAsync(request);
             }
         }
     }

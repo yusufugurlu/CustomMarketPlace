@@ -88,7 +88,7 @@ const Notifications = () => {
   const [notificationData, setNotificationData] = useState([]);
 
   const { isChangeNotification } = useSelector((state) => state.notification);
-
+  const { data } = useSelector((state) => state.signalRData);
 
   const {
     placementStatus: { view: placement },
@@ -134,7 +134,7 @@ const Notifications = () => {
   useEffect(() => {
     getNotificationForTopMenuByUserId();
     doesHasNorification = isChangeNotification;
-  }, [isChangeNotification]);
+  }, [isChangeNotification, data]);
 
   const onToggle = (status, event) => {
     if (event && event.stopPropagation) event.stopPropagation();

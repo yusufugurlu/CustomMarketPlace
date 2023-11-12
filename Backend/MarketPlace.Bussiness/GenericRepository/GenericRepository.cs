@@ -25,6 +25,8 @@ namespace MarketPlace.Bussiness.GenericRepository
         {
             if (entity != null)
             {
+                _dbSet.Add(entity);
+
                 if (entity is BaseModel baseEntity)
                 {
                     baseEntity.CreatedDate = DateTime.Now;
@@ -32,33 +34,27 @@ namespace MarketPlace.Bussiness.GenericRepository
 
                     _dbSet.Update(entity);
                 }
-                else
-                {
-                    // if not baseEntity is remove
-                    _dbSet.Remove(entity);
-                }
             }
         }
 
         public async Task AddRange(List<T> entites)
         {
+
             foreach (var entity in entites)
             {
                 if (entity != null)
                 {
+
                     if (entity is BaseModel baseEntity)
                     {
                         baseEntity.CreatedDate = DateTime.Now;
                         baseEntity.CreatedUserId = CurrentUser.UserId();
                         _dbSet.Update(entity);
                     }
-                    else
-                    {
-                        // if not baseEntity is remove
-                        _dbSet.Remove(entity);
-                    }
                 }
             }
+
+            _dbSet.AddRange(entites);
         }
 
         public async Task Delete(int id)
@@ -184,13 +180,8 @@ namespace MarketPlace.Bussiness.GenericRepository
                         baseEntity.UpdatedDate = DateTime.Now;
                         _dbSet.Update(entity);
                     }
-                    else
-                    {
-                        // if not baseEntity is remove
-                        _dbSet.Remove(entity);
-                    }
                 }
-
+                _dbSet.UpdateRange(entites);
             }
         }
     }
