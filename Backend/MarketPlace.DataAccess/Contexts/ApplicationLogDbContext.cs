@@ -28,7 +28,9 @@ namespace MarketPlace.DataAccess.Contexts
             modelBuilder.ApplyConfiguration(new UserAuthorizedLogConfiguration());
             modelBuilder.ApplyConfiguration(new LogEntryConfiguration());
             modelBuilder.ApplyConfiguration(new UserPasswordHistoryConfiguration());
-            
+            modelBuilder.ApplyConfiguration(new CustomQueueConfiguration());
+            modelBuilder.ApplyConfiguration(new QueueHistoryConfiguration());
+
 
         }
 
