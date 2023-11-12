@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,7 +60,7 @@ string connectionType = DatabaseConnectConfiguration.ConnectionString();
 string connectionString = builder.Configuration.GetSection("ConnectionStrings")[connectionType]?.ToString() ?? "";
 string connectionLogString = builder.Configuration.GetSection("ConnectionLogStrings")[connectionType]?.ToString() ?? "";
 
-string encryptionKey = builder.Configuration.GetSection("Encryption")["Key"]?.ToString() ?? "" ;
+string encryptionKey = builder.Configuration.GetSection("Encryption")["Key"]?.ToString() ?? "";
 EncryptionHelper.Key = encryptionKey;
 
 
@@ -92,6 +94,17 @@ builder.Services.AddAuthentication(options =>
     };
     options.Events = new JwtBearerEvents
     {
+        OnTokenValidated = context =>
+        {
+            if (context.SecurityToken is JwtSecurityToken accessToken)
+            {
+                if (context?.Principal != null && context.Principal.Identities is ClaimsIdentity identity)
+                {
+                    identity.AddClaim(new Claim("access_token", accessToken.RawData));
+                }
+            }
+            return Task.CompletedTask;
+        },
         OnMessageReceived = context =>
         {
             var accessToken = context.HttpContext.Request.Query["access_token"];
@@ -151,7 +164,13 @@ if (app.Environment.IsDevelopment())
 app.UseCors("_testPolicy");
 
 app.UseRouting(); // Routing middleware'i ekleyin
+app.UseAuthentication();
 app.UseAuthorization();
+
+
+
+string signalRKey = builder.Configuration.GetSection("SignalRKey")[connectionType]?.ToString() ?? "";
+app.UseSignalRAuthenticationMiddleware("SignalRKey", signalRKey);
 
 app.UseEndpoints(endpoints =>
 {

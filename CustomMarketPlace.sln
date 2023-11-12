@@ -5,19 +5,23 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{2C04C8C0-5F2B-450C-861D-4B45A8132522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.DataAccess", "Backend\MarketPlace.DataAccess\MarketPlace.DataAccess.csproj", "{2C0CE89C-6577-4EE8-95D8-93BA389E17A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.DataAccess", "Backend\MarketPlace.DataAccess\MarketPlace.DataAccess.csproj", "{2C0CE89C-6577-4EE8-95D8-93BA389E17A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.Common", "Backend\MarketPlace.Common\MarketPlace.Common.csproj", "{EA92499B-48A0-4BA8-AA32-87E60DA0924D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.Common", "Backend\MarketPlace.Common\MarketPlace.Common.csproj", "{EA92499B-48A0-4BA8-AA32-87E60DA0924D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.Bussiness", "Backend\MarketPlace.Bussiness\MarketPlace.Bussiness.csproj", "{5039A455-A6A5-4401-BFD6-6A649D74B3D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.Bussiness", "Backend\MarketPlace.Bussiness\MarketPlace.Bussiness.csproj", "{5039A455-A6A5-4401-BFD6-6A649D74B3D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.DataTransfer", "Backend\MarketPlace.DataTransfer\MarketPlace.DataTransfer.csproj", "{99CF0801-31C2-4404-9A31-90401884F333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.DataTransfer", "Backend\MarketPlace.DataTransfer\MarketPlace.DataTransfer.csproj", "{99CF0801-31C2-4404-9A31-90401884F333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.WebAPI", "Backend\MarketPlace.WebAPI\MarketPlace.WebAPI.csproj", "{00AE08E3-40E0-4367-8B08-9C5E4B10E387}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.WebAPI", "Backend\MarketPlace.WebAPI\MarketPlace.WebAPI.csproj", "{00AE08E3-40E0-4367-8B08-9C5E4B10E387}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{E13A8277-AEEE-485E-8543-E4ED8462EBA8}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "marketplacewebui", "WebUI\MarketPlaceWebUI\marketplacewebui.esproj", "{7D4B611B-A77C-4509-8C8A-594C871A7454}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.Integration", "Backend\MarketPlace.Integration\MarketPlace.Integration.csproj", "{465CB3CC-0E4F-47D8-8E0A-6326582874D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.Queue", "Backend\MarketPlace.Queue\MarketPlace.Queue.csproj", "{0428B982-1FE4-49CC-B3AF-85DA9441EC97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{7D4B611B-A77C-4509-8C8A-594C871A7454}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D4B611B-A77C-4509-8C8A-594C871A7454}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7D4B611B-A77C-4509-8C8A-594C871A7454}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{465CB3CC-0E4F-47D8-8E0A-6326582874D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{465CB3CC-0E4F-47D8-8E0A-6326582874D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{465CB3CC-0E4F-47D8-8E0A-6326582874D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{465CB3CC-0E4F-47D8-8E0A-6326582874D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0428B982-1FE4-49CC-B3AF-85DA9441EC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0428B982-1FE4-49CC-B3AF-85DA9441EC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0428B982-1FE4-49CC-B3AF-85DA9441EC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0428B982-1FE4-49CC-B3AF-85DA9441EC97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +74,8 @@ Global
 		{99CF0801-31C2-4404-9A31-90401884F333} = {2C04C8C0-5F2B-450C-861D-4B45A8132522}
 		{00AE08E3-40E0-4367-8B08-9C5E4B10E387} = {2C04C8C0-5F2B-450C-861D-4B45A8132522}
 		{7D4B611B-A77C-4509-8C8A-594C871A7454} = {E13A8277-AEEE-485E-8543-E4ED8462EBA8}
+		{465CB3CC-0E4F-47D8-8E0A-6326582874D6} = {2C04C8C0-5F2B-450C-861D-4B45A8132522}
+		{0428B982-1FE4-49CC-B3AF-85DA9441EC97} = {2C04C8C0-5F2B-450C-861D-4B45A8132522}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F4FEE9CA-339C-4E78-B335-559E4FE92A5B}

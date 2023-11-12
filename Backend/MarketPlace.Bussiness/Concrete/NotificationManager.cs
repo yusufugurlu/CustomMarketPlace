@@ -141,5 +141,38 @@ namespace MarketPlace.Bussiness.Concrete
             await _unitOfWorks.SaveChanges();
 
         }
+
+        public async Task<ServiceResult> SendNotificationHangfireAsync(List<NotificationHangfireDto> dtos)
+        {
+            var userIds = dtos.Select(x => x.UserId.ToString()).ToList();
+            string message = dtos[0].Message;
+            string title = dtos[0].Title;
+
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
+            var viewDto = new NotificationViewDto()
+            {
+                Message = message,
+                Description = title,
+                NotificationType = 0,
+                MessageTr = message,
+                MessageEn = message,
+                DescriptionTr = title,
+                DescriptionEn = title,
+            };
+
+            var resultSerialize = JsonConvert.SerializeObject(viewDto, new JsonSerializerSettings
+            {
+                ContractResolver = contractResolver,
+                Formatting = Formatting.Indented
+            });
+
+            await _hubService.Clients.Users(userIds).SendAsync("ReceiveMessage", resultSerialize);
+
+            return Result.Success("", 200, 0);
+        }
     }
 }

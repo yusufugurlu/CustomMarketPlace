@@ -2,7 +2,6 @@
 using MarketPlace.Common.HttpContent;
 using MarketPlace.DataTransfer.Dtos.Notifications;
 using MarketPlace.DataTransfer.Responses;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,21 +9,18 @@ namespace MarketPlace.WebAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
-    public class NotificationController : ControllerBase
+    public class HangfireController : ControllerBase
     {
         private readonly INotificationService _notificationService;
-        public NotificationController(INotificationService notificationService)
+        public HangfireController(INotificationService notificationService)
         {
             _notificationService = notificationService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetNotificationForTopMenuByUserId()
+        [HttpPost]
+        public async Task<IActionResult> SendNotificationHangfire(List<NotificationHangfireDto> dtos)
         {
-            var userId = CurrentUser.UserId();
-            var lang = CurrentUser.GetCulture();
-            var result = await _notificationService.GetNotificationForTopMenuByUserId(userId, lang);
+            var result = await _notificationService.SendNotificationHangfireAsync(dtos);
             ServiceResponse response = new ServiceResponse();
             if (result.IsSuccess)
             {
@@ -42,6 +38,6 @@ namespace MarketPlace.WebAPI.Controllers
             response.Message = result.Message;
             response.Success = result.IsSuccess;
             return Ok(response);
-        }        
+        }
     }
 }

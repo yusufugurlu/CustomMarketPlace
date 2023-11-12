@@ -27,6 +27,12 @@ namespace MarketPlace.WebAPI.Middleware
 
             try
             {
+                string requestGuid = context.Request.Headers["SignalRKey"].ToString();
+                if (!string.IsNullOrEmpty(requestGuid))
+                {
+                    await _next(context);
+                }
+
                 #region check user has authorize the page
                 if (context.Request.Headers.ContainsKey("Page"))
                 {
