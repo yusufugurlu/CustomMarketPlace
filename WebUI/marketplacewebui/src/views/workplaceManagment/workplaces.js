@@ -56,7 +56,7 @@ const workplaces = () => {
                 setIsOpenAddModal(true);
             }
             else {
-                customSweet.customSweetAlert(result.message, result.status, 2000);
+                customSweet.customSweetAlert(result.message, "error", 2000);
             }
         });
 

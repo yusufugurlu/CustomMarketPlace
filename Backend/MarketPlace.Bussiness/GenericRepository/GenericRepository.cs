@@ -25,8 +25,6 @@ namespace MarketPlace.Bussiness.GenericRepository
         {
             if (entity != null)
             {
-                _dbSet.Add(entity);
-
                 if (entity is BaseModel baseEntity)
                 {
                     baseEntity.CreatedDate = DateTime.Now;
@@ -34,6 +32,7 @@ namespace MarketPlace.Bussiness.GenericRepository
 
                     _dbSet.Update(entity);
                 }
+                _dbSet.Add(entity);
             }
         }
 

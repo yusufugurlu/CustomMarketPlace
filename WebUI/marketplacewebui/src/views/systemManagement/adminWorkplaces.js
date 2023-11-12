@@ -27,7 +27,6 @@ const adminWorkplaces = () => {
     setIsDataLoading(true);
     workplaceService.getWorkPlaces().then((result) => {
       if (result.data.length > 0) {
-        console.log(result.data);
         setData(result.data);
       }
       else {
@@ -55,7 +54,7 @@ const adminWorkplaces = () => {
         setIsOpenAddModal(true);
       }
       else {
-        customSweet.customSweetAlert(result.message, result.status, 2000);
+        customSweet.customSweetAlert(result.message, "error", 2000);
       }
     });
 
@@ -175,6 +174,7 @@ const adminWorkplaces = () => {
       }
       sendShop();
       setIsOpenAddModal(false);
+      setIsDataLoading(false);
     });
 
   }

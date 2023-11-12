@@ -104,7 +104,7 @@ const users = () => {
                 setIsOpenAddModal(true);
             }
             else {
-                customSweet.customSweetAlert(result.message, result.status, 2000);
+                customSweet.customSweetAlert(result.message, "error", 2000);
             }
         });
 
@@ -237,7 +237,6 @@ const users = () => {
                 "gender": selectedGender,
             }
 
-            console.log(dto);
             setIsDataLoading(true);
             userService.updateUser(dto).then((result) => {
                 if (result.status === 200) {
@@ -250,6 +249,7 @@ const users = () => {
                 }
 
                 setIsOpenAddModal(false);
+                setIsDataLoading(false);
                 handlerClear();
             });
         }

@@ -62,7 +62,7 @@ const adminCompanies = () => {
                 setIsOpenAddModal(true);
             }
             else {
-                customSweet.customSweetAlert(result.message, result.status, 2000);
+                customSweet.customSweetAlert(result.message, "error", 2000);
             }
         });
 
@@ -163,9 +163,10 @@ const adminCompanies = () => {
                 getAuthCompanies();
             }
             else {
-                customSweet.customSweetAlert(result.message, result.status, 2000);
+                customSweet.customSweetAlert(result.message, "error", 2000);
             }
             setIsOpenAddModal(false);
+            setIsDataLoading(false);
             handlerClear();
         });
 

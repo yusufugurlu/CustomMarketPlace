@@ -104,7 +104,7 @@ const adminUsers = () => {
                 setIsOpenAddModal(true);
             }
             else {
-                customSweet.customSweetAlert(result.message, result.status, 2000);
+                customSweet.customSweetAlert(result.message, "error", 2000);
             }
         });
 
@@ -233,7 +233,6 @@ const adminUsers = () => {
                 "gender": selectedGender,
             }
 
-            console.log(dto);
             setIsDataLoading(true);
             userService.updateUser(dto).then((result) => {
                 if (result.status === 200) {
@@ -246,6 +245,7 @@ const adminUsers = () => {
                 }
 
                 setIsOpenAddModal(false);
+                setIsDataLoading(false);
                 handlerClear();
             });
         }
