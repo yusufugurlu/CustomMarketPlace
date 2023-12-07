@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.Integration", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.Queue", "Backend\MarketPlace.Queue\MarketPlace.Queue.csproj", "{0428B982-1FE4-49CC-B3AF-85DA9441EC97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.WorkIntegration", "Backend\MarketPlace.WorkIntegration\MarketPlace.WorkIntegration.csproj", "{EC8BF76F-B33F-4F7D-ABA1-CB292614CAE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketPlace.WorkIntegration", "Backend\MarketPlace.WorkIntegration\MarketPlace.WorkIntegration.csproj", "{EC8BF76F-B33F-4F7D-ABA1-CB292614CAE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{5CD88FB2-BC05-4E60-9C16-D0916AA466BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

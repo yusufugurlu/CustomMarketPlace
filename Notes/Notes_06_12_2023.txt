@@ -1,0 +1,8 @@
+
+Yapılması gerekenler
+1. Kağıt kalem üzerinde çalışılan ürünler tablolarını yeni bir veritabanına eklenmesi.
+2. UI tarafında Ürünler yönetimi altında hangi sayfalar olacak ve projeye entegre edilmesi.
+3. Bu ürün yönetimi altında yer alan sayfaların sadece sayfada neler olacağıyla ilgili bir çizimin yapılması.
+4. UI tarafında yer alan statik olan metinlerin(ya UI satın alınırken hazır metinlerin dönüşümü ya da unutulan metinler) localization tarafından gelmesi.
+5. Sistem ilk baştan test edilmesi gerekmektedir. 
+6. Validasyonların eklenmesi.(Bunlara bakılacaktı. FluentValidation kullanmak istersen entegre edebilirim demiştin onu dile göre de getirerek yapabilirsen tamamım ya da manuel)
