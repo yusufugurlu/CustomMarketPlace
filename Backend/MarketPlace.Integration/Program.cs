@@ -1,11 +1,15 @@
-using Hangfire;
+﻿using Hangfire;
 using Hangfire.PostgreSql;
 using MarketPlace.Bussiness.UnitOfWorks;
 using MarketPlace.Common.Helper;
 using MarketPlace.DataAccess.Contexts;
 using MarketPlace.Queue.Abstract;
 using MarketPlace.Queue.Concrete;
+using MarketPlace.WorkIntegration.Trendyol.Services;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +40,8 @@ builder.Services.AddHangfire(x => x
 builder.Services.AddHangfireServer();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<ITrendyolService, TrendyolManager>();
 
 //Custom depency injection
 builder.Services.AddScoped<IUnitOfWorksLog, UnitOfWorksLog>();
@@ -55,11 +61,23 @@ app.UseHangfireDashboard("/system/task");
 app.UseHangfireServer();
 
 var serviceProvider = builder.Services.BuildServiceProvider();
-var hizmetTuru = serviceProvider.GetRequiredService<IQueueService>().GetType();
+var providerType = serviceProvider.GetRequiredService<IQueueService>().GetType();
 
-var hizmet = ActivatorUtilities.CreateInstance(serviceProvider, hizmetTuru) as IQueueService;
+var provider = ActivatorUtilities.CreateInstance(serviceProvider, providerType) as IQueueService;
 
-RecurringJob.AddOrUpdate(() => hizmet.RunQueueAsync(), Cron.MinuteInterval(5));
+var trendyol = serviceProvider.GetRequiredService<ITrendyolService>().GetType();
+
+var trendyol1 = ActivatorUtilities.CreateInstance(serviceProvider, trendyol) as ITrendyolService;
+
+//Bu bir örnektir.
+await trendyol1.GetCategoryTree(new MarketPlace.DataTransfer.Dtos.Integrations.IntegrationSignInDto()
+{
+    AppKey = "8o4dJoNeoxHeL7WSlR3P",
+    AppSecret = "gUsualtIHQNW2a8yD7ig",
+    CustomKey = "251427",
+});
+
+RecurringJob.AddOrUpdate(() => provider.RunQueueAsync(), Cron.MinuteInterval(5));
 
 app.UseHttpsRedirection();
 

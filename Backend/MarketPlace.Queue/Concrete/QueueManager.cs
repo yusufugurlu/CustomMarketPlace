@@ -6,6 +6,7 @@ using MarketPlace.DataAccess.Models.CustomMarketPlaceLogModels;
 using MarketPlace.DataAccess.Models.CustomMarketPlaceModels;
 using MarketPlace.DataTransfer.Dtos.Notifications;
 using MarketPlace.Queue.Abstract;
+using MarketPlace.WorkIntegration.Trendyol.Services;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
@@ -20,16 +21,18 @@ namespace MarketPlace.Queue.Concrete
     {
         private readonly IUnitOfWorksLog _unitOfWorks;
         private readonly IConfiguration _configuration;
+        private readonly ITrendyolService _trendyolService;
         private readonly IGenericLogRepository<CustomQueue> _customQueueRepository;
-        public QueueManager(IUnitOfWorksLog unitOfWorks, IConfiguration configuration)
+        public QueueManager(IUnitOfWorksLog unitOfWorks, IConfiguration configuration, ITrendyolService trendyolService)
         {
             _unitOfWorks = unitOfWorks;
             _configuration = configuration;
+            _trendyolService = trendyolService;
             _customQueueRepository = _unitOfWorks.GetGenericLogRepository<CustomQueue>();
 
         }
         public async Task RunQueueAsync()
-        {
+        {       
             var model = new CustomQueue()
             {
                 UserId = 1,
@@ -60,7 +63,7 @@ namespace MarketPlace.Queue.Concrete
                 await _customQueueRepository.Update(item);
                 await _unitOfWorks.SaveChanges();
                 await SendNotificationAsync(list);
-            }
+            }    
         }
 
 

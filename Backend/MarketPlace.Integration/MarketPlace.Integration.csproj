@@ -17,6 +17,7 @@
     <ProjectReference Include="..\MarketPlace.Common\MarketPlace.Common.csproj" />
     <ProjectReference Include="..\MarketPlace.DataAccess\MarketPlace.DataAccess.csproj" />
     <ProjectReference Include="..\MarketPlace.Queue\MarketPlace.Queue.csproj" />
+    <ProjectReference Include="..\MarketPlace.WorkIntegration\MarketPlace.WorkIntegration.csproj" />
   </ItemGroup>
 
 </Project>

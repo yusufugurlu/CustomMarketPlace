@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MarketPlace.Bussiness\MarketPlace.Bussiness.csproj" />
-    <ProjectReference Include="..\MarketPlace.WorkIntegration\MarketPlace.WorkIntegration.csproj" />
+    <ProjectReference Include="..\MarketPlace.DataAccess\MarketPlace.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
